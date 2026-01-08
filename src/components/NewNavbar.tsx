@@ -68,13 +68,15 @@ export default function Navbar() {
             {/* Logo */}
             <motion.a
               href="#home"
-              className="relative group flex items-center gap-3"
+              className="relative group flex items-center gap-2"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <img src="/logo.svg" alt="MP Logo" className="w-10 h-10" />
-              <span className="text-2xl font-bold gradient-text">M</span>
-              <span className="text-2xl font-bold text-slate-200">ukesh</span>
+              <div>
+                <span className="text-2xl font-bold gradient-text">M</span>
+                <span className="text-2xl font-bold text-slate-200">ukesh</span>
+              </div>
               <motion.span
                 className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary-500 to-purple-500 group-hover:w-full transition-all duration-300"
               />
