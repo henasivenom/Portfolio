@@ -1,7 +1,16 @@
 import { motion } from 'framer-motion';
 
-// Animated Background Component
+// Animated Background Component with Creative Effects
 const AnimatedBackground = () => {
+  // Floating particles
+  const particles = Array.from({ length: 30 }).map((_, i) => ({
+    id: i,
+    size: Math.random() * 3 + 1,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    duration: Math.random() * 20 + 15,
+  }));
+
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
       {/* Animated gradient background */}
@@ -21,6 +30,18 @@ const AnimatedBackground = () => {
           ease: 'easeInOut',
         }}
       />
+
+      {/* Animated Grid Background */}
+      <div className="absolute inset-0 opacity-10">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+              <path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(168, 85, 247, 0.5)" strokeWidth="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
       
       {/* Animated Blob 1 */}
       <motion.div
@@ -63,8 +84,57 @@ const AnimatedBackground = () => {
           ease: 'easeInOut',
         }}
       />
+
+      {/* Floating Particles */}
+      {particles.map((particle) => (
+        <motion.div
+          key={particle.id}
+          className="absolute rounded-full bg-cyan-400/30"
+          style={{
+            width: particle.size,
+            height: particle.size,
+            left: `${particle.x}%`,
+            top: `${particle.y}%`,
+          }}
+          animate={{
+            y: [0, -200, 0],
+            x: [0, Math.sin(particle.id) * 50, 0],
+            opacity: [0, 0.5, 0],
+          }}
+          transition={{
+            duration: particle.duration,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      ))}
     </div>
   );
+};
+
+// Stagger container for animations
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+// Child animation variants
+const staggerItem = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: 'easeOut',
+    },
+  },
 };
 
 function App() {
@@ -195,23 +265,27 @@ function App() {
       <section className="py-20 px-8 relative z-10" id="skills">
         <motion.div
           className="max-w-7xl mx-auto"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={staggerContainer}
         >
           <motion.h2
             className="text-4xl md:text-5xl font-bold mb-16 text-center"
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            variants={staggerItem}
           >
             <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
               What I Can Do
             </span>
           </motion.h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <motion.div 
+            className="grid md:grid-cols-3 gap-8"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             {[
               { num: '01', title: 'Backend Development', skills: ['Java', 'MySQL', 'MongoDB', 'JDBC'] },
               { num: '02', title: 'Database Design', skills: ['Schema Design', 'Optimization', 'Query Performance'] },
@@ -220,16 +294,14 @@ function App() {
               <motion.div
                 key={i}
                 className="group relative"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.2, duration: 0.8 }}
+                variants={staggerItem}
               >
                 <motion.div
                   className="bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-cyan-400/30 p-8 rounded-2xl backdrop-blur-sm overflow-hidden"
-                  whileHover={{ borderColor: 'rgb(168, 85, 247)', scale: 1.02 }}
+                  whileHover={{ borderColor: 'rgb(168, 85, 247)', scale: 1.05, y: -5 }}
                   transition={{ duration: 0.3 }}
                 >
+                  {/* Animated gradient overlay */}
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-br from-cyan-400/0 to-purple-400/0 group-hover:from-cyan-400/10 group-hover:to-purple-400/10"
                     initial={false}
@@ -245,21 +317,28 @@ function App() {
                   
                   <h3 className="text-2xl font-bold mb-4 relative z-10">{card.title}</h3>
                   
-                  <div className="flex flex-wrap gap-3 relative z-10">
+                  <motion.div 
+                    className="flex flex-wrap gap-3 relative z-10"
+                    variants={staggerContainer}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                  >
                     {card.skills.map((skill, j) => (
                       <motion.span
                         key={j}
                         className="px-4 py-2 bg-cyan-500/20 border border-cyan-400/50 rounded-lg text-sm font-medium"
+                        variants={staggerItem}
                         whileHover={{ scale: 1.1, backgroundColor: 'rgba(168, 85, 247, 0.2)' }}
                       >
                         {skill}
                       </motion.span>
                     ))}
-                  </div>
+                  </motion.div>
                 </motion.div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
       </section>
 
@@ -267,23 +346,27 @@ function App() {
       <section className="py-20 px-8 relative z-10" id="projects">
         <motion.div
           className="max-w-7xl mx-auto"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={staggerContainer}
         >
           <motion.h2
             className="text-4xl md:text-5xl font-bold mb-16 text-center"
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            variants={staggerItem}
           >
             <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
               Featured Projects
             </span>
           </motion.h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <motion.div 
+            className="grid md:grid-cols-3 gap-8"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             {[
               { icon: '🏧', title: 'ATM Simulator', tech: ['Java', 'Swing', 'MySQL'] },
               { icon: '✈️', title: 'Airline Management', tech: ['Java', 'JDBC', 'MySQL'] },
@@ -292,21 +375,28 @@ function App() {
               <motion.div
                 key={i}
                 className="group relative"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.2, duration: 0.6 }}
+                variants={staggerItem}
               >
                 <motion.div
-                  className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-400/30 p-8 rounded-2xl backdrop-blur-sm"
+                  className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-400/30 p-8 rounded-2xl backdrop-blur-sm relative overflow-hidden"
                   whileHover={{
                     borderColor: 'rgb(236, 72, 153)',
-                    y: -10,
+                    y: -15,
                   }}
                   transition={{ duration: 0.3 }}
                 >
+                  {/* Animated shine effect */}
                   <motion.div
-                    className="text-6xl mb-4"
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                    animate={{ x: [-100, 100] }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                    }}
+                  />
+
+                  <motion.div
+                    className="text-6xl mb-4 relative z-10"
                     animate={{
                       rotate: [0, 10, -10, 0],
                       scale: [1, 1.1, 1],
@@ -320,26 +410,30 @@ function App() {
                     {proj.icon}
                   </motion.div>
                   
-                  <h3 className="text-2xl font-bold mb-4">{proj.title}</h3>
+                  <h3 className="text-2xl font-bold mb-4 relative z-10">{proj.title}</h3>
                   
-                  <div className="flex flex-wrap gap-2">
+                  <motion.div 
+                    className="flex flex-wrap gap-2 relative z-10"
+                    variants={staggerContainer}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                  >
                     {proj.tech.map((t, j) => (
                       <motion.span
                         key={j}
                         className="px-3 py-1 bg-purple-500/20 border border-purple-400/50 rounded-full text-xs font-medium"
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: j * 0.1 }}
+                        variants={staggerItem}
+                        whileHover={{ scale: 1.15, y: -3 }}
                       >
                         {t}
                       </motion.span>
                     ))}
-                  </div>
+                  </motion.div>
                 </motion.div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
       </section>
 
@@ -347,23 +441,33 @@ function App() {
       <section className="py-20 px-8 relative z-10" id="contact">
         <motion.div
           className="max-w-4xl mx-auto"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={staggerContainer}
         >
           <motion.div
-            className="bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-cyan-400/30 rounded-3xl p-12 backdrop-blur-sm"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            className="bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-cyan-400/30 rounded-3xl p-12 backdrop-blur-sm relative overflow-hidden"
+            variants={staggerItem}
           >
+            {/* Animated border glow */}
+            <motion.div
+              className="absolute inset-0 rounded-3xl pointer-events-none"
+              style={{
+                background: 'radial-gradient(circle at center, rgba(168, 85, 247, 0.1) 0%, transparent 70%)',
+              }}
+              animate={{
+                opacity: [0.5, 1, 0.5],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+              }}
+            />
+
             <motion.h2
-              className="text-4xl md:text-5xl font-bold mb-6 text-center"
-              initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              className="text-4xl md:text-5xl font-bold mb-6 text-center relative z-10"
+              variants={staggerItem}
             >
               <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                 Bring Your Ideas to Life
@@ -371,21 +475,18 @@ function App() {
             </motion.h2>
 
             <motion.p
-              className="text-center text-gray-300 mb-8 text-lg"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.8 }}
+              className="text-center text-gray-300 mb-8 text-lg relative z-10"
+              variants={staggerItem}
             >
               Let's collaborate and build something amazing together
             </motion.p>
 
             <motion.div
-              className="flex flex-col md:flex-row gap-4 justify-center"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              className="flex flex-col md:flex-row gap-4 justify-center relative z-10"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
-              transition={{ delay: 0.4, duration: 0.8 }}
             >
               {[
                 { icon: '📧', label: 'Email', link: 'mailto:amukeshpatel222@gmail.com' },
@@ -397,7 +498,8 @@ function App() {
                   href={social.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 bg-gradient-to-r from-cyan-400/20 to-purple-400/20 border border-cyan-400/30 rounded-lg font-medium flex items-center gap-2"
+                  className="px-6 py-3 bg-gradient-to-r from-cyan-400/20 to-purple-400/20 border border-cyan-400/30 rounded-lg font-medium flex items-center gap-2 relative overflow-hidden group"
+                  variants={staggerItem}
                   whileHover={{
                     scale: 1.05,
                     backgroundColor: 'rgba(168, 85, 247, 0.3)',
@@ -405,7 +507,13 @@ function App() {
                   }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <span className="text-xl">{social.icon}</span>
+                  <motion.span 
+                    className="text-xl"
+                    animate={{ y: [0, -5, 0] }}
+                    transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.2 }}
+                  >
+                    {social.icon}
+                  </motion.span>
                   {social.label}
                 </motion.a>
               ))}
