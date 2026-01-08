@@ -64,14 +64,6 @@
     @apply text-slate-600;
   }
 
-  html.light .bg-slate-800\\/50 {
-    @apply bg-slate-100/80;
-  }
-
-  html.light .border-slate-700\\/50 {
-    @apply border-slate-300/50;
-  }
-
   /* Cosmic Theme */
   html.cosmic body {
     @apply bg-slate-950 text-white;
