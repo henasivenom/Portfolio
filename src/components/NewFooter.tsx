@@ -111,14 +111,15 @@ export default function Footer() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
             >
-              <span>© {new Date().getFullYear()} Mukesh. Built with</span>
+              <span>© {new Date().getFullYear()} Mukesh. Made with</span>
               <motion.span
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 0.8, repeat: Infinity, ease: 'easeInOut' }}
               >
                 <Heart className="w-5 h-5 text-red-500 fill-red-500" />
               </motion.span>
-              <span className="text-base">☕</span>
+              <span>and</span>
+              <span className="text-lg">☕</span>
             </motion.p>
 
             {/* Back to top */}
