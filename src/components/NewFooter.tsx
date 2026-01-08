@@ -116,9 +116,9 @@ export default function Footer() {
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 0.8, repeat: Infinity, ease: 'easeInOut' }}
               >
-                <Heart className="w-4 h-4 text-red-500 fill-red-500" />
+                <Heart className="w-5 h-5 text-red-500 fill-red-500" />
               </motion.span>
-              <span>and lots of ☕</span>
+              <span className="text-base">☕</span>
             </motion.p>
 
             {/* Back to top */}
