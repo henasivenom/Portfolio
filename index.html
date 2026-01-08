@@ -47,6 +47,22 @@
             50% { transform: translateY(-10px); }
         }
 
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-8px) scale(1.05); }
+        }
+
+        @keyframes logoRotate {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(5deg) scale(1.08); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(6, 182, 212, 0.5)); }
+            50% { filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.8)); }
+        }
+
         .animate-fade-in-up {
             animation: fadeInUp 0.8s ease-out forwards;
         }
@@ -57,6 +73,15 @@
 
         .float-animation {
             animation: float 3s ease-in-out infinite;
+        }
+
+        .logo-animate {
+            animation: logoFloat 3s ease-in-out infinite, logoPulse 2.5s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-animate:hover {
+            animation: logoRotate 0.6s ease-in-out 1, logoPulse 2.5s ease-in-out infinite;
         }
 
         .delay-100 { animation-delay: 0.1s; }
@@ -237,7 +262,7 @@
     <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-slate-700/30">
         <div class="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
             <a href="#home" class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
-                <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="logo-animate">
                     <!-- Shield -->
                     <path d="M50 10 L80 25 L80 50 Q50 80 50 80 Q20 80 20 50 L20 25 Z" fill="url(#shieldGradient)" stroke="#06b6d4" stroke-width="2"/>
                     <!-- Circuit pattern -->
