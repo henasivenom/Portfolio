@@ -29,6 +29,71 @@
     overflow-x: hidden;
   }
 
+  /* Light Theme */
+  html.light body {
+    @apply bg-slate-50 text-slate-900;
+    background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 50%, #f8fafc 100%);
+  }
+
+  html.light .glass {
+    @apply bg-slate-900/5 border-slate-200/50;
+  }
+
+  html.light .gradient-text,
+  html.light .gradient-text-animated {
+    @apply from-blue-600 via-purple-600 to-pink-600;
+  }
+
+  html.light .section-title {
+    @apply text-slate-900;
+  }
+
+  html.light .text-slate-100 {
+    @apply text-slate-900;
+  }
+
+  html.light .text-slate-200 {
+    @apply text-slate-800;
+  }
+
+  html.light .text-slate-300 {
+    @apply text-slate-700;
+  }
+
+  html.light .text-slate-400 {
+    @apply text-slate-600;
+  }
+
+  html.light .bg-slate-800\\/50 {
+    @apply bg-slate-100/80;
+  }
+
+  html.light .border-slate-700\\/50 {
+    @apply border-slate-300/50;
+  }
+
+  /* Cosmic Theme */
+  html.cosmic body {
+    @apply bg-slate-950 text-white;
+    background: linear-gradient(180deg, #0a0118 0%, #1e0533 50%, #0a0118 100%);
+  }
+
+  html.cosmic .gradient-text,
+  html.cosmic .gradient-text-animated {
+    @apply from-violet-400 via-fuchsia-400 to-purple-400;
+  }
+
+  /* Aurora Theme */
+  html.aurora body {
+    @apply bg-slate-950 text-white;
+    background: linear-gradient(180deg, #001220 0%, #002540 50%, #001220 100%);
+  }
+
+  html.aurora .gradient-text,
+  html.aurora .gradient-text-animated {
+    @apply from-cyan-400 via-emerald-400 to-teal-400;
+  }
+
   ::selection {
     @apply bg-primary-500/30 text-white;
   }
