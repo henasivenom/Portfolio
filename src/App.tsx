@@ -1,223 +1,443 @@
 import { motion } from 'framer-motion';
 
+// Animated Background Component
+const AnimatedBackground = () => {
+  return (
+    <div className="fixed inset-0 -z-10 overflow-hidden">
+      {/* Animated gradient background */}
+      <motion.div
+        className="absolute inset-0"
+        animate={{
+          background: [
+            'linear-gradient(45deg, #0a0e27 0%, #1a1a3e 50%, #2d1b69 100%)',
+            'linear-gradient(225deg, #0a0e27 0%, #1a1a3e 50%, #1a3a52 100%)',
+            'linear-gradient(45deg, #0a0e27 0%, #2d2158 50%, #2d1b69 100%)',
+            'linear-gradient(225deg, #0a0e27 0%, #1a1a3e 50%, #2d1b69 100%)',
+          ],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+      
+      {/* Animated Blob 1 */}
+      <motion.div
+        className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-cyan-500/30 to-purple-500/20 rounded-full filter blur-3xl"
+        animate={{
+          x: [0, 100, 0],
+          y: [0, -100, 0],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+      
+      {/* Animated Blob 2 */}
+      <motion.div
+        className="absolute top-1/2 right-10 w-80 h-80 bg-gradient-to-br from-purple-500/30 to-pink-500/20 rounded-full filter blur-3xl"
+        animate={{
+          x: [0, -100, 0],
+          y: [0, 100, 0],
+        }}
+        transition={{
+          duration: 25,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+      
+      {/* Animated Blob 3 */}
+      <motion.div
+        className="absolute bottom-20 left-1/2 w-72 h-72 bg-gradient-to-br from-blue-500/30 to-cyan-500/20 rounded-full filter blur-3xl"
+        animate={{
+          x: [0, -50, 50, 0],
+          y: [0, 50, -50, 0],
+        }}
+        transition={{
+          duration: 30,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+    </div>
+  );
+};
+
 function App() {
   return (
-    <div className="min-h-screen bg-[#F5F5F7] text-[#1a1a1a] font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-[#0a0e27] via-[#1a1a3e] to-[#0f0f2e] text-white font-sans relative">
+      <AnimatedBackground />
+
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0a0e27]/80 border-b border-purple-500/20">
+        <div className="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex items-center gap-2"
+          >
+            <motion.div
+              animate={{
+                y: [0, -10, 0],
+                rotate: [0, 5, 0],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+              }}
+              className="text-3xl"
+            >
+              ⚡
+            </motion.div>
+            <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              Mukesh
+            </span>
+          </motion.div>
+          
+          <motion.div
+            className="flex gap-8"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
+            {['Home', 'Projects', 'Contact'].map((item) => (
+              <motion.a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="text-sm font-medium hover:text-cyan-400 transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {item}
+              </motion.a>
+            ))}
+          </motion.div>
+        </div>
+      </nav>
+
       {/* Hero Section */}
-      <section className="p-20 text-center">
+      <section className="pt-32 pb-20 px-8 text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-7xl font-bold tracking-tighter mb-6 leading-tight">
-            Hi, I'm Mukesh Patel
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto opacity-80">
-            Java Developer & Software Engineer building secure, end-to-end applications.
-          </p>
+          <motion.h1
+            className="text-6xl md:text-7xl font-bold tracking-tighter mb-6 leading-tight"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+          >
+            <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              Hey, I'm Mukesh ✨
+            </span>
+          </motion.h1>
+          
+          <motion.p
+            className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto opacity-80"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+          >
+            Java Developer & Software Engineer building secure, scalable backend systems and intuitive interfaces.
+          </motion.p>
         </motion.div>
-        {/* Available for Work Pill */}
+
+        {/* Animated Status Pill */}
         <motion.div
-          className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm mt-8"
+          className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 px-6 py-3 rounded-full border border-cyan-400/30 mt-8"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1, duration: 0.5 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          whileHover={{ scale: 1.05 }}
         >
-          <div className="relative">
-            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            <div className="absolute inset-0 w-3 h-3 bg-green-500 rounded-full animate-ping"></div>
-          </div>
+          <motion.div
+            className="w-3 h-3 bg-green-400 rounded-full"
+            animate={{ scale: [1, 1.2, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
           <span className="text-sm font-medium">Available for Work</span>
+        </motion.div>
+
+        {/* CTA Buttons */}
+        <motion.div
+          className="flex flex-col md:flex-row gap-4 justify-center mt-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.8 }}
+        >
+          {[
+            { label: 'View My Work', color: 'from-cyan-400 to-purple-400' },
+            { label: 'Get in Touch', color: 'from-purple-400 to-pink-400' },
+          ].map((btn, i) => (
+            <motion.button
+              key={i}
+              className={`px-8 py-3 rounded-lg font-semibold bg-gradient-to-r ${btn.color} text-black relative overflow-hidden group`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <motion.div
+                className="absolute inset-0 bg-white/20"
+                initial={{ x: '-100%' }}
+                whileHover={{ x: '100%' }}
+                transition={{ duration: 0.5 }}
+              />
+              <span className="relative z-10">{btn.label}</span>
+            </motion.button>
+          ))}
         </motion.div>
       </section>
 
-      {/* Bento Grid Container */}
-      <div className="max-w-7xl mx-auto px-8 pb-20">
-        <div className="grid grid-cols-4 gap-6">
-          {/* Mission Statement - Full Width */}
+      {/* Skills Section */}
+      <section className="py-20 px-8 relative z-10" id="skills">
+        <motion.div
+          className="max-w-7xl mx-auto"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <motion.h2
+            className="text-4xl md:text-5xl font-bold mb-16 text-center"
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              What I Can Do
+            </span>
+          </motion.h2>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { num: '01', title: 'Backend Development', skills: ['Java', 'MySQL', 'MongoDB', 'JDBC'] },
+              { num: '02', title: 'Database Design', skills: ['Schema Design', 'Optimization', 'Query Performance'] },
+              { num: '03', title: 'Full Stack Solutions', skills: ['Swing GUI', 'Web Development', 'System Architecture'] },
+            ].map((card, i) => (
+              <motion.div
+                key={i}
+                className="group relative"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.2, duration: 0.8 }}
+              >
+                <motion.div
+                  className="bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-cyan-400/30 p-8 rounded-2xl backdrop-blur-sm overflow-hidden"
+                  whileHover={{ borderColor: 'rgb(168, 85, 247)', scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-cyan-400/0 to-purple-400/0 group-hover:from-cyan-400/10 group-hover:to-purple-400/10"
+                    initial={false}
+                  />
+                  
+                  <motion.div
+                    className="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-4"
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
+                  >
+                    {card.num}
+                  </motion.div>
+                  
+                  <h3 className="text-2xl font-bold mb-4 relative z-10">{card.title}</h3>
+                  
+                  <div className="flex flex-wrap gap-3 relative z-10">
+                    {card.skills.map((skill, j) => (
+                      <motion.span
+                        key={j}
+                        className="px-4 py-2 bg-cyan-500/20 border border-cyan-400/50 rounded-lg text-sm font-medium"
+                        whileHover={{ scale: 1.1, backgroundColor: 'rgba(168, 85, 247, 0.2)' }}
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Featured Projects Section */}
+      <section className="py-20 px-8 relative z-10" id="projects">
+        <motion.div
+          className="max-w-7xl mx-auto"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <motion.h2
+            className="text-4xl md:text-5xl font-bold mb-16 text-center"
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+              Featured Projects
+            </span>
+          </motion.h2>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { icon: '🏧', title: 'ATM Simulator', tech: ['Java', 'Swing', 'MySQL'] },
+              { icon: '✈️', title: 'Airline Management', tech: ['Java', 'JDBC', 'MySQL'] },
+              { icon: '📝', title: 'Quiz Application', tech: ['Java', 'AWT', 'MySQL'] },
+            ].map((proj, i) => (
+              <motion.div
+                key={i}
+                className="group relative"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.2, duration: 0.6 }}
+              >
+                <motion.div
+                  className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-400/30 p-8 rounded-2xl backdrop-blur-sm"
+                  whileHover={{
+                    borderColor: 'rgb(236, 72, 153)',
+                    y: -10,
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <motion.div
+                    className="text-6xl mb-4"
+                    animate={{
+                      rotate: [0, 10, -10, 0],
+                      scale: [1, 1.1, 1],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      delay: i * 0.3,
+                    }}
+                  >
+                    {proj.icon}
+                  </motion.div>
+                  
+                  <h3 className="text-2xl font-bold mb-4">{proj.title}</h3>
+                  
+                  <div className="flex flex-wrap gap-2">
+                    {proj.tech.map((t, j) => (
+                      <motion.span
+                        key={j}
+                        className="px-3 py-1 bg-purple-500/20 border border-purple-400/50 rounded-full text-xs font-medium"
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: j * 0.1 }}
+                      >
+                        {t}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="py-20 px-8 relative z-10" id="contact">
+        <motion.div
+          className="max-w-4xl mx-auto"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
           <motion.div
-            className="col-span-4 bg-gradient-to-r from-teal-500 to-emerald-500 text-white p-12 rounded-[40px] shadow-sm"
+            className="bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-cyan-400/30 rounded-3xl p-12 backdrop-blur-sm"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl font-bold mb-6">My Mission</h2>
-            <p className="text-2xl leading-relaxed">
-              To build scalable, secure backend systems and intuitive user interfaces for modern enterprises using Java technologies.
-            </p>
-          </motion.div>
+            <motion.h2
+              className="text-4xl md:text-5xl font-bold mb-6 text-center"
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Bring Your Ideas to Life
+              </span>
+            </motion.h2>
 
-          {/* Services Cards */}
-          <motion.div
-            className="bg-white border border-blue-50/50 p-8 rounded-[40px] shadow-sm"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-          >
-            <h3 className="text-2xl font-bold mb-4">01 Java Development</h3>
-            <p>Swing, AWT, JDBC</p>
-          </motion.div>
-          <motion.div
-            className="bg-white border border-green-50/50 p-8 rounded-[40px] shadow-sm"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <h3 className="text-2xl font-bold mb-4">02 Database Design</h3>
-            <p>MySQL, MongoDB</p>
-          </motion.div>
-          <motion.div
-            className="bg-white border border-purple-50/50 p-8 rounded-[40px] shadow-sm"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <h3 className="text-2xl font-bold mb-4">03 Manual Testing & QA</h3>
-            <p>JIRA, Test Case Design</p>
-          </motion.div>
-          <motion.div
-            className="bg-white border border-orange-50/50 p-8 rounded-[40px] shadow-sm"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <h3 className="text-2xl font-bold mb-4">04 Cloud Solutions</h3>
-            <p>AWS Foundations</p>
-          </motion.div>
-        </div>
+            <motion.p
+              className="text-center text-gray-300 mb-8 text-lg"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+            >
+              Let's collaborate and build something amazing together
+            </motion.p>
 
-        {/* Work Gallery */}
-        <motion.h2
-          className="text-4xl font-bold text-center my-12"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          Selected Work
-        </motion.h2>
-        <div className="grid grid-cols-2 gap-6">
-          <motion.div
-            className="group bg-white p-8 rounded-[40px] shadow-sm overflow-hidden"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-          >
-            <img src="/placeholder-atm.jpg" alt="ATM Simulator" className="w-full h-64 object-cover rounded-2xl mb-4 group-hover:scale-105 transition-transform duration-300" />
-            <h3 className="text-3xl font-bold mb-4">ATM Simulator</h3>
-            <div className="flex flex-wrap gap-2">
-              <span className="bg-teal-500 text-white px-4 py-2 rounded-full text-sm font-medium">Java</span>
-              <span className="bg-teal-500 text-white px-4 py-2 rounded-full text-sm font-medium">MySQL</span>
-              <span className="bg-teal-500 text-white px-4 py-2 rounded-full text-sm font-medium">Swing</span>
-            </div>
+            <motion.div
+              className="flex flex-col md:flex-row gap-4 justify-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+            >
+              {[
+                { icon: '📧', label: 'Email', link: 'mailto:amukeshpatel222@gmail.com' },
+                { icon: '💼', label: 'LinkedIn', link: 'https://linkedin.com/in/henasivenom' },
+                { icon: '🐙', label: 'GitHub', link: 'https://github.com/henasivenom' },
+              ].map((social, i) => (
+                <motion.a
+                  key={i}
+                  href={social.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 bg-gradient-to-r from-cyan-400/20 to-purple-400/20 border border-cyan-400/30 rounded-lg font-medium flex items-center gap-2"
+                  whileHover={{
+                    scale: 1.05,
+                    backgroundColor: 'rgba(168, 85, 247, 0.3)',
+                    borderColor: 'rgb(168, 85, 247)',
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="text-xl">{social.icon}</span>
+                  {social.label}
+                </motion.a>
+              ))}
+            </motion.div>
           </motion.div>
-          <motion.div
-            className="group bg-white p-8 rounded-[40px] shadow-sm overflow-hidden"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <img src="/placeholder-airline.jpg" alt="Airline Management System" className="w-full h-64 object-cover rounded-2xl mb-4 group-hover:scale-105 transition-transform duration-300" />
-            <h3 className="text-3xl font-bold mb-4">Airline Management System</h3>
-            <div className="flex flex-wrap gap-2">
-              <span className="bg-teal-500 text-white px-4 py-2 rounded-full text-sm font-medium">Java</span>
-              <span className="bg-teal-500 text-white px-4 py-2 rounded-full text-sm font-medium">MySQL</span>
-              <span className="bg-teal-500 text-white px-4 py-2 rounded-full text-sm font-medium">Swing</span>
-            </div>
-          </motion.div>
-          <motion.div
-            className="group bg-white p-8 rounded-[40px] shadow-sm overflow-hidden"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <img src="/placeholder-quiz.jpg" alt="Quiz Application" className="w-full h-64 object-cover rounded-2xl mb-4 group-hover:scale-105 transition-transform duration-300" />
-            <h3 className="text-3xl font-bold mb-4">Quiz Application</h3>
-            <div className="flex flex-wrap gap-2">
-              <span className="bg-teal-500 text-white px-4 py-2 rounded-full text-sm font-medium">Java</span>
-              <span className="bg-teal-500 text-white px-4 py-2 rounded-full text-sm font-medium">MySQL</span>
-              <span className="bg-teal-500 text-white px-4 py-2 rounded-full text-sm font-medium">Swing</span>
-            </div>
-          </motion.div>
-          {/* Empty space for grid balance */}
-          <div className="bg-white p-8 rounded-[40px] shadow-sm opacity-0"></div>
-        </div>
-
-        {/* Experience Section */}
-        <motion.h2
-          className="text-4xl font-bold text-center my-12"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          Experience
-        </motion.h2>
-        <div className="grid grid-cols-2 gap-6">
-          <motion.div
-            className="bg-white p-8 rounded-[40px] shadow-sm"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-          >
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center text-xl font-bold">G</div>
-              <div>
-                <h3 className="text-xl font-bold">Software Engineer</h3>
-                <p className="text-gray-600">Google</p>
-              </div>
-            </div>
-            <p className="text-sm text-gray-600">2022 - Present</p>
-            <p>Developed scalable Java applications using Spring Boot and microservices architecture.</p>
-          </motion.div>
-          <motion.div
-            className="bg-white p-8 rounded-[40px] shadow-sm"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 bg-pink-200 rounded-full flex items-center justify-center text-xl font-bold">A</div>
-              <div>
-                <h3 className="text-xl font-bold">Java Developer</h3>
-                <p className="text-gray-600">Airbnb</p>
-              </div>
-            </div>
-            <p className="text-sm text-gray-600">2020 - 2022</p>
-            <p>Built backend systems for booking platform using Java, SQL, and AWS services.</p>
-          </motion.div>
-        </div>
-
-        {/* Footer */}
-        <motion.div
-          className="mt-12 bg-black text-white p-12 rounded-[40px] shadow-sm text-center"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 className="text-4xl font-bold mb-6">Let's Connect</h2>
-          <p className="text-xl mb-8">amukeshpatel222@gmail.com</p>
-          <button className="bg-teal-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-teal-600 transition">
-            Book a Call
-          </button>
-          <div className="flex justify-center gap-8 mt-8">
-            <a href="https://github.com/henasivenom" className="text-teal-400 hover:underline">GitHub</a>
-            <a href="https://linkedin.com/in/yourprofile" className="text-teal-400 hover:underline">LinkedIn</a>
-          </div>
         </motion.div>
-      </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-cyan-400/20 py-12 px-8 relative z-10">
+        <motion.div
+          className="max-w-7xl mx-auto text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <motion.p
+            className="text-gray-400"
+            animate={{ y: [0, -5, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            Made with <motion.span
+              className="text-red-500 inline-block"
+              animate={{ scale: [1, 1.2, 1], rotate: [0, -10, 10, 0] }}
+              transition={{ duration: 0.8, repeat: Infinity }}
+            >
+              ❤️
+            </motion.span> in India
+          </motion.p>
+          <p className="text-gray-500 text-sm mt-4">© 2024 Mukesh Patel. All rights reserved.</p>
+        </motion.div>
+      </footer>
     </div>
   );
 }
