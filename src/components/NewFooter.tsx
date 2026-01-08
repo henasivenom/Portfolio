@@ -2,12 +2,13 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Heart, Github, Linkedin, Twitter, ArrowUp, Code2 } from 'lucide-react'
+import { Heart, Github, Linkedin, Twitter, ArrowUp, Code2, Instagram } from 'lucide-react'
 
 const socialLinks = [
-  { icon: Github, href: 'https://github.com/mukesh', label: 'GitHub' },
-  { icon: Linkedin, href: 'https://linkedin.com/in/mukesh', label: 'LinkedIn' },
-  { icon: Twitter, href: 'https://twitter.com/mukesh', label: 'Twitter' },
+  { icon: Github, href: 'https://github.com/henasivenom', label: 'GitHub' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/henasivenom', label: 'LinkedIn' },
+  { icon: Twitter, href: 'https://x.com/henasi_venom', label: 'Twitter' },
+  { icon: Instagram, href: 'https://www.instagram.com/henasi_venom', label: 'Instagram' },
 ]
 
 const quickLinks = [

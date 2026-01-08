@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Mail, ChevronDown, Sparkles } from 'lucide-react'
+import { Github, Linkedin, Mail, ChevronDown, Sparkles, Instagram, Twitter } from 'lucide-react'
 
 export default function HeroSection() {
   const [mounted, setMounted] = useState(false)
@@ -102,8 +102,10 @@ export default function HeroSection() {
               transition={{ delay: 0.8 }}
             >
               {[
-                { icon: Github, href: 'https://github.com/mukesh', label: 'GitHub' },
-                { icon: Linkedin, href: 'https://linkedin.com/in/mukesh', label: 'LinkedIn' },
+                { icon: Github, href: 'https://github.com/henasivenom', label: 'GitHub' },
+                { icon: Linkedin, href: 'https://www.linkedin.com/in/henasivenom', label: 'LinkedIn' },
+                { icon: Twitter, href: 'https://x.com/henasi_venom', label: 'Twitter' },
+                { icon: Instagram, href: 'https://www.instagram.com/henasi_venom', label: 'Instagram' },
                 { icon: Mail, href: 'mailto:amukeshpatel222@gmail.com', label: 'Email' }
               ].map(({ icon: Icon, href, label }) => (
                 <motion.a
