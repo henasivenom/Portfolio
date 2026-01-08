@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mukesh Patel - Java Developer & Software Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 50%, #0a0e27 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #e2e8f0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-slide-in-left {
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+
+        .opacity-0 { opacity: 0; }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 3px solid #a855f7;
+            object-fit: cover;
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+        }
+
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            color: #e2e8f0;
+            text-decoration: none;
+        }
+
+        .nav-link:hover {
+            color: #a855f7;
+        }
+
+        .nav-link.active {
+            color: #a855f7;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            background: rgba(168, 85, 247, 0.1);
+            color: #e2e8f0;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            border-color: rgba(168, 85, 247, 0.6);
+            background: rgba(168, 85, 247, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .skill-card {
+            background: rgba(30, 30, 60, 0.8);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .skill-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            color: #a855f7;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .skill-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .skill-card li {
+            padding: 6px 0;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .skill-card li:before {
+            content: "▸ ";
+            color: #a855f7;
+            font-weight: bold;
+            margin-right: 6px;
+        }
+
+        .contact-form {
+            background: rgba(30, 30, 60, 0.6);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #e2e8f0;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 8px;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: rgba(168, 85, 247, 0.6);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #a855f7, #7c3aed);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(168, 85, 247, 0.4);
+        }
+
+        .highlight {
+            color: #a855f7;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(124, 58, 237, 0.05));
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 12px;
+            padding: 48px;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-slate-700/30">
+        <div class="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-white">
+                <span>💻 </span><span class="text-purple-400">Mukesh</span>.dev
+            </div>
+            <div class="hidden md:flex gap-8">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <button class="md:hidden text-white text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-20 px-8">
+        <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <!-- Left Content -->
+            <div class="animate-slide-in-left opacity-0">
+                <h2 class="text-5xl md:text-6xl font-bold text-white mb-4 leading-tight">
+                    Hey, I'm <span class="text-purple-400">Mukesh</span> <span class="text-purple-400 text-4xl">✨</span>
+                </h2>
+                <p class="text-3xl md:text-4xl font-bold text-purple-300 mb-6">
+                    A Software Developer
+                </p>
+                <p class="text-slate-300 text-lg mb-8 max-w-lg leading-relaxed">
+                    A fullstack developer with solid foundations in design. Passionate about crafting seamless user experiences. I thrive at the intersection of creativity and functionality.
+                </p>
+                
+                <div class="flex flex-wrap gap-3 mb-12">
+                    <a href="mailto:amukeshpatel222@gmail.com" class="social-btn">
+                        <i class="fas fa-envelope"></i>
+                        Contact me
+                    </a>
+                    <a href="#projects" class="social-btn">
+                        <i class="fas fa-briefcase"></i>
+                        View Projects
+                    </a>
+                    <a href="https://github.com/henasivenom" target="_blank" class="social-btn">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/henasivenom" target="_blank" class="social-btn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://x.com/henasi_venom" target="_blank" class="social-btn">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.instagram.com/henasi_venom" target="_blank" class="social-btn">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right - Profile Image -->
+            <div class="flex justify-center animate-fade-in-up opacity-0 delay-200">
+                <div class="relative">
+                    <div class="w-64 h-64 bg-gradient-to-br from-purple-600 to-purple-900 rounded-full flex items-center justify-center text-8xl border-4 border-purple-400">
+                        👨‍💻
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What Can I Do Section -->
+    <section class="py-20 px-8">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-5xl font-bold text-white mb-16">Building Digital Experience</h2>
+            <p class="text-slate-400 text-lg mb-12 max-w-3xl">Specializes in creating stunning user interfaces and developing high-quality applications that stand out.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- What I can do -->
+                <div class="skill-card animate-fade-in-up opacity-0 delay-100">
+                    <h3>
+                        <i class="fas fa-code"></i>
+                        What I can do
+                    </h3>
+                    <p class="text-slate-400 text-sm mb-4">I can help you develop solutions that will grow your business.</p>
+                    <ul>
+                        <li>Web Application Development</li>
+                        <li>Fullstack Web Development</li>
+                        <li>Mobile App Development</li>
+                        <li>Database Design</li>
+                        <li>API Integration</li>
+                    </ul>
+                </div>
+
+                <!-- Tools I Use -->
+                <div class="skill-card animate-fade-in-up opacity-0 delay-200">
+                    <h3>
+                        <i class="fas fa-wrench"></i>
+                        Tools I Use
+                    </h3>
+                    <p class="text-slate-400 text-sm mb-4">Use the latest tools & technologies to build functional and scalable products.</p>
+                    <ul>
+                        <li>Frontend: HTML, CSS, JavaScript</li>
+                        <li>Backend: Java, MySQL, MongoDB</li>
+                        <li>Design: Figma, Photoshop</li>
+                    </ul>
+                </div>
+
+                <!-- Expertise -->
+                <div class="skill-card animate-fade-in-up opacity-0 delay-300">
+                    <h3>
+                        <i class="fas fa-laptop"></i>
+                        My Expertise
+                    </h3>
+                    <p class="text-slate-400 text-sm mb-4">Strong technical foundation combined with design thinking.</p>
+                    <ul>
+                        <li>Java Backend Development</li>
+                        <li>Database Design & Optimization</li>
+                        <li>UI/UX Implementation</li>
+                        <li>System Architecture</li>
+                        <li>Problem Solving</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <a href="#projects" class="btn-primary">View My Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-8">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-5xl font-bold text-white mb-16">Featured Projects</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- Project 1 -->
+                <div class="skill-card animate-fade-in-up opacity-0 delay-100">
+                    <div class="mb-6 flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg">
+                        <i class="fas fa-university text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">ATM Simulator</h3>
+                    <p class="text-slate-400 mb-6 text-sm leading-relaxed">
+                        Secure ATM system with transaction management, user authentication, and comprehensive database integration.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-purple-900/50 text-purple-300 px-3 py-1 rounded-full">Java</span>
+                        <span class="text-xs bg-purple-900/50 text-purple-300 px-3 py-1 rounded-full">MySQL</span>
+                        <span class="text-xs bg-purple-900/50 text-purple-300 px-3 py-1 rounded-full">Swing</span>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="skill-card animate-fade-in-up opacity-0 delay-200">
+                    <div class="mb-6 flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-blue-600 rounded-lg">
+                        <i class="fas fa-plane text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Airline Management</h3>
+                    <p class="text-slate-400 mb-6 text-sm leading-relaxed">
+                        Complete airline booking system with passenger management, flight scheduling, and reservation handling.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-purple-900/50 text-purple-300 px-3 py-1 rounded-full">Java</span>
+                        <span class="text-xs bg-purple-900/50 text-purple-300 px-3 py-1 rounded-full">MySQL</span>
+                        <span class="text-xs bg-purple-900/50 text-purple-300 px-3 py-1 rounded-full">JDBC</span>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="skill-card animate-fade-in-up opacity-0 delay-300">
+                    <div class="mb-6 flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg">
+                        <i class="fas fa-book text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Quiz Application</h3>
+                    <p class="text-slate-400 mb-6 text-sm leading-relaxed">
+                        Interactive quiz platform with score tracking, timed questions, and comprehensive question management.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-purple-900/50 text-purple-300 px-3 py-1 rounded-full">Java</span>
+                        <span class="text-xs bg-purple-900/50 text-purple-300 px-3 py-1 rounded-full">MySQL</span>
+                        <span class="text-xs bg-purple-900/50 text-purple-300 px-3 py-1 rounded-full">AWT</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="py-20 px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="cta-section">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                    <!-- Text Content -->
+                    <div class="animate-slide-in-left opacity-0">
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
+                            Bringing your ideas to life.
+                        </h2>
+                        <h3 class="text-2xl md:text-3xl font-bold text-purple-400 mb-6">
+                            Let's turn your vision into reality
+                        </h3>
+                        <p class="text-slate-400 text-lg mb-8">
+                            Have a project in mind or just want to chat? Feel free to reach out and let's create something amazing together!
+                        </p>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="contact-form animate-fade-in-up opacity-0 delay-200">
+                        <form onsubmit="handleSubmit(event)">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" placeholder="Your message here..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary w-full">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-700/30 py-12 px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="text-4xl font-bold text-purple-400 mb-2">
+                        M<span class="text-white">.</span>
+                    </div>
+                    <p class="text-slate-400 text-sm">📍 Based in India</p>
+                </div>
+                <div>
+                    <p class="text-slate-400 text-sm">
+                        Building seamless digital experiences with clean code and creative design.
+                    </p>
+                </div>
+                <div class="flex gap-4 justify-end">
+                    <a href="https://github.com/henasivenom" target="_blank" class="text-slate-400 hover:text-purple-400 transition">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/henasivenom" target="_blank" class="text-slate-400 hover:text-purple-400 transition">
+                        <i class="fab fa-linkedin text-2xl"></i>
+                    </a>
+                    <a href="https://x.com/henasi_venom" target="_blank" class="text-slate-400 hover:text-purple-400 transition">
+                        <i class="fab fa-twitter text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-slate-700/30 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 text-sm">© 2024 Mukesh. All rights reserved.</p>
+                <p class="text-slate-500 text-sm">Made with <span class="text-red-500">❤️</span> in India</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Handle form submission
+        function handleSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Send email via mailto link
+            const subject = `New Message from ${name}`;
+            const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+            window.location.href = `mailto:amukeshpatel222@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Reset form
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('message').value = '';
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Animation trigger on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('opacity-0');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-fade-in-up, .animate-slide-in-left').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.md\\:hidden').addEventListener('click', function() {
+            const nav = document.querySelector('nav');
+            nav.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
