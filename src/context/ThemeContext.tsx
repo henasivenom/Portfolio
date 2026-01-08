@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 
-type Theme = 'dark' | 'light' | 'cosmic' | 'aurora'
+type Theme = 'dark' | 'light'
 
 interface ThemeContextType {
   theme: Theme
@@ -19,7 +19,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     setMounted(true)
     const savedTheme = localStorage.getItem('portfolio-theme') as Theme
-    if (savedTheme && ['dark', 'light', 'cosmic', 'aurora'].includes(savedTheme)) {
+    if (savedTheme && ['dark', 'light'].includes(savedTheme)) {
       setTheme(savedTheme)
     }
   }, [])
@@ -32,10 +32,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, [theme, mounted])
 
   const toggleTheme = () => {
-    const themes: Theme[] = ['dark', 'light', 'cosmic', 'aurora']
-    const currentIndex = themes.indexOf(theme)
-    const nextIndex = (currentIndex + 1) % themes.length
-    setTheme(themes[nextIndex])
+    setTheme(theme === 'dark' ? 'light' : 'dark')
   }
 
   if (!mounted) {

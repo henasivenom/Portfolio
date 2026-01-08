@@ -64,28 +64,6 @@
     @apply text-slate-600;
   }
 
-  /* Cosmic Theme */
-  html.cosmic body {
-    @apply bg-slate-950 text-white;
-    background: linear-gradient(180deg, #0a0118 0%, #1e0533 50%, #0a0118 100%);
-  }
-
-  html.cosmic .gradient-text,
-  html.cosmic .gradient-text-animated {
-    @apply from-violet-400 via-fuchsia-400 to-purple-400;
-  }
-
-  /* Aurora Theme */
-  html.aurora body {
-    @apply bg-slate-950 text-white;
-    background: linear-gradient(180deg, #001220 0%, #002540 50%, #001220 100%);
-  }
-
-  html.aurora .gradient-text,
-  html.aurora .gradient-text-animated {
-    @apply from-cyan-400 via-emerald-400 to-teal-400;
-  }
-
   ::selection {
     @apply bg-primary-500/30 text-white;
   }
