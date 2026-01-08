@@ -118,7 +118,7 @@ export default function Footer() {
               >
                 <Heart className="w-5 h-5 text-red-500 fill-red-500" />
               </motion.span>
-              <span>and</span>
+              <span>and lots of</span>
               <span className="text-lg">☕</span>
             </motion.p>
 
