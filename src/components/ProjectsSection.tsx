@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Github, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
+import { ExternalLink, Github, ChevronLeft, ChevronRight, Sparkles, DollarSign, Plane, Brain } from 'lucide-react'
 
 const projects: {
   id: number
@@ -11,6 +11,8 @@ const projects: {
   image: string
   tags: string[]
   color: string
+  logoColor: string
+  icon: React.ElementType
   github: string
   live: string | undefined
 }[] = [
@@ -21,6 +23,8 @@ const projects: {
     image: '/projects/atm.jpg',
     tags: ['Java', 'OOP', 'File I/O'],
     color: 'from-blue-500 to-cyan-500',
+    logoColor: 'bg-gradient-to-br from-blue-500 to-cyan-500',
+    icon: DollarSign,
     github: 'https://github.com/mukesh/atm-system',
     live: undefined
   },
@@ -31,6 +35,8 @@ const projects: {
     image: '/projects/airline.jpg',
     tags: ['React', 'Node.js', 'MongoDB'],
     color: 'from-purple-500 to-pink-500',
+    logoColor: 'bg-gradient-to-br from-purple-500 to-pink-500',
+    icon: Plane,
     github: 'https://github.com/mukesh/airline-reservation',
     live: 'https://airline.demo.com'
   },
@@ -41,6 +47,8 @@ const projects: {
     image: '/projects/quiz.jpg',
     tags: ['TypeScript', 'Next.js', 'PostgreSQL'],
     color: 'from-emerald-500 to-teal-500',
+    logoColor: 'bg-gradient-to-br from-emerald-500 to-teal-500',
+    icon: Brain,
     github: 'https://github.com/mukesh/quiz-app',
     live: 'https://quiz.demo.com'
   }
@@ -150,16 +158,40 @@ export default function ProjectsSection() {
                       0{projects[activeProject].id}/0{projects.length}
                     </div>
 
-                    {/* Large project initial */}
+                    {/* Large project logo icon */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className={`text-[200px] font-bold bg-gradient-to-br ${projects[activeProject].color} bg-clip-text text-transparent opacity-20`}>
-                        {projects[activeProject].title[0]}
-                      </span>
+                      <motion.div
+                        className={`w-48 h-48 rounded-3xl ${projects[activeProject].logoColor} flex items-center justify-center shadow-2xl`}
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ delay: 0.2, duration: 0.5 }}
+                        whileHover={{ scale: 1.05, rotate: 5 }}
+                      >
+                        {React.createElement(projects[activeProject].icon, {
+                          className: "w-24 h-24 text-white",
+                          strokeWidth: 2
+                        })}
+                      </motion.div>
                     </div>
                   </motion.div>
 
                   {/* Project Info */}
                   <div className="flex flex-col justify-center">
+                    {/* Project Logo */}
+                    <motion.div
+                      className="mb-6"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.05 }}
+                    >
+                      <div className={`w-16 h-16 rounded-2xl ${projects[activeProject].logoColor} flex items-center justify-center shadow-lg`}>
+                        {React.createElement(projects[activeProject].icon, {
+                          className: "w-8 h-8 text-white",
+                          strokeWidth: 2.5
+                        })}
+                      </div>
+                    </motion.div>
+
                     <motion.h3 
                       className="text-3xl md:text-4xl font-bold text-slate-100 mb-4"
                       initial={{ opacity: 0, y: 20 }}
