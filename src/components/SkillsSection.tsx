@@ -6,22 +6,22 @@ import { Code2, Database, Globe, Cpu, Layers, Zap, ChevronRight } from 'lucide-r
 
 const skillCategories = [
   {
-    title: 'Frontend',
-    icon: Globe,
+    title: 'What I can do',
+    icon: Code2,
     color: 'from-cyan-400 to-blue-500',
-    skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion']
+    skills: ['Web Application Development', 'Fullstack Web Development', 'Mobile App Development', 'Database Design', 'API Integration']
   },
   {
-    title: 'Backend',
-    icon: Database,
-    color: 'from-purple-400 to-pink-500',
-    skills: ['Node.js', 'Python', 'Java', 'PostgreSQL', 'MongoDB']
-  },
-  {
-    title: 'Tools & More',
+    title: 'Tools I Use',
     icon: Layers,
+    color: 'from-purple-400 to-pink-500',
+    skills: ['HTML', 'CSS', 'JavaScript', 'Java', 'MySQL', 'MongoDB', 'Figma', 'Photoshop']
+  },
+  {
+    title: 'My Expertise',
+    icon: Zap,
     color: 'from-emerald-400 to-teal-500',
-    skills: ['Git', 'Docker', 'AWS', 'Figma', 'Linux']
+    skills: ['Java Backend Development', 'Database Design & Optimization', 'UI/UX Implementation', 'System Architecture', 'Problem Solving']
   }
 ]
 
