@@ -14,7 +14,7 @@ export default function RootLayout({
         <title>Mukesh | Software Developer & Digital Craftsman</title>
         <meta name="description" content="A transcendent, cinematic portfolio experience showcasing the work of Mukesh - Software Developer, Creative Technologist, and Digital Craftsman." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.svg" type="image/svg+xml" />
       </head>
       <body className="antialiased">
         <ThemeProvider>

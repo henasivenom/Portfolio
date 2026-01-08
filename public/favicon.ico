@@ -1,0 +1,11 @@
+<svg width="32" height="32" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <path d="M100 20 L170 50 L170 110 Q170 150 100 180 Q30 150 30 110 L30 50 Z" fill="url(#shieldGradient)"/>
+  <text x="100" y="110" font-family="Arial" font-size="70" font-weight="bold" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">MP</text>
+</svg>
