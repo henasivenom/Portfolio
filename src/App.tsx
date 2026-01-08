@@ -1,9 +1,25 @@
-import { motion } from 'framer-motion';
+import { motion, useScroll, useSpring, useMotionValue } from 'framer-motion';
+import { useEffect } from 'react';
 
 // Animated Background Component with Creative Effects
 const AnimatedBackground = () => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  const smoothX = useSpring(mouseX, { damping: 20, stiffness: 100 });
+  const smoothY = useSpring(mouseY, { damping: 20, stiffness: 100 });
+
   // Floating particles
-  const particles = Array.from({ length: 30 }).map((_, i) => ({
+  const particles = Array.from({ length: 40 }).map((_, i) => ({
     id: i,
     size: Math.random() * 3 + 1,
     x: Math.random() * 100,
@@ -13,6 +29,17 @@ const AnimatedBackground = () => {
 
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
+      {/* Interactive Mouse Glow */}
+      <motion.div
+        className="absolute w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[120px] pointer-events-none"
+        style={{
+          x: smoothX,
+          y: smoothY,
+          translateX: '-50%',
+          translateY: '-50%',
+        }}
+      />
+
       {/* Animated gradient background */}
       <motion.div
         className="absolute inset-0"
@@ -137,8 +164,19 @@ const staggerItem = {
 };
 
 function App() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0a0e27] via-[#1a1a3e] to-[#0f0f2e] text-white font-sans relative">
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 z-[100] origin-left"
+        style={{ scaleX }}
+      />
       <AnimatedBackground />
 
       {/* Navigation */}
@@ -188,17 +226,30 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-8 text-center relative z-10">
+      <section className="pt-48 pb-20 px-8 text-center relative z-10" id="home">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+          className="max-w-7xl mx-auto"
         >
+          <motion.div
+            variants={staggerItem}
+            className="mb-6 inline-block"
+          >
+            <motion.span 
+              className="px-4 py-1.5 rounded-full border border-cyan-400/30 bg-cyan-400/10 text-cyan-400 text-sm font-medium"
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              🚀 Welcome to my portfolio
+            </motion.span>
+          </motion.div>
+
           <motion.h1
-            className="text-6xl md:text-7xl font-bold tracking-tighter mb-6 leading-tight"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
+            className="text-6xl md:text-8xl font-bold tracking-tighter mb-6 leading-tight"
+            variants={staggerItem}
           >
             <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               Hey, I'm Mukesh ✨
@@ -206,10 +257,8 @@ function App() {
           </motion.h1>
           
           <motion.p
-            className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto opacity-80"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
+            className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-gray-400"
+            variants={staggerItem}
           >
             Java Developer & Software Engineer building secure, scalable backend systems and intuitive interfaces.
           </motion.p>
@@ -234,17 +283,19 @@ function App() {
         {/* CTA Buttons */}
         <motion.div
           className="flex flex-col md:flex-row gap-4 justify-center mt-12"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.8 }}
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
         >
           {[
-            { label: 'View My Work', color: 'from-cyan-400 to-purple-400' },
-            { label: 'Get in Touch', color: 'from-purple-400 to-pink-400' },
+            { label: 'View My Work', color: 'from-cyan-400 to-purple-400', link: '#projects' },
+            { label: 'Get in Touch', color: 'from-purple-400 to-pink-400', link: '#contact' },
           ].map((btn, i) => (
-            <motion.button
+            <motion.a
               key={i}
-              className={`px-8 py-3 rounded-lg font-semibold bg-gradient-to-r ${btn.color} text-black relative overflow-hidden group`}
+              href={btn.link}
+              className={`px-8 py-3 rounded-lg font-semibold bg-gradient-to-r ${btn.color} text-black relative overflow-hidden group block`}
+              variants={staggerItem}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -255,7 +306,7 @@ function App() {
                 transition={{ duration: 0.5 }}
               />
               <span className="relative z-10">{btn.label}</span>
-            </motion.button>
+            </motion.a>
           ))}
         </motion.div>
       </section>
@@ -286,9 +337,9 @@ function App() {
             viewport={{ once: true, amount: 0.2 }}
           >
             {[
-              { num: '01', title: 'Backend Development', skills: ['Java', 'MySQL', 'MongoDB', 'JDBC'] },
-              { num: '02', title: 'Database Design', skills: ['Schema Design', 'Optimization', 'Query Performance'] },
-              { num: '03', title: 'Full Stack Solutions', skills: ['Swing GUI', 'Web Development', 'System Architecture'] },
+              { num: '01', title: 'Backend Development', skills: ['Java', 'MySQL', 'MongoDB', 'JDBC'], icon: '⚙️' },
+              { num: '02', title: 'Database Design', skills: ['Schema Design', 'Optimization', 'Query Performance'], icon: '🗄️' },
+              { num: '03', title: 'Full Stack Solutions', skills: ['Swing GUI', 'Web Development', 'System Architecture'], icon: '🚀' },
             ].map((card, i) => (
               <motion.div
                 key={i}
@@ -296,20 +347,25 @@ function App() {
                 variants={staggerItem}
               >
                 <motion.div
-                  className="bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-cyan-400/30 p-8 rounded-2xl backdrop-blur-sm overflow-hidden"
-                  whileHover={{ borderColor: 'rgb(168, 85, 247)', scale: 1.05, y: -5 }}
+                  className="bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-cyan-400/30 p-8 rounded-2xl backdrop-blur-sm overflow-hidden h-full"
+                  whileHover={{ 
+                    borderColor: 'rgb(168, 85, 247)', 
+                    scale: 1.02, 
+                    y: -10,
+                    boxShadow: '0 20px 40px -20px rgba(168, 85, 247, 0.4)'
+                  }}
                   transition={{ duration: 0.3 }}
                 >
-                  {/* Animated gradient overlay */}
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-cyan-400/0 to-purple-400/0 group-hover:from-cyan-400/10 group-hover:to-purple-400/10"
-                    initial={false}
-                  />
+                    className="text-4xl mb-6"
+                    animate={{ rotate: [0, 5, -5, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, delay: i * 0.5 }}
+                  >
+                    {card.icon}
+                  </motion.div>
                   
                   <motion.div
                     className="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-4"
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
                   >
                     {card.num}
                   </motion.div>
@@ -448,7 +504,26 @@ function App() {
           <motion.div
             className="bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-cyan-400/30 rounded-3xl p-12 backdrop-blur-sm relative overflow-hidden"
             variants={staggerItem}
+            whileHover={{ boxShadow: '0 0 50px -10px rgba(168, 85, 247, 0.3)' }}
           >
+            {/* Animated background shapes for contact card */}
+            <motion.div
+              className="absolute -top-24 -right-24 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"
+              animate={{
+                scale: [1, 1.2, 1],
+                x: [0, 20, 0],
+              }}
+              transition={{ duration: 5, repeat: Infinity }}
+            />
+            <motion.div
+              className="absolute -bottom-24 -left-24 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl"
+              animate={{
+                scale: [1, 1.3, 1],
+                x: [0, -20, 0],
+              }}
+              transition={{ duration: 7, repeat: Infinity }}
+            />
+
             {/* Animated border glow */}
             <motion.div
               className="absolute inset-0 rounded-3xl pointer-events-none"
