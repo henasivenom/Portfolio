@@ -63,6 +63,36 @@
             50% { filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.8)); }
         }
 
+        @keyframes heartRotate {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-10deg) scale(1.15); }
+            50% { transform: rotate(0deg) scale(1.2); }
+            75% { transform: rotate(10deg) scale(1.15); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .animate-fade-in-up {
             animation: fadeInUp 0.8s ease-out forwards;
         }
@@ -82,6 +112,19 @@
 
         .logo-animate:hover {
             animation: logoRotate 0.6s ease-in-out 1, logoPulse 2.5s ease-in-out infinite;
+        }
+
+        .heart-animate {
+            animation: heartRotate 1s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-out forwards;
+        }
+
+        .slide-down {
+            animation: slideDown 0.6s ease-out forwards;
         }
 
         .delay-100 { animation-delay: 0.1s; }
@@ -348,8 +391,8 @@
     <!-- What Can I Do Section -->
     <section class="py-20 px-8">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-5xl font-bold text-white mb-16">Building Digital Experience</h2>
-            <p class="text-slate-400 text-lg mb-12 max-w-3xl">Specializes in creating stunning user interfaces and developing high-quality applications that stand out.</p>
+            <h2 class="text-5xl font-bold text-white mb-16 slide-up">Building Digital Experience</h2>
+            <p class="text-slate-400 text-lg mb-12 max-w-3xl slide-up opacity-0 delay-100">Specializes in creating stunning user interfaces and developing high-quality applications that stand out.</p>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                 <!-- What I can do -->
@@ -408,7 +451,7 @@
     <!-- Projects Section -->
     <section id="projects" class="py-20 px-8">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-5xl font-bold text-white mb-16">Featured Projects</h2>
+            <h2 class="text-5xl font-bold text-white mb-16 slide-up">Featured Projects</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                 <!-- Project 1 -->
@@ -469,10 +512,10 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
                     <!-- Text Content -->
                     <div class="animate-slide-in-left opacity-0">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 slide-up">
                             Bringing your ideas to life.
                         </h2>
-                        <h3 class="text-2xl md:text-3xl font-bold text-purple-400 mb-6">
+                        <h3 class="text-2xl md:text-3xl font-bold text-purple-400 mb-6 slide-up opacity-0 delay-100">
                             Let's turn your vision into reality
                         </h3>
                         <p class="text-slate-400 text-lg mb-8">
@@ -547,7 +590,7 @@
             </div>
             <div class="border-t border-slate-700/30 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-slate-500 text-sm">© 2024 Mukesh. All rights reserved.</p>
-                <p class="text-slate-500 text-sm">Made with <span class="text-red-500">❤️</span> in India</p>
+                <p class="text-slate-500 text-sm">Made with <span class="text-red-500 heart-animate">❤️</span> in India</p>
             </div>
         </div>
     </footer>
