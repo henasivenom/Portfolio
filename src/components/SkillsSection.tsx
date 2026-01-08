@@ -35,7 +35,7 @@ export default function SkillsSection() {
   const [activeCategory, setActiveCategory] = useState(0)
 
   return (
-    <section id="skills" className="relative py-24 md:py-32">
+    <section id="skills" className="relative py-16 md:py-20">
       <div className="section-container">
         {/* Section Header */}
         <motion.div

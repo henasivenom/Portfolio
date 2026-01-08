@@ -87,7 +87,7 @@ export default function ProjectsSection() {
   }
 
   return (
-    <section id="projects" className="relative py-24 md:py-32 overflow-hidden">
+    <section id="projects" className="relative py-16 md:py-20 overflow-hidden">
       <div className="section-container">
         {/* Section Header */}
         <motion.div
