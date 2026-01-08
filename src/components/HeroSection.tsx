@@ -104,7 +104,7 @@ export default function HeroSection() {
               {[
                 { icon: Github, href: 'https://github.com/mukesh', label: 'GitHub' },
                 { icon: Linkedin, href: 'https://linkedin.com/in/mukesh', label: 'LinkedIn' },
-                { icon: Mail, href: 'mailto:mukesh@example.com', label: 'Email' }
+                { icon: Mail, href: 'mailto:amukeshpatel222@gmail.com', label: 'Email' }
               ].map(({ icon: Icon, href, label }) => (
                 <motion.a
                   key={label}

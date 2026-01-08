@@ -53,7 +53,7 @@ export default function ContactSection() {
             {/* Contact Info Cards */}
             <div className="mt-10 space-y-4">
               <motion.a
-                href="mailto:mukesh@example.com"
+                href="mailto:amukeshpatel222@gmail.com"
                 className="flex items-center gap-4 p-4 glass rounded-xl hover:border-primary-500/50 transition-all group"
                 whileHover={{ x: 5 }}
               >
@@ -62,7 +62,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <p className="text-sm text-slate-400">Email me at</p>
-                  <p className="text-slate-200 group-hover:text-primary-400 transition-colors">mukesh@example.com</p>
+                  <p className="text-slate-200 group-hover:text-primary-400 transition-colors">amukeshpatel222@gmail.com</p>
                 </div>
               </motion.a>
 
@@ -70,9 +70,13 @@ export default function ContactSection() {
                 className="flex items-center gap-4 p-4 glass rounded-xl"
                 whileHover={{ x: 5 }}
               >
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                <motion.div 
+                  className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center"
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                >
                   <MapPin className="w-5 h-5 text-white" />
-                </div>
+                </motion.div>
                 <div>
                   <p className="text-sm text-slate-400">Based in</p>
                   <p className="text-slate-200">India 🇮🇳</p>

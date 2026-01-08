@@ -15,10 +15,10 @@ const aiResponses: Record<string, string> = {
   'default': "Hi! I'm Mukesh's AI assistant. I can tell you about his skills, projects, or how to get in touch. What would you like to know?",
   'skills': "Mukesh specializes in React, Next.js, TypeScript, and Node.js. He's also experienced with Python, Java, and cloud technologies like AWS. Want to know more about a specific technology?",
   'projects': "Mukesh has built several exciting projects including an ATM Banking System, an Airline Reservation System, and an interactive Quiz Application. Each showcases his full-stack development skills!",
-  'contact': "You can reach Mukesh at mukesh@example.com or through the contact form above. He's currently open to new opportunities and collaborations!",
+  'contact': "You can reach Mukesh at amukeshpatel222@gmail.com or through the contact form above. He's currently open to new opportunities and collaborations!",
   'experience': "Mukesh is a passionate software developer focused on creating elegant, performant applications. He believes in clean code, continuous learning, and user-centric design.",
   'hello': "Hello! Great to meet you! 👋 How can I help you learn more about Mukesh today?",
-  'hire': "Mukesh is available for freelance projects and full-time opportunities! You can reach out through the contact form or email at mukesh@example.com. He'd love to hear about your project!",
+  'hire': "Mukesh is available for freelance projects and full-time opportunities! You can reach out through the contact form or email at amukeshpatel222@gmail.com. He'd love to hear about your project!",
 }
 
 function getAiResponse(message: string): string {
