@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Github, ChevronLeft, ChevronRight, Sparkles, DollarSign, Plane, Brain } from 'lucide-react'
+import { ExternalLink, Github, ChevronLeft, ChevronRight, Sparkles, DollarSign, Plane, MessageSquare } from 'lucide-react'
 
 const projects: {
   id: number
@@ -42,13 +42,13 @@ const projects: {
   },
   {
     id: 3,
-    title: 'Quiz Application',
-    description: 'Designed an interactive quiz platform with automated score calculation using Java Swing and AWT components. Built responsive UI with event-driven programming. Followed Agile cycles for debugging and feature enhancements.',
-    image: '/projects/quiz.jpg',
-    tags: ['Java', 'Swing', 'AWT'],
+    title: 'Real-time Chat Application',
+    description: 'Built a full-stack real-time messaging platform using Spring Boot and WebSocket technology. Implemented message persistence, user presence tracking, typing indicators, and auto-reconnection logic. Utilized MVC, Repository, and Service Layer patterns with comprehensive JUnit and Mockito test coverage. Features XSS protection, input validation, and responsive Bootstrap UI.',
+    image: '/projects/chat.jpg',
+    tags: ['Java 17', 'Spring Boot', 'WebSocket', 'Spring Data JPA', 'STOMP', 'H2', 'Bootstrap 5', 'JUnit'],
     color: 'from-emerald-500 to-teal-500',
     logoColor: 'bg-gradient-to-br from-emerald-500 to-teal-500',
-    icon: Brain,
+    icon: MessageSquare,
     github: 'https://github.com/henasivenom',
     live: undefined
   }
