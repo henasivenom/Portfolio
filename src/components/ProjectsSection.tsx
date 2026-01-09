@@ -18,6 +18,18 @@ const projects: {
 }[] = [
   {
     id: 1,
+    title: 'Real-time Chat Application',
+    description: 'Built a full-stack real-time messaging platform using Spring Boot and WebSocket technology. Implemented message persistence, user presence tracking, typing indicators, and auto-reconnection logic. Utilized MVC, Repository, and Service Layer patterns with comprehensive JUnit and Mockito test coverage. Features XSS protection, input validation, and responsive Bootstrap UI.',
+    image: '/projects/chat.jpg',
+    tags: ['Java', 'Spring Boot', 'WebSocket', 'Spring Data JPA', 'STOMP', 'H2', 'Bootstrap 5', 'JUnit'],
+    color: 'from-emerald-500 to-teal-500',
+    logoColor: 'bg-gradient-to-br from-emerald-500 to-teal-500',
+    icon: MessageSquare,
+    github: 'https://github.com/henasivenom',
+    live: undefined
+  },
+  {
+    id: 2,
     title: 'ATM Simulator System',
     description: 'Developed a secure desktop-based ATM system using Java Swing/AWT. Implemented signup, login, deposit, withdrawal, PIN change, and mini-statement features. Designed MySQL schemas for account and transaction management with event handling and validation logic for secure workflows.',
     image: '/projects/atm.jpg',
@@ -29,7 +41,7 @@ const projects: {
     live: undefined
   },
   {
-    id: 2,
+    id: 3,
     title: 'Airline Management System',
     description: 'Built a GUI-based airline booking and management system using Java Swing and MySQL. Applied OOP principles including abstraction, inheritance, method overloading and overriding. Integrated MySQL for flight scheduling, bookings, and passenger records with functional testing for booking flows and validations.',
     image: '/projects/airline.jpg',
@@ -37,18 +49,6 @@ const projects: {
     color: 'from-purple-500 to-pink-500',
     logoColor: 'bg-gradient-to-br from-purple-500 to-pink-500',
     icon: Plane,
-    github: 'https://github.com/henasivenom',
-    live: undefined
-  },
-  {
-    id: 3,
-    title: 'Real-time Chat Application',
-    description: 'Built a full-stack real-time messaging platform using Spring Boot and WebSocket technology. Implemented message persistence, user presence tracking, typing indicators, and auto-reconnection logic. Utilized MVC, Repository, and Service Layer patterns with comprehensive JUnit and Mockito test coverage. Features XSS protection, input validation, and responsive Bootstrap UI.',
-    image: '/projects/chat.jpg',
-    tags: ['Java 17', 'Spring Boot', 'WebSocket', 'Spring Data JPA', 'STOMP', 'H2', 'Bootstrap 5', 'JUnit'],
-    color: 'from-emerald-500 to-teal-500',
-    logoColor: 'bg-gradient-to-br from-emerald-500 to-teal-500',
-    icon: MessageSquare,
     github: 'https://github.com/henasivenom',
     live: undefined
   }

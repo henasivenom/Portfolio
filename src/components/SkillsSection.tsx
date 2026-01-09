@@ -15,7 +15,7 @@ const skillCategories = [
     title: 'Technologies & Databases',
     icon: Layers,
     color: 'from-purple-400 to-pink-500',
-    skills: ['Java Swing', 'AWT', 'JDBC', 'MySQL', 'MongoDB', 'Git', 'GitHub', 'JIRA']
+    skills: ['Spring Boot', 'Java Swing', 'AWT', 'JDBC', 'MySQL', 'MongoDB', 'Git', 'GitHub', 'JIRA']
   },
   {
     title: 'Skills & Methodologies',
