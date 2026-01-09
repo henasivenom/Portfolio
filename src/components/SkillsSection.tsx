@@ -6,29 +6,29 @@ import { Code2, Database, Globe, Cpu, Layers, Zap, ChevronRight } from 'lucide-r
 
 const skillCategories = [
   {
-    title: 'What I can do',
+    title: 'Programming Languages',
     icon: Code2,
     color: 'from-cyan-400 to-blue-500',
-    skills: ['Web Application Development', 'Fullstack Web Development', 'Mobile App Development', 'Database Design', 'API Integration']
+    skills: ['Java (Core, OOP)', 'SQL', 'HTML', 'CSS', 'JavaScript']
   },
   {
-    title: 'Tools I Use',
+    title: 'Technologies & Databases',
     icon: Layers,
     color: 'from-purple-400 to-pink-500',
-    skills: ['HTML', 'CSS', 'JavaScript', 'Java', 'MySQL', 'MongoDB', 'Figma', 'Photoshop']
+    skills: ['Java Swing', 'AWT', 'JDBC', 'MySQL', 'MongoDB', 'Git', 'GitHub', 'JIRA']
   },
   {
-    title: 'My Expertise',
+    title: 'Skills & Methodologies',
     icon: Zap,
     color: 'from-emerald-400 to-teal-500',
-    skills: ['Java Backend Development', 'Database Design & Optimization', 'UI/UX Implementation', 'System Architecture', 'Problem Solving']
+    skills: ['Manual Testing', 'Test Case Design', 'SDLC', 'Agile & Scrum', 'Debugging', 'Problem Solving']
   }
 ]
 
 const expertiseItems = [
-  { icon: Code2, title: 'Clean Code', description: 'Writing maintainable, scalable code' },
-  { icon: Cpu, title: 'Performance', description: 'Optimized for speed and efficiency' },
-  { icon: Zap, title: 'Modern Stack', description: 'Latest technologies and best practices' }
+  { icon: Code2, title: 'Java Development', description: 'GUI applications using Swing, AWT & JDBC' },
+  { icon: Cpu, title: 'Database Design', description: 'MySQL schemas and transaction management' },
+  { icon: Zap, title: 'AWS Certified', description: 'Cloud Foundations certified professional' }
 ]
 
 export default function SkillsSection() {

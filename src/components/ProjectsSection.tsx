@@ -18,39 +18,39 @@ const projects: {
 }[] = [
   {
     id: 1,
-    title: 'ATM Banking System',
-    description: 'A comprehensive Java-based ATM simulation featuring account management, transaction history, and secure PIN authentication with an intuitive console interface.',
+    title: 'ATM Simulator System',
+    description: 'Developed a secure desktop-based ATM system using Java Swing/AWT. Implemented signup, login, deposit, withdrawal, PIN change, and mini-statement features. Designed MySQL schemas for account and transaction management with event handling and validation logic for secure workflows.',
     image: '/projects/atm.jpg',
-    tags: ['Java', 'OOP', 'File I/O'],
+    tags: ['Java', 'Swing', 'AWT', 'MySQL', 'JDBC'],
     color: 'from-blue-500 to-cyan-500',
     logoColor: 'bg-gradient-to-br from-blue-500 to-cyan-500',
     icon: DollarSign,
-    github: 'https://github.com/mukesh/atm-system',
+    github: 'https://github.com/henasivenom',
     live: undefined
   },
   {
     id: 2,
-    title: 'Airline Reservation System',
-    description: 'Full-stack airline booking platform with flight search, seat selection, and booking management. Built with modern web technologies for seamless user experience.',
+    title: 'Airline Management System',
+    description: 'Built a GUI-based airline booking and management system using Java Swing and MySQL. Applied OOP principles including abstraction, inheritance, method overloading and overriding. Integrated MySQL for flight scheduling, bookings, and passenger records with functional testing for booking flows and validations.',
     image: '/projects/airline.jpg',
-    tags: ['React', 'Node.js', 'MongoDB'],
+    tags: ['Java', 'Swing', 'MySQL'],
     color: 'from-purple-500 to-pink-500',
     logoColor: 'bg-gradient-to-br from-purple-500 to-pink-500',
     icon: Plane,
-    github: 'https://github.com/mukesh/airline-reservation',
-    live: 'https://airline.demo.com'
+    github: 'https://github.com/henasivenom',
+    live: undefined
   },
   {
     id: 3,
     title: 'Quiz Application',
-    description: 'Interactive quiz platform with multiple categories, timed questions, leaderboards, and detailed performance analytics for educational purposes.',
+    description: 'Designed an interactive quiz platform with automated score calculation using Java Swing and AWT components. Built responsive UI with event-driven programming. Followed Agile cycles for debugging and feature enhancements.',
     image: '/projects/quiz.jpg',
-    tags: ['TypeScript', 'Next.js', 'PostgreSQL'],
+    tags: ['Java', 'Swing', 'AWT'],
     color: 'from-emerald-500 to-teal-500',
     logoColor: 'bg-gradient-to-br from-emerald-500 to-teal-500',
     icon: Brain,
-    github: 'https://github.com/mukesh/quiz-app',
-    live: 'https://quiz.demo.com'
+    github: 'https://github.com/henasivenom',
+    live: undefined
   }
 ]
 

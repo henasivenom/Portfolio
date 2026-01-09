@@ -53,7 +53,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              A <span className="text-primary-400 font-medium">Software Developer</span>
+              A <span className="text-primary-400 font-medium">Java Developer</span>
             </motion.h2>
 
             {/* Description */}
@@ -63,8 +63,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
             >
-              Crafting digital experiences that blend creativity with code. 
-              I transform ideas into elegant, performant applications that make a difference.
+              Highly motivated Computer Science graduate skilled in Java development, manual testing, SQL databases, and GUI-based application design. Experienced in building end-to-end applications using Java Swing, AWT, JDBC, and MySQL with a strong understanding of SDLC and Agile methodologies.
             </motion.p>
 
             {/* CTA Buttons */}

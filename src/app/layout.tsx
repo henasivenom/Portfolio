@@ -11,8 +11,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <title>Mukesh | Software Developer & Digital Craftsman</title>
-        <meta name="description" content="A transcendent, cinematic portfolio experience showcasing the work of Mukesh - Software Developer, Creative Technologist, and Digital Craftsman." />
+        <title>Mukesh Patel | Java Developer</title>
+        <meta name="description" content="Portfolio of Mukesh Patel - Java Developer skilled in GUI applications, database design, and manual testing. AWS Cloud Foundations certified with expertise in Java Swing, AWT, JDBC, and MySQL." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.svg" type="image/svg+xml" />
       </head>
