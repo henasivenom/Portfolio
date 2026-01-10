@@ -10,7 +10,9 @@ A modern, interactive portfolio website showcasing a Full Stack Java Developer &
 - **📊 LeetCode & GitHub Stats**: Live integration of coding practice and open-source contributions
   - Real-time LeetCode problem-solving statistics
   - GitHub contribution graph and activity metrics
-  - Premium hover animations with smooth scale effects
+  - Premium popup effects with color-matched neon glows
+  - Mobile-first responsive design with touch interactions
+  - GPU-accelerated animations (scale 1.06 + neon shadows)
 - **🚀 Projects Section**: Portfolio of key projects (ATM Simulator, Airline Management System, Quiz Application)
 - **💬 AI Assistant**: Interactive chatbot for quick information
 - **📧 Contact Form**: Beautiful contact section with availability status
@@ -24,11 +26,14 @@ A modern, interactive portfolio website showcasing a Full Stack Java Developer &
 - **Smooth Animations**: Framer Motion powered transitions and micro-interactions
 - **Premium Hover Effects**: 
   - 1.06x scale with GPU-accelerated transforms
+  - Color-matched neon glow shadows (purple/emerald/gold)
   - Cubic-bezier easing for smooth motion
-  - Subtle glow and elevation shadows
+  - Subtle glow and elevation with floating effect
+  - Mobile touch support with whileTap animations
   - No layout shift on interaction
 - **Responsive Design**: Mobile-first approach with breakpoints for all devices
-- **Performance Optimized**: Lighthouse 90+ score ready with `will-change` optimizations
+- **Touch-Optimized**: 44px minimum tap targets, whileTap interactions, no blue tap highlights
+- **Performance Optimized**: Lighthouse 90+ score ready with `will-change` optimizations and reduced motion support
 
 ## 🛠️ Tech Stack
 
@@ -74,7 +79,12 @@ npm start
 - **ThreeDReality**: 3D background layer with depth
 - **HeroSection**: Main landing section with animated content
 - **SkillsSection**: Interactive skills grid with categories
-- **LeetCodeStats**: Real-time coding statistics integration
+- **LeetCodeStats**: Real-time coding statistics integration with premium popup effects
+  - Interactive cards with color-matched neon glows
+  - Projects card: Purple/violet neon glow
+  - Commits card: Emerald/cyan neon glow
+  - Experience card: Yellow/orange gold glow
+  - Mobile-optimized with clamp() typography and touch support
 - **ProjectsSection**: Portfolio showcase with hover effects
 - **ContactSection**: Form with status indicators
 - **AiPresence**: Chatbot assistant with conversational UI
@@ -128,12 +138,16 @@ Toggle between themes using the theme switcher in the navbar:
 
 ## ⚡ Performance Features
 
-- GPU-accelerated animations
-- Optimized image loading with lazy loading
+- GPU-accelerated animations with `will-change: transform`
+- Optimized image loading with lazy loading and async decoding
 - Code splitting with Next.js
 - Minimal bundle size
-- `will-change` hints for smooth animations
+- Smooth 0.4s transitions with custom cubic-bezier easing
 - Debounced scroll handlers
+- Mobile-first responsive design with clamp() typography
+- Touch-optimized interactions (44px minimum tap targets)
+- Reduced motion support for accessibility
+- No layout shift (transform-based animations only)
 
 ## 📄 License
 
