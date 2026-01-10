@@ -29,9 +29,9 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
 
-      // Determine active section
-      const sections = navItems.map(item => item.href.replace('#', ''))
-      for (const section of sections.reverse()) {
+      // Determine active section - include leetcode but don't highlight navbar
+      const allSections = ['home', 'skills', 'projects', 'leetcode', 'contact']
+      for (const section of allSections.reverse()) {
         const element = document.getElementById(section)
         if (element) {
           const rect = element.getBoundingClientRect()

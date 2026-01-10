@@ -8,6 +8,7 @@ import ThreeDReality from '../components/ThreeDReality'
 import Navbar from '../components/NewNavbar'
 import HeroSection from '../components/HeroSection'
 import SkillsSection from '../components/SkillsSection'
+import LeetCodeStats from '../components/LeetCodeStats'
 import ProjectsSection from '../components/ProjectsSection'
 import ContactSection from '../components/ContactSection'
 import Footer from '../components/NewFooter'
@@ -69,6 +70,7 @@ export default function Home() {
           <HeroSection />
           <SkillsSection />
           <ProjectsSection />
+          <LeetCodeStats />
           <ContactSection />
         </main>
 

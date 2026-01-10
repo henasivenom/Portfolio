@@ -123,7 +123,7 @@ export default function ContactSection() {
                   name="name"
                   value={formState.name}
                   onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                  placeholder="John Doe"
+                  placeholder="Your Name"
                   required
                   className={inputClasses}
                 />
@@ -144,7 +144,7 @@ export default function ContactSection() {
                   name="email"
                   value={formState.email}
                   onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                  placeholder="john@example.com"
+                  placeholder="xyz@gmail.com"
                   required
                   className={inputClasses}
                 />
