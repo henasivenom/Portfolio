@@ -1,83 +1,151 @@
 # Mukesh Patel - Portfolio
 
-A minimalist, Bento-grid style portfolio website for a Java Developer & Software Engineer.
+A modern, interactive portfolio website showcasing a Full Stack Java Developer & Software Engineer with premium UI/UX design and animated components.
 
-## Features
+## ✨ Features
 
-- **Hero Section**: Introduction with call-to-action buttons
-- **Mission Statement**: Full-width section highlighting professional mission
-- **Services Grid**: Four key services offered
-- **Selected Work**: Showcase of projects (ATM Simulator, Airline Management System, Quiz Application)
-- **Experience**: Skills in SDLC, Agile, and Scrum
-- **Footer**: Links to GitHub and LinkedIn
+- **🎬 Cinematic Opening**: Immersive loading experience with animated intro
+- **🌟 Hero Section**: Dynamic introduction with gradient text and call-to-action buttons
+- **💼 Skills Section**: Categorized skill showcase with interactive cards
+- **📊 LeetCode & GitHub Stats**: Live integration of coding practice and open-source contributions
+  - Real-time LeetCode problem-solving statistics
+  - GitHub contribution graph and activity metrics
+  - Premium hover animations with smooth scale effects
+- **🚀 Projects Section**: Portfolio of key projects (ATM Simulator, Airline Management System, Quiz Application)
+- **💬 AI Assistant**: Interactive chatbot for quick information
+- **📧 Contact Form**: Beautiful contact section with availability status
+- **🎨 Theme System**: Multiple themes (Dark, Light, Cosmic, Aurora) with smooth transitions
+- **🎭 3D Background**: Living background with particle effects and aurora animations
 
-## Design
+## 🎨 Design Highlights
 
-- Clean, spacious layout with rounded corners (24-32px)
-- Color palette: Soft neutrals, dark charcoal text (#1a1a1a), teal/blue accent
-- Bold, oversized Sans-Serif headings with generous line spacing
+- **Modern Purple/Violet Gradient Theme**: Premium color palette with violet (#8b5cf6), purple (#a855f7), and fuchsia (#d946ef)
+- **Glass-morphism Effects**: Frosted glass panels with backdrop blur
+- **Smooth Animations**: Framer Motion powered transitions and micro-interactions
+- **Premium Hover Effects**: 
+  - 1.06x scale with GPU-accelerated transforms
+  - Cubic-bezier easing for smooth motion
+  - Subtle glow and elevation shadows
+  - No layout shift on interaction
+- **Responsive Design**: Mobile-first approach with breakpoints for all devices
+- **Performance Optimized**: Lighthouse 90+ score ready with `will-change` optimizations
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-- React 19
-- TypeScript
-- Tailwind CSS 4
-- Vite (with Rolldown)
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript 5
+- **Styling**: Tailwind CSS 4
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Deployment**: Vercel
 
-## Getting Started
+## 🚀 Getting Started
 
-1. Install dependencies:
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/henasivenom/Portfolio.git
+   cd Portfolio
+   ```
+
+2. **Install dependencies**:
    ```bash
    npm install
    ```
 
-2. Start the development server:
+3. **Start the development server**:
    ```bash
    npm run dev
    ```
 
-3. Open [http://localhost:5173](http://localhost:5173) in your browser.
+4. **Open your browser**:
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-## Build for Production
+## 📦 Build for Production
 
 ```bash
 npm run build
+npm start
 ```
 
-## Assets
+## 🎯 Key Components
 
-Replace placeholder images in `/public/` with actual screenshots:
-- `placeholder-atm.jpg`
-- `placeholder-airline.jpg`
-- `placeholder-quiz.jpg`
+- **CinematicOpening**: Full-screen animated intro sequence
+- **LivingBackground**: Dynamic particle system with aurora effects
+- **ThreeDReality**: 3D background layer with depth
+- **HeroSection**: Main landing section with animated content
+- **SkillsSection**: Interactive skills grid with categories
+- **LeetCodeStats**: Real-time coding statistics integration
+- **ProjectsSection**: Portfolio showcase with hover effects
+- **ContactSection**: Form with status indicators
+- **AiPresence**: Chatbot assistant with conversational UI
+- **NewNavbar**: Sticky navigation with active section tracking
+- **ThemeContext**: Global theme management system
 
-Add a professional headshot for the hero section if desired.
+## 🌐 Live Stats Integration
 
-## Customization
+### LeetCode
+- Live problem-solving statistics
+- Submission heatmap (last 52 weeks)
+- Difficulty breakdown (Easy/Medium/Hard)
+- Profile link integration
 
-- Colors are defined in `src/index.css` under `@theme`
-- Components are in `src/App.tsx`
-- For animations, consider adding Framer Motion
-import reactDom from 'eslint-plugin-react-dom'
+### GitHub
+- Contribution graph with custom purple theme
+- Repository and activity links
+- Language distribution stats
+- Streak tracking
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🎨 Customization
+
+### Colors
+Edit `tailwind.config.ts` to customize the color palette:
+```typescript
+colors: {
+  primary: { ... }, // Main theme colors
+  accent: { ... },  // Accent colors
+}
 ```
+
+### Content
+- Update personal information in component files
+- Modify skills in `SkillsSection.tsx`
+- Add projects in `ProjectsSection.tsx`
+- Change LeetCode/GitHub usernames in `LeetCodeStats.tsx`
+
+### Theme
+Toggle between themes using the theme switcher in the navbar:
+- Dark (default)
+- Light
+- Cosmic
+- Aurora
+
+## 📱 Responsive Breakpoints
+
+- **Mobile**: < 640px
+- **Tablet**: 640px - 1024px
+- **Desktop**: > 1024px
+- **Large Desktop**: > 1280px
+
+## ⚡ Performance Features
+
+- GPU-accelerated animations
+- Optimized image loading with lazy loading
+- Code splitting with Next.js
+- Minimal bundle size
+- `will-change` hints for smooth animations
+- Debounced scroll handlers
+
+## 📄 License
+
+This project is open source and available under the MIT License.
+
+## 🤝 Connect
+
+- **Portfolio**: [Live Demo](https://your-portfolio-url.vercel.app)
+- **GitHub**: [@henasivenom](https://github.com/henasivenom)
+- **LeetCode**: [@henasi_venom](https://leetcode.com/u/henasi_venom/)
+- **Email**: amukeshpatel222@gmail.com
+
+---
+
+Made with 💜 by Mukesh Patel
