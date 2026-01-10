@@ -68,6 +68,30 @@ export default function ProjectsSection() {
     setActiveProject((prev) => (prev - 1 + projects.length) % projects.length)
   }
 
+  // Touch/swipe handling for mobile
+  const [touchStart, setTouchStart] = useState(0)
+  const [touchEnd, setTouchEnd] = useState(0)
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    if (touchStart - touchEnd > 75) {
+      // Swipe left
+      nextProject()
+    }
+
+    if (touchStart - touchEnd < -75) {
+      // Swipe right
+      prevProject()
+    }
+  }
+
   const slideVariants = {
     enter: (direction: number) => ({
       x: direction > 0 ? 300 : -300,
@@ -132,7 +156,12 @@ export default function ProjectsSection() {
           </motion.button>
 
           {/* Project Cards Container */}
-          <div className="relative min-h-[600px] md:h-[450px]">
+          <div 
+            className="relative min-h-[600px] md:h-[450px]"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={activeProject}

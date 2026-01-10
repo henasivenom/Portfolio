@@ -14,7 +14,7 @@ export default function HeroSection() {
   if (!mounted) return null
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       <div className="section-container relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           {/* Text Content */}
@@ -194,7 +194,7 @@ export default function HeroSection() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 md:bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5 }}
@@ -205,8 +205,8 @@ export default function HeroSection() {
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <span className="text-xs md:text-xs font-mono mb-2">Scroll to explore</span>
-          <ChevronDown className="w-5 h-5 md:w-5 md:h-5" />
+          <span className="text-xs font-mono mb-2">Scroll to explore</span>
+          <ChevronDown className="w-5 h-5" />
         </motion.a>
       </motion.div>
     </section>

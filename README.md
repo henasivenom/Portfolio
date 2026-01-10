@@ -6,14 +6,14 @@ A modern, interactive portfolio website showcasing a Full Stack Java Developer &
 
 - **🎬 Cinematic Opening**: Immersive loading experience with animated intro
 - **🌟 Hero Section**: Dynamic introduction with gradient text and call-to-action buttons
-- **💼 Skills Section**: Categorized skill showcase with interactive cards
+- **💼 Skills Section**: Categorized skill showcase with interactive cards (click to select/deselect)
 - **📊 LeetCode & GitHub Stats**: Live integration of coding practice and open-source contributions
   - Real-time LeetCode problem-solving statistics
   - GitHub contribution graph and activity metrics
   - Premium popup effects with color-matched neon glows
   - Mobile-first responsive design with touch interactions
   - GPU-accelerated animations (scale 1.06 + neon shadows)
-- **🚀 Projects Section**: Portfolio of key projects (ATM Simulator, Airline Management System, Quiz Application)
+- **🚀 Projects Section**: Portfolio of key projects with swipe support on mobile devices
 - **💬 AI Assistant**: Interactive chatbot for quick information
 - **📧 Contact Form**: Beautiful contact section with availability status
 - **🎨 Theme System**: Multiple themes (Dark, Light, Cosmic, Aurora) with smooth transitions
@@ -85,7 +85,7 @@ npm start
   - Commits card: Emerald/cyan neon glow
   - Experience card: Yellow/orange gold glow
   - Mobile-optimized with clamp() typography and touch support
-- **ProjectsSection**: Portfolio showcase with hover effects
+- **ProjectsSection**: Portfolio showcase with hover effects and mobile swipe support
 - **ContactSection**: Form with status indicators
 - **AiPresence**: Chatbot assistant with conversational UI
 - **NewNavbar**: Sticky navigation with active section tracking
@@ -131,7 +131,7 @@ Toggle between themes using the theme switcher in the navbar:
 
 ## 📱 Responsive Breakpoints
 
-- **Mobile**: < 640px
+- **Mobile**: < 640px (with touch swipe support for project navigation)
 - **Tablet**: 640px - 1024px
 - **Desktop**: > 1024px
 - **Large Desktop**: > 1280px

@@ -32,7 +32,7 @@ const expertiseItems = [
 ]
 
 export default function SkillsSection() {
-  const [activeCategory, setActiveCategory] = useState(0)
+  const [activeCategory, setActiveCategory] = useState<number | null>(null)
 
   return (
     <section id="skills" className="relative py-16 md:py-20">
