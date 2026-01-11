@@ -14,9 +14,9 @@ export default function HeroSection() {
   if (!mounted) return null
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <div className="section-container relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-12">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-20 pb-16">
+      <div className="section-container relative z-10 py-8 md:py-20">
+        <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-8 md:gap-12">
           {/* Text Content */}
           <motion.div 
             className="flex-1 text-center lg:text-left order-2 lg:order-1"
@@ -37,7 +37,7 @@ export default function HeroSection() {
 
             {/* Main heading */}
             <motion.h1 
-              className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
@@ -48,7 +48,7 @@ export default function HeroSection() {
 
             {/* Subtitle */}
             <motion.h2 
-              className="text-2xl md:text-3xl text-slate-300 font-light mb-6"
+              className="text-xl md:text-3xl text-slate-300 font-light mb-4 md:mb-6"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
@@ -58,7 +58,7 @@ export default function HeroSection() {
 
             {/* Description */}
             <motion.p 
-              className="text-lg text-slate-400 max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed"
+              className="text-sm md:text-lg text-slate-400 max-w-xl mx-auto lg:mx-0 mb-6 md:mb-8 leading-relaxed px-2 md:px-0"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
@@ -147,7 +147,7 @@ export default function HeroSection() {
               
               {/* Profile container */}
               <motion.div 
-                className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden glass border-2 border-primary-500/20"
+                className="relative w-56 h-56 md:w-80 md:h-80 rounded-full overflow-hidden glass border-2 border-primary-500/20"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
               >
