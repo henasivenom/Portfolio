@@ -30,8 +30,14 @@ export default function ThreeDReality() {
     wireframe: null,
   })
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const animationRef = useRef<number>()
   const mouseRef = useRef({ x: 0, y: 0 })
+
+  useEffect(() => {
+    // Check if device is mobile
+    setIsMobile(window.innerWidth < 768)
+  }, [])
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     mouseRef.current = {
@@ -41,6 +47,9 @@ export default function ThreeDReality() {
   }, [])
 
   useEffect(() => {
+    // Don't load Three.js on mobile
+    if (isMobile) return
+
     const loadThree = async () => {
       try {
         THREE = await import('three')
@@ -50,7 +59,7 @@ export default function ThreeDReality() {
       }
     }
     loadThree()
-  }, [])
+  }, [isMobile])
 
   useEffect(() => {
     if (!isLoaded || !containerRef.current || !THREE) return

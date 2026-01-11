@@ -131,9 +131,9 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="relative">
-              {/* Glow effect */}
+              {/* Glow effect - Reduced on mobile */}
               <motion.div
-                className="absolute -inset-4 bg-gradient-to-r from-primary-500/20 via-purple-500/20 to-pink-500/20 rounded-full blur-2xl"
+                className="absolute -inset-4 bg-gradient-to-r from-primary-500/20 via-purple-500/20 to-pink-500/20 rounded-full blur-2xl hidden md:block"
                 animate={{
                   scale: [1, 1.1, 1],
                   opacity: [0.5, 0.8, 0.5],
@@ -156,15 +156,15 @@ export default function HeroSection() {
                   <span className="text-8xl font-bold gradient-text">M</span>
                 </div>
                 
-                {/* Animated ring */}
+                {/* Animated ring - Reduced on mobile */}
                 <motion.div
-                  className="absolute inset-0 border-4 border-primary-400/30 rounded-full"
+                  className="absolute inset-0 border-4 border-primary-400/30 rounded-full hidden md:block"
                   animate={{ rotate: 360 }}
                   transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
                 />
               </motion.div>
 
-              {/* Floating elements around profile */}
+              {/* Floating elements around profile - Desktop only */}
               {[
                 { emoji: '💻', delay: 0, position: '-top-4 -right-4' },
                 { emoji: '🚀', delay: 0.5, position: '-bottom-2 -left-2' },
@@ -172,7 +172,7 @@ export default function HeroSection() {
               ].map(({ emoji, delay, position }) => (
                 <motion.div
                   key={emoji}
-                  className={`absolute ${position} text-2xl`}
+                  className={`absolute ${position} text-2xl hidden md:block`}
                   animate={{
                     y: [0, -10, 0],
                     rotate: [0, 10, -10, 0],
@@ -192,21 +192,23 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator - Mobile optimized */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute left-1/2 -translate-x-1/2 z-20"
+        style={{ bottom: 'calc(2rem + env(safe-area-inset-bottom))' }}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5 }}
       >
         <motion.a
           href="#skills"
-          className="flex flex-col items-center text-slate-500 hover:text-primary-400 transition-colors"
+          className="flex flex-col items-center text-slate-400 hover:text-primary-400 transition-colors cursor-pointer p-4 md:p-2"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
+          whileTap={{ scale: 0.95 }}
         >
-          <span className="text-xs font-mono mb-2">Scroll to explore</span>
-          <ChevronDown className="w-5 h-5" />
+          <span className="text-xs md:text-sm font-mono mb-2 text-center">Scroll to explore</span>
+          <ChevronDown className="w-6 h-6 md:w-5 md:h-5" />
         </motion.a>
       </motion.div>
     </section>

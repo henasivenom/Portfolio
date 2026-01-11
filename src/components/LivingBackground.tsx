@@ -21,7 +21,10 @@ export default function LivingBackground() {
 
   const createParticles = useCallback((width: number, height: number) => {
     const particles: Particle[] = []
-    const count = Math.min(80, Math.floor((width * height) / 15000))
+    // Reduce particles on mobile
+    const isMobile = width < 768
+    const baseCount = isMobile ? 30 : 80
+    const count = Math.min(baseCount, Math.floor((width * height) / 15000))
     
     for (let i = 0; i < count; i++) {
       particles.push({
@@ -136,9 +139,9 @@ export default function LivingBackground() {
       {/* Base gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
       
-      {/* Aurora gradient overlay */}
+      {/* Aurora gradient overlay - Reduced on mobile */}
       <motion.div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 opacity-30 hidden md:block"
         style={{
           background: 'radial-gradient(ellipse at 50% 50%, rgba(14, 165, 233, 0.15) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(168, 85, 247, 0.15) 0%, transparent 40%), radial-gradient(ellipse at 20% 80%, rgba(236, 72, 153, 0.12) 0%, transparent 40%)'
         }}
@@ -152,11 +155,11 @@ export default function LivingBackground() {
         }}
       />
 
-      {/* Floating orbs */}
+      {/* Floating orbs - Desktop only */}
       {orbs.map((orb, i) => (
         <motion.div
           key={i}
-          className={`absolute ${orb.position} ${orb.size} rounded-full bg-gradient-radial ${orb.color} blur-3xl`}
+          className={`absolute ${orb.position} ${orb.size} rounded-full bg-gradient-radial ${orb.color} blur-3xl hidden md:block`}
           animate={{
             scale: [1, 1.1, 1],
             opacity: [0.4, 0.6, 0.4],

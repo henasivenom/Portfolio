@@ -136,7 +136,19 @@ export default function ProjectsSection() {
 
         {/* Project Showcase */}
         <div className="relative">
-          {/* Navigation Buttons */}
+          {/* Mobile Scroll Hint */}
+          <motion.div
+            className="md:hidden text-center mb-4 text-xs text-slate-500 flex items-center justify-center gap-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            <ChevronLeft className="w-4 h-4" />
+            <span>Swipe to navigate</span>
+            <ChevronRight className="w-4 h-4" />
+          </motion.div>
+
+          {/* Navigation Buttons - Desktop */}
           <motion.button
             className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 z-10 p-3 glass rounded-full text-slate-400 hover:text-primary-400 hover:border-primary-500/50 transition-all"
             onClick={prevProject}
@@ -155,9 +167,27 @@ export default function ProjectsSection() {
             <ChevronRight className="w-6 h-6" />
           </motion.button>
 
+          {/* Mobile Navigation Buttons - Bottom */}
+          <div className="md:hidden absolute bottom-4 left-0 right-0 flex justify-center gap-4 z-20">
+            <motion.button
+              className="p-3 glass rounded-full text-slate-400 active:text-primary-400 active:border-primary-500/50 transition-all"
+              onClick={prevProject}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </motion.button>
+            <motion.button
+              className="p-3 glass rounded-full text-slate-400 active:text-primary-400 active:border-primary-500/50 transition-all"
+              onClick={nextProject}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronRight className="w-5 h-5" />
+            </motion.button>
+          </div>
+
           {/* Project Cards Container */}
           <div 
-            className="relative min-h-[600px] md:h-[450px]"
+            className="relative min-h-[650px] md:h-[450px]"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
@@ -176,8 +206,9 @@ export default function ProjectsSection() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 h-full">
                   {/* Project Image */}
                   <motion.div 
-                    className="relative rounded-2xl overflow-hidden glass h-64 md:h-auto"
+                    className="relative rounded-2xl overflow-hidden glass h-56 md:h-auto"
                     whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
                   >
                     {/* Gradient placeholder */}
                     <div className={`absolute inset-0 bg-gradient-to-br ${projects[activeProject].color} opacity-20`} />
@@ -205,7 +236,7 @@ export default function ProjectsSection() {
                   </motion.div>
 
                   {/* Project Info */}
-                  <div className="flex flex-col justify-center">
+                  <div className="flex flex-col justify-start md:justify-center pb-16 md:pb-0">
                     {/* Project Logo */}
                     <motion.div
                       className="mb-4 md:mb-6"

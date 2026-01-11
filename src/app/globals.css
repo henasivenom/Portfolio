@@ -23,10 +23,52 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Prevent horizontal scroll */
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
   body {
     @apply bg-slate-950 text-white font-sans;
     background: linear-gradient(180deg, #020617 0%, #0f172a 50%, #020617 100%);
-    overflow-x: hidden;
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Smooth section entrance */
+  section {
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-timeline: view();
+    animation-range: entry 0% entry 30%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    section {
+      animation: none;
+    }
   }
 
   /* Light Theme */
@@ -87,11 +129,34 @@
 
 @layer components {
   .glass {
-    @apply backdrop-blur-xl bg-white/5 border border-white/10;
+    @apply bg-white/5 border border-white/10;
+    backdrop-filter: blur(12px);
+  }
+
+  /* Reduce blur on mobile to prevent flickering */
+  @media (max-width: 768px) {
+    .glass {
+      backdrop-filter: blur(4px);
+    }
+  }
+
+  /* Disable blur on low-end devices */
+  @media (prefers-reduced-motion: reduce) {
+    .glass {
+      backdrop-filter: none;
+      @apply bg-white/10;
+    }
   }
 
   .glass-dark {
-    @apply backdrop-blur-xl bg-slate-900/50 border border-slate-700/50;
+    @apply bg-slate-900/50 border border-slate-700/50;
+    backdrop-filter: blur(12px);
+  }
+
+  @media (max-width: 768px) {
+    .glass-dark {
+      backdrop-filter: blur(4px);
+    }
   }
 
   .gradient-text {
@@ -178,6 +243,32 @@
   .section-subtitle {
     @apply text-lg md:text-xl text-slate-400 max-w-2xl;
   }
+
+  /* Performance optimizations */
+  [class*="motion"],
+  [class*="animate"] {
+    will-change: transform;
+  }
+
+  @media (max-width: 768px) {
+    /* Reduce animations on mobile */
+    * {
+      animation-duration: 0.3s !important;
+      transition-duration: 0.2s !important;
+    }
+  }
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer utilities {
@@ -202,4 +293,31 @@
   .delay-300 { animation-delay: 300ms; }
   .delay-400 { animation-delay: 400ms; }
   .delay-500 { animation-delay: 500ms; }
+
+  /* Mobile-first optimizations */
+  @media (max-width: 430px) {
+    /* Prevent horizontal overflow on small screens */
+    * {
+      max-width: 100%;
+    }
+
+    /* Improve tap targets */
+    button,
+    a {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* Reduce large text on very small screens */
+    .section-title {
+      font-size: 2rem !important;
+    }
+  }
+
+  /* Safe area support for notched devices */
+  @supports (padding: env(safe-area-inset-bottom)) {
+    body {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  }
 }
