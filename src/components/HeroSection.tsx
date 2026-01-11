@@ -16,10 +16,10 @@ export default function HeroSection() {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       <div className="section-container relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+        <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-12">
           {/* Text Content */}
           <motion.div 
-            className="flex-1 text-center lg:text-left"
+            className="flex-1 text-center lg:text-left order-2 lg:order-1"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -125,12 +125,12 @@ export default function HeroSection() {
 
           {/* Profile Image / Visual */}
           <motion.div 
-            className="flex-1 flex justify-center lg:justify-end"
+            className="flex-1 flex justify-center order-1 lg:order-2"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="relative">
+            <div className="relative flex items-center justify-center">
               {/* Glow effect - Reduced on mobile */}
               <motion.div
                 className="absolute -inset-4 bg-gradient-to-r from-primary-500/20 via-purple-500/20 to-pink-500/20 rounded-full blur-2xl hidden md:block"
