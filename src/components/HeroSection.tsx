@@ -194,8 +194,7 @@ export default function HeroSection() {
 
       {/* Scroll indicator - Mobile optimized */}
       <motion.div
-        className="absolute left-1/2 -translate-x-1/2 z-20"
-        style={{ bottom: 'calc(2rem + env(safe-area-inset-bottom))' }}
+        className="absolute left-1/2 -translate-x-1/2 z-20 bottom-8 md:bottom-8"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5 }}
