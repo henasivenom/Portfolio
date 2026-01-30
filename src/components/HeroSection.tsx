@@ -14,9 +14,68 @@ export default function HeroSection() {
   if (!mounted) return null
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-20 pb-16">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-20 pb-16 md:pb-32">
+      {/* Aurora Background - Animated gradient orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-primary-500/20 via-accent-violet/20 to-transparent rounded-full blur-3xl"
+          animate={{
+            x: ['-10%', '10%', '-10%'],
+            y: ['-10%', '10%', '-10%'],
+            scale: [1, 1.1, 1],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+        <motion.div
+          className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-accent-fuchsia/20 via-accent-cyan/20 to-transparent rounded-full blur-3xl"
+          animate={{
+            x: ['10%', '-10%', '10%'],
+            y: ['10%', '-10%', '10%'],
+            scale: [1, 1.2, 1],
+            rotate: [360, 180, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+        <motion.div
+          className="absolute top-1/4 left-1/3 w-96 h-96 bg-gradient-to-r from-accent-purple/15 to-accent-violet/15 rounded-full blur-3xl"
+          animate={{
+            x: ['-20%', '20%', '-20%'],
+            y: ['20%', '-20%', '20%'],
+            scale: [1, 1.15, 1],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      </div>
+
       <div className="section-container relative z-10 py-8 md:py-20">
-        <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-8 md:gap-12">
+        {/* Glassmorphism Container */}
+        <motion.div
+          className="relative backdrop-blur-xl bg-white/5 rounded-3xl border border-white/10 shadow-2xl overflow-hidden"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          style={{
+            boxShadow: '0 0 80px rgba(168, 85, 247, 0.15), 0 0 40px rgba(217, 70, 239, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+          }}
+        >
+          {/* Inner glow effect */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-transparent to-accent-fuchsia/5 pointer-events-none" />
+          
+          <div className="relative p-6 md:p-12 lg:p-16">
+            <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-8 md:gap-12">
           {/* Text Content */}
           <motion.div 
             className="flex-1 text-center lg:text-left order-2 lg:order-1"
@@ -24,41 +83,72 @@ export default function HeroSection() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
+            {/* Floating decorative elements */}
+            <div className="absolute -left-20 top-0 hidden lg:block">
+              <motion.div
+                className="text-6xl opacity-10"
+                animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                💻
+              </motion.div>
+            </div>
+            <div className="absolute -right-20 bottom-20 hidden lg:block">
+              <motion.div
+                className="text-6xl opacity-10"
+                animate={{ y: [0, 20, 0], rotate: [0, -10, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+              >
+                ⚡
+              </motion.div>
+            </div>
+
             {/* Greeting with sparkle */}
             <motion.div
-              className="flex items-center justify-center lg:justify-start gap-2 mb-4"
+              className="flex items-center justify-center lg:justify-start gap-3 mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <Sparkles className="w-5 h-5 text-primary-400" />
-              <span className="text-primary-400 font-mono text-sm tracking-wider">Welcome to my universe</span>
+              <motion.div
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+              >
+                <Sparkles className="w-5 h-5 text-accent-cyan" />
+              </motion.div>
+              <span className="text-accent-cyan font-mono text-sm md:text-base tracking-[0.2em] uppercase font-semibold">Welcome to my universe</span>
             </motion.div>
 
-            {/* Main heading */}
+            {/* Main heading with MASSIVE typography */}
             <motion.h1 
-              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight"
+              className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 md:mb-8 leading-[0.9] tracking-tighter text-balance"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
               <span className="text-slate-100">Hey, I&apos;m </span>
-              <span className="gradient-text-animated">Mukesh</span>
+              <br className="hidden md:block" />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent-cyan via-primary-400 to-accent-fuchsia animate-gradient relative" 
+                    style={{ backgroundSize: '200% auto' }}>
+                Mukesh
+                {/* Glow effect behind text */}
+                <span className="absolute inset-0 bg-gradient-to-r from-accent-cyan via-primary-400 to-accent-fuchsia blur-2xl opacity-30 -z-10" />
+              </span>
             </motion.h1>
 
-            {/* Subtitle */}
+            {/* Subtitle with enhanced hierarchy */}
             <motion.h2 
-              className="text-xl md:text-3xl text-slate-300 font-light mb-4 md:mb-6"
+              className="text-2xl md:text-4xl lg:text-5xl text-slate-300 font-light mb-6 md:mb-8 tracking-tight"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              A <span className="text-primary-400 font-medium">Java Developer</span>
+              A <span className="text-accent-cyan font-semibold">Java Developer</span>
             </motion.h2>
 
-            {/* Description */}
+            {/* Description with better spacing */}
             <motion.p 
-              className="text-sm md:text-lg text-slate-400 max-w-xl mx-auto lg:mx-0 mb-6 md:mb-8 leading-relaxed px-2 md:px-0"
+              className="text-base md:text-xl text-slate-400 max-w-2xl mx-auto lg:mx-0 mb-10 md:mb-12 leading-relaxed px-2 md:px-0 text-balance"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
@@ -75,19 +165,34 @@ export default function HeroSection() {
             >
               <motion.a
                 href="#projects"
-                className="group relative px-8 py-4 bg-gradient-to-r from-primary-500 to-purple-500 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/25"
-                whileHover={{ scale: 1.02 }}
+                className="group relative px-8 py-4 bg-gradient-to-r from-primary-500 to-purple-500 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300"
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: '0 0 40px rgba(168, 85, 247, 0.6), 0 0 80px rgba(217, 70, 239, 0.4), 0 20px 40px rgba(168, 85, 247, 0.3)'
+                }}
                 whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               >
                 <span className="relative z-10">View My Work</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-primary-400 to-purple-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-primary-400 to-purple-400"
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
               </motion.a>
               
               <motion.a
                 href="#contact"
-                className="px-8 py-4 glass rounded-xl font-semibold text-slate-200 hover:bg-white/10 transition-all duration-300"
-                whileHover={{ scale: 1.02 }}
+                className="px-8 py-4 glass rounded-xl font-semibold text-slate-200 transition-all duration-300 border border-accent-cyan/30"
+                whileHover={{ 
+                  scale: 1.05,
+                  backgroundColor: 'rgba(6, 182, 212, 0.1)',
+                  boxShadow: '0 0 30px rgba(6, 182, 212, 0.5), 0 0 60px rgba(6, 182, 212, 0.3)',
+                  borderColor: 'rgba(6, 182, 212, 0.6)'
+                }}
                 whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               >
                 Get In Touch
               </motion.a>
@@ -189,7 +294,9 @@ export default function HeroSection() {
               ))}
             </div>
           </motion.div>
-        </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
 
       {/* Scroll indicator - Mobile optimized */}

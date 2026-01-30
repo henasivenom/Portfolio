@@ -27,8 +27,42 @@ export default function ContactSection() {
   const inputClasses = "w-full px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-primary-500/50 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300"
 
   return (
-    <section id="contact" className="relative py-16 md:py-20">
-      <div className="section-container">
+    <section id="contact" className="relative py-24 md:py-32 overflow-hidden">
+      {/* Noise texture */}
+      <div className="noise-bg absolute inset-0" />
+      {/* Aurora Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-1/4 left-0 w-96 h-96 bg-gradient-to-br from-primary-500/10 via-cyan-500/10 to-transparent rounded-full blur-3xl"
+          animate={{
+            x: ['-25%', '25%', '-25%'],
+            y: ['-10%', '10%', '-10%'],
+            scale: [1, 1.2, 1],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-tl from-purple-500/10 via-pink-500/10 to-transparent rounded-full blur-3xl"
+          animate={{
+            x: ['25%', '-25%', '25%'],
+            y: ['10%', '-10%', '10%'],
+            scale: [1, 1.15, 1],
+            rotate: [360, 180, 0],
+          }}
+          transition={{
+            duration: 22,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      </div>
+      
+      <div className="section-container relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20">
           {/* Left Column - Info */}
           <motion.div
@@ -37,13 +71,23 @@ export default function ContactSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-primary-400 font-mono text-xs md:text-sm tracking-wider flex items-center gap-2">
-              <Sparkles className="w-3 h-3 md:w-4 md:h-4" />
-              LET&apos;S CONNECT
+            <span className="text-accent-cyan font-mono text-sm md:text-base tracking-[0.3em] uppercase font-semibold flex items-center gap-3">
+              <motion.div
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                <Sparkles className="w-4 h-4 md:w-5 md:h-5" />
+              </motion.div>
+              Let&apos;s Connect
             </span>
-            <h2 className="section-title mt-3 md:mt-4 text-3xl md:text-4xl lg:text-5xl">
+            <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mt-6 mb-6 tracking-tighter text-balance leading-[0.9]">
               <span className="text-slate-100">Get In </span>
-              <span className="gradient-text">Touch</span>
+              <br className="hidden md:block" />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-400 via-cyan-400 to-pink-500 animate-gradient relative" 
+                    style={{ backgroundSize: '200% auto' }}>
+                Touch
+                <span className="absolute inset-0 bg-gradient-to-r from-primary-400 via-cyan-400 to-pink-500 blur-3xl opacity-20 -z-10" />
+              </span>
             </h2>
             <p className="text-sm md:text-base text-slate-400 mt-4 md:mt-6 leading-relaxed">
               Have a project in mind or want to collaborate? I&apos;d love to hear from you. 
@@ -54,8 +98,12 @@ export default function ContactSection() {
             <div className="mt-6 md:mt-8 space-y-3 md:space-y-4">
               <motion.a
                 href="mailto:amukeshpatel222@gmail.com"
-                className="flex items-center gap-3 md:gap-4 p-3 md:p-4 glass rounded-xl hover:border-primary-500/50 transition-all group"
-                whileHover={{ x: 5 }}
+                className="flex items-center gap-3 md:gap-4 p-3 md:p-4 glass rounded-xl transition-all group border border-white/10"
+                whileHover={{ 
+                  x: 5,
+                  borderColor: 'rgba(168, 85, 247, 0.5)',
+                  boxShadow: '0 0 30px rgba(6, 182, 212, 0.4), 0 0 60px rgba(168, 85, 247, 0.2)'
+                }}
               >
                 <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-primary-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
                   <Mail className="w-4 h-4 md:w-5 md:h-5 text-white" />
@@ -67,8 +115,12 @@ export default function ContactSection() {
               </motion.a>
 
               <motion.div
-                className="flex items-center gap-3 md:gap-4 p-3 md:p-4 glass rounded-xl"
-                whileHover={{ x: 5 }}
+                className="flex items-center gap-3 md:gap-4 p-3 md:p-4 glass rounded-xl border border-white/10"
+                whileHover={{ 
+                  x: 5,
+                  borderColor: 'rgba(217, 70, 239, 0.5)',
+                  boxShadow: '0 0 30px rgba(217, 70, 239, 0.4), 0 0 60px rgba(236, 72, 153, 0.2)'
+                }}
               >
                 <motion.div 
                   className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0"

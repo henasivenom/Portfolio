@@ -10,41 +10,79 @@ export default function LeetCodeStats() {
   const prefersReducedMotion = useReducedMotion()
   
   return (
-    <section id="leetcode" className="relative py-8 sm:py-12 md:py-16 lg:py-20 px-4 sm:px-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header - Mobile Optimized */}
+    <section id="leetcode" className="relative py-24 md:py-32 px-4 sm:px-6 overflow-hidden">
+      {/* Noise texture */}
+      <div className="noise-bg absolute inset-0" />
+      {/* Aurora Background Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="text-center mb-6 sm:mb-8 md:mb-12"
+          className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-yellow-400/10 via-orange-500/10 to-transparent rounded-full blur-3xl"
+          animate={{
+            x: ['-25%', '25%', '-25%'],
+            y: ['-25%', '25%', '-25%'],
+            scale: [1, 1.2, 1],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+        <motion.div
+          className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-tl from-purple-500/10 via-violet-500/10 to-transparent rounded-full blur-3xl"
+          animate={{
+            x: ['25%', '-25%', '25%'],
+            y: ['25%', '-25%', '25%'],
+            scale: [1, 1.15, 1],
+            rotate: [360, 180, 0],
+          }}
+          transition={{
+            duration: 22,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      </div>
+      
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Section Header - Mobile Optimized with massive typography */}
+        <motion.div
+          className="text-center mb-16 md:mb-20"
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
         >
           <motion.span 
-            className="text-primary-400 font-mono tracking-wider block mb-2"
-            style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)' }}
+            className="text-accent-violet font-mono tracking-[0.3em] uppercase font-semibold block mb-4"
+            style={{ fontSize: 'clamp(0.75rem, 2vw, 1rem)' }}
             initial={prefersReducedMotion ? {} : { opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: prefersReducedMotion ? 0 : 0.1 }}
           >
-            CODING PRACTICE & CONTRIBUTIONS
+            Coding Practice & Contributions
           </motion.span>
           
           <motion.h2 
-            className="font-bold mb-3 sm:mb-4 leading-tight"
-            style={{ fontSize: 'clamp(1.75rem, 5vw, 3rem)' }}
-            initial={prefersReducedMotion ? {} : { opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            className="font-bold mb-6 leading-[0.9] tracking-tighter text-balance"
+            style={{ fontSize: 'clamp(2.5rem, 8vw, 5rem)' }}
+            initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: prefersReducedMotion ? 0 : 0.2 }}
+            transition={{ delay: prefersReducedMotion ? 0 : 0.2, duration: 0.6 }}
           >
-            <span className="gradient-text">Code & Contributions</span>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-primary-400 to-purple-500 animate-gradient relative" 
+                  style={{ backgroundSize: '200% auto' }}>
+              Code & Contributions
+              <span className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-primary-400 to-purple-500 blur-3xl opacity-20 -z-10" />
+            </span>
           </motion.h2>
           
           <motion.p
-            className="text-slate-400 max-w-2xl mx-auto px-4 leading-relaxed"
-            style={{ fontSize: 'clamp(0.875rem, 2.5vw, 1rem)', lineHeight: '1.6' }}
+            className="text-slate-400 max-w-3xl mx-auto px-4 leading-relaxed text-balance"
+            style={{ fontSize: 'clamp(1rem, 3vw, 1.25rem)', lineHeight: '1.7' }}
             initial={prefersReducedMotion ? {} : { opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}

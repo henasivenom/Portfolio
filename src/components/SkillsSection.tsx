@@ -35,30 +35,69 @@ export default function SkillsSection() {
   const [activeCategory, setActiveCategory] = useState<number | null>(null)
 
   return (
-    <section id="skills" className="relative py-16 md:py-20">
-      <div className="section-container">
-        {/* Section Header */}
+    <section id="skills" className="relative py-24 md:py-32 overflow-hidden">
+      {/* Noise texture overlay */}
+      <div className="noise-bg absolute inset-0" />
+      {/* Aurora Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="text-center mb-8 md:mb-12"
+          className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-bl from-cyan-400/10 via-blue-500/10 to-transparent rounded-full blur-3xl"
+          animate={{
+            x: ['15%', '-15%', '15%'],
+            y: ['-15%', '15%', '-15%'],
+            scale: [1, 1.2, 1],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 22,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+        <motion.div
+          className="absolute bottom-0 left-1/3 w-96 h-96 bg-gradient-to-tr from-emerald-400/10 via-teal-500/10 to-transparent rounded-full blur-3xl"
+          animate={{
+            x: ['-15%', '15%', '-15%'],
+            y: ['15%', '-15%', '15%'],
+            scale: [1, 1.15, 1],
+            rotate: [360, 180, 0],
+          }}
+          transition={{
+            duration: 24,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      </div>
+      
+      <div className="section-container relative z-10">
+        {/* Section Header with enhanced typography */}
+        <motion.div
+          className="text-center mb-16 md:mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
         >
           <motion.span 
-            className="text-primary-400 font-mono text-xs md:text-sm tracking-wider"
+            className="text-accent-cyan font-mono text-sm md:text-base tracking-[0.3em] uppercase font-semibold inline-block"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            MY EXPERTISE
+            My Expertise
           </motion.span>
-          <h2 className="section-title mt-3 md:mt-4 text-3xl md:text-4xl lg:text-5xl">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mt-6 mb-6 tracking-tighter text-balance leading-[0.9]">
             <span className="text-slate-100">Skills & </span>
-            <span className="gradient-text">Technologies</span>
+            <br className="hidden md:block" />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-primary-400 to-emerald-500 animate-gradient relative" 
+                  style={{ backgroundSize: '200% auto' }}>
+              Technologies
+              <span className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-primary-400 to-emerald-500 blur-3xl opacity-20 -z-10" />
+            </span>
           </h2>
-          <p className="section-subtitle mx-auto mt-3 md:mt-4 text-sm md:text-base px-4">
+          <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto px-4 text-balance leading-relaxed">
             A curated collection of technologies I work with to bring ideas to life
           </p>
         </motion.div>
@@ -69,14 +108,21 @@ export default function SkillsSection() {
             <motion.div
               key={category.title}
               className={`relative p-4 md:p-6 rounded-2xl glass cursor-pointer transition-all duration-300 ${
-                activeCategory === index ? 'border-primary-500/50 shadow-lg shadow-primary-500/10' : 'hover:border-slate-600'
+                activeCategory === index ? 'border-primary-500/50' : 'hover:border-slate-600'
               }`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               onClick={() => setActiveCategory(index)}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ 
+                scale: 1.02,
+                boxShadow: index === 0 
+                  ? '0 0 40px rgba(6, 182, 212, 0.3), 0 0 80px rgba(14, 165, 233, 0.2)'
+                  : index === 1
+                  ? '0 0 40px rgba(168, 85, 247, 0.3), 0 0 80px rgba(217, 70, 239, 0.2)'
+                  : '0 0 40px rgba(16, 185, 129, 0.3), 0 0 80px rgba(6, 182, 212, 0.2)'
+              }}
             >
               {/* Icon */}
               <motion.div 
