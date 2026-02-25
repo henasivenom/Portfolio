@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Code2, Database, Zap, ChevronRight, Award, GitBranch, Cloud } from 'lucide-react'
+import { Code2, Database, Zap, ChevronRight, Award, GitBranch, Cloud, ClipboardList } from 'lucide-react'
 
 const skillCategories = [
   {
@@ -19,20 +19,20 @@ const skillCategories = [
     ]
   },
   {
-    title: 'Technologies & Databases',
+    title: 'Frameworks & Tools',
     icon: Database,
     color: 'from-purple-400 to-pink-500',
     borderColor: 'border-purple-500/30',
     glowColor: 'rgba(168, 85, 247, 0.25)',
     skills: [
-      { name: 'Spring Boot', level: 80 },
+      { name: 'Spring Boot', level: 82 },
       { name: 'MySQL / MongoDB', level: 82 },
-      { name: 'Mockito / Maven', level: 78 },
-      { name: 'Git & GitHub', level: 85 },
+      { name: 'Postman / REST APIs', level: 80 },
+      { name: 'JIRA / Confluence', level: 78 },
     ]
   },
   {
-    title: 'Testing & Automation',
+    title: 'Test Automation',
     icon: Zap,
     color: 'from-emerald-400 to-teal-500',
     borderColor: 'border-emerald-500/30',
@@ -40,17 +40,30 @@ const skillCategories = [
     skills: [
       { name: 'Selenium WebDriver', level: 85 },
       { name: 'TestNG / JUnit 5', level: 82 },
-      { name: 'Cucumber (BDD)', level: 75 },
-      { name: 'Manual Testing', level: 90 },
+      { name: 'Cucumber (BDD / POM)', level: 75 },
+      { name: 'Mockito / Maven', level: 78 },
+    ]
+  },
+  {
+    title: 'SDLC & QA Process',
+    icon: ClipboardList,
+    color: 'from-orange-400 to-amber-500',
+    borderColor: 'border-orange-500/30',
+    glowColor: 'rgba(251, 146, 60, 0.25)',
+    skills: [
+      { name: 'SDLC / STLC', level: 92 },
+      { name: 'Agile / Scrum', level: 87 },
+      { name: 'Defect Lifecycle Mgmt', level: 88 },
+      { name: 'Test Planning & RTM', level: 83 },
     ]
   }
 ]
 
 const expertiseItems = [
-  { icon: Code2, title: 'Java Development', description: 'Spring Boot, Swing/AWT, JDBC, Agile/SDLC — building robust end-to-end applications', color: 'from-cyan-500 to-blue-500' },
+  { icon: Code2, title: 'Java Development', description: 'Spring Boot, Swing/AWT, JDBC, REST APIs — building robust end-to-end applications', color: 'from-cyan-500 to-blue-500' },
   { icon: Cloud, title: 'AWS Certified', description: 'Cloud Foundations certified — knowledgeable in core AWS services', color: 'from-yellow-500 to-orange-500' },
-  { icon: GitBranch, title: 'Version Control', description: 'Git workflows, branching strategies, and collaborative dev with GitHub', color: 'from-emerald-500 to-teal-500' },
-  { icon: Award, title: 'QA & Automation', description: 'Selenium WebDriver, TestNG, Cucumber BDD, Page Object Model & CI/CD test pipelines', color: 'from-purple-500 to-pink-500' },
+  { icon: ClipboardList, title: 'SDLC / STLC Expert', description: 'Strong foundation in Software & Test lifecycle, Agile/Scrum, defect management & RTM', color: 'from-orange-500 to-amber-500' },
+  { icon: Award, title: 'QA & Automation', description: 'Selenium, TestNG, Cucumber BDD, Page Object Model, Postman & CI/CD test pipelines', color: 'from-purple-500 to-pink-500' },
 ]
 
 /* ── Variants for staggered card entrance ── */
@@ -110,9 +123,9 @@ export default function SkillsSection() {
           </p>
         </motion.div>
 
-        {/* Skills Grid — cards appear one by one via staggerChildren */}
+        {/* Skills Grid — 4 categories, appear one by one */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12"
+          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5 mb-8 md:mb-12"
           variants={gridVariants}
           initial="hidden"
           whileInView="visible"

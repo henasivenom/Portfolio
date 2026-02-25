@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Github, Linkedin, Mail, ChevronDown, Sparkles, Instagram, Twitter, Download, MapPin } from 'lucide-react'
 
-const roles = ['Java Developer', 'Spring Boot Engineer', 'Automation Test Engineer', 'Problem Solver', 'AWS Cloud Practitioner']
+const roles = ['Java Developer', 'Spring Boot Engineer', 'Automation Test Engineer', 'QA Engineer', 'AWS Cloud Practitioner']
 
 export default function HeroSection() {
   const [mounted, setMounted] = useState(false)
@@ -142,7 +142,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
             >
-              Computer Science graduate skilled in Java, Spring Boot, SQL, Selenium automation &amp; manual testing. I build reliable, end-to-end applications with clean architecture and a strong focus on quality.
+              Computer Science graduate with strong SDLC &amp; STLC foundation, skilled in Java, Spring Boot, Selenium automation &amp; Agile-based QA. I build and test reliable end-to-end applications with a focus on quality.
             </motion.p>
 
             {/* Stats Row */}
@@ -295,7 +295,7 @@ export default function HeroSection() {
               {/* Floating tech badges */}
               {[
                 { text: 'Java', color: 'from-orange-500 to-red-500', delay: 0, position: '-top-3 right-4 md:-top-3 md:right-0', emoji: '☕' },
-                { text: 'Spring', color: 'from-green-500 to-emerald-500', delay: 0.6, position: '-bottom-3 left-4 md:-bottom-3 md:left-0', emoji: '🌱' },
+                { text: 'Selenium', color: 'from-green-500 to-emerald-500', delay: 0.6, position: '-bottom-3 left-4 md:-bottom-3 md:left-0', emoji: '🌱' },
                 { text: 'AWS ☁️', color: 'from-yellow-500 to-amber-500', delay: 1.2, position: 'top-1/3 -right-2 md:top-1/3 md:-right-8', emoji: '' },
               ].map(({ text, color, delay, position }) => (
                 <motion.div
