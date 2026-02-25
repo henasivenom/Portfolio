@@ -31,7 +31,7 @@ export default function Footer() {
       <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-3 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12 text-center md:text-left">
           {/* Brand Column */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -39,7 +39,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center justify-center md:justify-start gap-2 mb-4">
               <img src="/logo.svg" alt="MP Logo" className="w-8 h-8" />
               <span className="text-2xl font-bold gradient-text">Mukesh</span>
             </div>
@@ -47,7 +47,7 @@ export default function Footer() {
               Building reliable, scalable Java applications with clean architecture.
               Open to exciting opportunities and collaborations.
             </p>
-            <div className="flex items-center gap-2 text-xs font-mono text-slate-600">
+            <div className="flex items-center justify-center md:justify-start gap-2 text-xs font-mono text-slate-600">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>Available for opportunities</span>
             </div>
@@ -59,12 +59,11 @@ export default function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="md:text-center"
           >
             <h4 className="text-sm font-semibold text-slate-200 uppercase tracking-wider mb-4">
               Quick Links
             </h4>
-            <div className="flex flex-wrap md:justify-center gap-4">
+            <div className="flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-3">
               {quickLinks.map((link) => (
                 <a
                   key={link.name}
@@ -83,12 +82,11 @@ export default function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="md:text-right"
           >
             <h4 className="text-sm font-semibold text-slate-200 uppercase tracking-wider mb-4">
               Connect
             </h4>
-            <div className="flex md:justify-end gap-3">
+            <div className="flex justify-center md:justify-start gap-3">
               {socialLinks.map(({ icon: Icon, href, label }) => (
                 <motion.a
                   key={label}
@@ -109,7 +107,7 @@ export default function Footer() {
 
         {/* Divider */}
         <div className="border-t border-slate-800/40 pt-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex flex-col items-center gap-4 md:flex-row md:justify-between">
             {/* Copyright with heartbeat */}
             <motion.p 
               className="text-sm text-slate-500 flex items-center gap-2"
