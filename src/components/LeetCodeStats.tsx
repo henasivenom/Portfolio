@@ -11,38 +11,10 @@ export default function LeetCodeStats() {
   
   return (
     <section id="leetcode" className="relative py-24 md:py-32 px-4 sm:px-6 overflow-hidden">
-      {/* Noise texture */}
-      <div className="noise-bg absolute inset-0" />
-      {/* Aurora Background Effects */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-yellow-400/10 via-orange-500/10 to-transparent rounded-full blur-3xl"
-          animate={{
-            x: ['-25%', '25%', '-25%'],
-            y: ['-25%', '25%', '-25%'],
-            scale: [1, 1.2, 1],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-        <motion.div
-          className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-tl from-purple-500/10 via-violet-500/10 to-transparent rounded-full blur-3xl"
-          animate={{
-            x: ['25%', '-25%', '25%'],
-            y: ['25%', '-25%', '25%'],
-            scale: [1, 1.15, 1],
-            rotate: [360, 180, 0],
-          }}
-          transition={{
-            duration: 22,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
+      {/* Static gradient blobs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-yellow-400/8 via-orange-500/8 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-tl from-purple-500/8 via-violet-500/8 to-transparent rounded-full blur-3xl" />
       </div>
       
       <div className="max-w-7xl mx-auto relative z-10">

@@ -57,20 +57,10 @@ const projects: {
 export default function ProjectsSection() {
   return (
     <section id="projects" className="relative py-24 md:py-32 overflow-hidden">
-      {/* Noise texture */}
-      <div className="noise-bg absolute inset-0" />
-      {/* Aurora Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-1/3 right-0 w-96 h-96 bg-gradient-to-bl from-emerald-500/10 via-teal-500/10 to-transparent rounded-full blur-3xl"
-          animate={{ x: ['20%', '-20%', '20%'], y: ['-20%', '20%', '-20%'], scale: [1, 1.2, 1] }}
-          transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 left-0 w-96 h-96 bg-gradient-to-tr from-purple-500/10 via-pink-500/10 to-transparent rounded-full blur-3xl"
-          animate={{ x: ['-20%', '20%', '-20%'], y: ['20%', '-20%', '20%'], scale: [1, 1.15, 1] }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-        />
+      {/* Static gradient blobs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
+        <div className="absolute top-1/3 right-0 w-96 h-96 bg-gradient-to-bl from-emerald-500/8 via-teal-500/8 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-gradient-to-tr from-purple-500/8 via-pink-500/8 to-transparent rounded-full blur-3xl" />
       </div>
       
       <div className="section-container relative z-10">
@@ -83,20 +73,14 @@ export default function ProjectsSection() {
           transition={{ duration: 0.6 }}
         >
           <span className="text-accent-fuchsia font-mono text-sm md:text-base tracking-[0.3em] uppercase font-semibold flex items-center justify-center gap-3">
-            <motion.div
-              animate={{ rotate: [0, 360] }}
-              transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-            >
-              <Sparkles className="w-4 h-4 md:w-5 md:h-5" />
-            </motion.div>
+            <Sparkles className="w-4 h-4 md:w-5 md:h-5" />
             Featured Work
           </span>
           <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mt-6 mb-6 tracking-tighter text-balance leading-[0.9]">
             <span className="text-slate-100">My </span>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-primary-400 to-pink-500 animate-gradient relative" 
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-primary-400 to-pink-500 animate-gradient"
                   style={{ backgroundSize: '200% auto' }}>
               Projects
-              <span className="absolute inset-0 bg-gradient-to-r from-emerald-400 via-primary-400 to-pink-500 blur-3xl opacity-20 -z-10" />
             </span>
           </h2>
           <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto px-4 text-balance leading-relaxed">

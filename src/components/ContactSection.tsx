@@ -28,38 +28,10 @@ export default function ContactSection() {
 
   return (
     <section id="contact" className="relative py-24 md:py-32 overflow-hidden">
-      {/* Noise texture */}
-      <div className="noise-bg absolute inset-0" />
-      {/* Aurora Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-1/4 left-0 w-96 h-96 bg-gradient-to-br from-primary-500/10 via-cyan-500/10 to-transparent rounded-full blur-3xl"
-          animate={{
-            x: ['-25%', '25%', '-25%'],
-            y: ['-10%', '10%', '-10%'],
-            scale: [1, 1.2, 1],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-tl from-purple-500/10 via-pink-500/10 to-transparent rounded-full blur-3xl"
-          animate={{
-            x: ['25%', '-25%', '25%'],
-            y: ['10%', '-10%', '10%'],
-            scale: [1, 1.15, 1],
-            rotate: [360, 180, 0],
-          }}
-          transition={{
-            duration: 22,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
+      {/* Static gradient blobs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
+        <div className="absolute top-1/4 left-0 w-96 h-96 bg-gradient-to-br from-primary-500/8 via-cyan-500/8 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-tl from-purple-500/8 via-pink-500/8 to-transparent rounded-full blur-3xl" />
       </div>
       
       <div className="section-container relative z-10">

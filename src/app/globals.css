@@ -386,6 +386,7 @@
 
   .animate-spin-slow {
     animation: spin-slow 12s linear infinite;
+    will-change: transform;
   }
 
   .text-glow-cyan {

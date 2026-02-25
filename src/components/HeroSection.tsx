@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Github, Linkedin, Mail, ChevronDown, Sparkles, Instagram, Twitter, Download, MapPin } from 'lucide-react'
 
-const roles = ['Java Developer', 'Spring Boot Engineer', 'Problem Solver', 'AWS Cloud Practitioner']
+const roles = ['Java Developer', 'Spring Boot Engineer', 'Automation Test Engineer', 'Problem Solver', 'AWS Cloud Practitioner']
 
 export default function HeroSection() {
   const [mounted, setMounted] = useState(false)
@@ -41,49 +41,11 @@ export default function HeroSection() {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-20 pb-16 md:pb-32">
-      {/* Aurora Background - Animated gradient orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-primary-500/20 via-accent-violet/20 to-transparent rounded-full blur-3xl"
-          animate={{
-            x: ['-10%', '10%', '-10%'],
-            y: ['-10%', '10%', '-10%'],
-            scale: [1, 1.1, 1],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-        <motion.div
-          className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-accent-fuchsia/20 via-accent-cyan/20 to-transparent rounded-full blur-3xl"
-          animate={{
-            x: ['10%', '-10%', '10%'],
-            y: ['10%', '-10%', '10%'],
-            scale: [1, 1.2, 1],
-            rotate: [360, 180, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-        <motion.div
-          className="absolute top-1/4 left-1/3 w-96 h-96 bg-gradient-to-r from-accent-purple/15 to-accent-violet/15 rounded-full blur-3xl"
-          animate={{
-            x: ['-20%', '20%', '-20%'],
-            y: ['20%', '-20%', '20%'],
-            scale: [1, 1.15, 1],
-          }}
-          transition={{
-            duration: 18,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
+      {/* Static gradient blobs — no JS animation to prevent compositor lag */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
+        <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-primary-500/15 via-accent-violet/15 to-transparent rounded-full blur-3xl" />
+        <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-accent-fuchsia/15 via-accent-cyan/15 to-transparent rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-gradient-to-r from-accent-purple/10 to-accent-violet/10 rounded-full blur-3xl" />
       </div>
 
       <div className="section-container relative z-10 py-8 md:py-20">
@@ -130,12 +92,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <motion.div
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-              >
-                <Sparkles className="w-5 h-5 text-accent-cyan" />
-              </motion.div>
+              <Sparkles className="w-5 h-5 text-accent-cyan" />
               <span className="text-accent-cyan font-mono text-sm md:text-base tracking-[0.2em] uppercase font-semibold">Welcome to my universe</span>
             </motion.div>
 
@@ -185,7 +142,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
             >
-              Computer Science graduate skilled in Java, Spring Boot, SQL &amp; manual testing. I build reliable, end-to-end applications with clean architecture and a strong focus on user experience.
+              Computer Science graduate skilled in Java, Spring Boot, SQL, Selenium automation &amp; manual testing. I build reliable, end-to-end applications with clean architecture and a strong focus on quality.
             </motion.p>
 
             {/* Stats Row */}
@@ -198,7 +155,7 @@ export default function HeroSection() {
               {[
                 { number: '3+', label: 'Projects Built' },
                 { number: 'AWS', label: 'Cloud Certified' },
-                { number: '2024', label: 'CS Graduate' },
+                { number: '2025', label: 'CS Graduate' },
               ].map(({ number, label }) => (
                 <div key={label} className="text-center lg:text-left">
                   <div className="text-2xl md:text-3xl font-bold gradient-text">{number}</div>
@@ -309,18 +266,10 @@ export default function HeroSection() {
                 animate={{ scale: [1, 1.06, 1], opacity: [0.3, 0.7, 0.3] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
               />
-              <motion.div
-                className="absolute w-64 h-64 md:w-80 md:h-80 rounded-full border border-accent-cyan/15"
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
-              />
+              <div className="absolute w-64 h-64 md:w-80 md:h-80 rounded-full border border-dashed border-accent-cyan/15 animate-spin-slow" />
 
               {/* Glow */}
-              <motion.div
-                className="absolute -inset-4 bg-gradient-to-r from-primary-500/20 via-purple-500/20 to-pink-500/20 rounded-full blur-3xl hidden md:block"
-                animate={{ scale: [1, 1.12, 1], opacity: [0.4, 0.8, 0.4] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              />
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary-500/20 via-purple-500/20 to-pink-500/20 rounded-full blur-3xl hidden md:block" />
               
               {/* Profile container */}
               <motion.div 
