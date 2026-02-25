@@ -294,9 +294,10 @@ export default function HeroSection() {
 
               {/* Floating tech badges */}
               {[
-                { text: 'Java', color: 'from-orange-500 to-red-500', delay: 0, position: '-top-3 right-4 md:-top-3 md:right-0', emoji: '☕' },
-                { text: 'Selenium', color: 'from-green-500 to-emerald-500', delay: 0.6, position: '-bottom-3 left-4 md:-bottom-3 md:left-0', emoji: '🌱' },
-                { text: 'AWS ☁️', color: 'from-yellow-500 to-amber-500', delay: 1.2, position: 'top-1/3 -right-2 md:top-1/3 md:-right-8', emoji: '' },
+                { text: 'Java ☕', color: 'from-orange-500 to-red-500', delay: 0, position: '-top-3 right-4 md:-top-3 md:right-0' },
+                { text: 'Spring Boot 🌱', color: 'from-green-500 to-emerald-600', delay: 0.5, position: 'top-1/3 -left-2 md:top-1/3 md:-left-10' },
+                { text: 'Selenium', color: 'from-teal-500 to-cyan-500', delay: 1.0, position: '-bottom-3 left-4 md:-bottom-3 md:left-0' },
+                { text: 'AWS ☁️', color: 'from-yellow-500 to-amber-500', delay: 1.5, position: 'top-1/3 -right-2 md:top-1/3 md:-right-8' },
               ].map(({ text, color, delay, position }) => (
                 <motion.div
                   key={text}
