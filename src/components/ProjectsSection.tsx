@@ -1,17 +1,17 @@
 'use client'
 
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Github, ChevronLeft, ChevronRight, Sparkles, DollarSign, Plane, MessageSquare } from 'lucide-react'
+import React from 'react'
+import { motion } from 'framer-motion'
+import { ExternalLink, Github, Sparkles, DollarSign, Plane, MessageSquare, ArrowUpRight } from 'lucide-react'
 
 const projects: {
   id: number
   title: string
   description: string
-  image: string
   tags: string[]
   color: string
   logoColor: string
+  accentColor: string
   icon: React.ElementType
   github: string
   live: string | undefined
@@ -19,11 +19,11 @@ const projects: {
   {
     id: 1,
     title: 'Real-time Chat Application',
-    description: 'Built a full-stack real-time messaging platform using Spring Boot and WebSocket technology. Implemented message persistence, user presence tracking, typing indicators, and auto-reconnection logic. Utilized MVC, Repository, and Service Layer patterns with comprehensive JUnit and Mockito test coverage. Features XSS protection, input validation, and responsive Bootstrap UI.',
-    image: '/projects/chat.jpg',
-    tags: ['Java', 'Spring Boot', 'WebSocket', 'Spring Data JPA', 'STOMP', 'H2', 'Bootstrap 5', 'JUnit'],
-    color: 'from-emerald-500 to-teal-500',
-    logoColor: 'bg-gradient-to-br from-emerald-500 to-teal-500',
+    description: 'Full-stack real-time messaging platform using Spring Boot and WebSocket. Features message persistence, user presence, typing indicators, XSS protection, and comprehensive JUnit/Mockito test coverage.',
+    tags: ['Java', 'Spring Boot', 'WebSocket', 'STOMP', 'JPA', 'Bootstrap'],
+    color: 'from-emerald-500/20 to-teal-500/10',
+    logoColor: 'from-emerald-500 to-teal-500',
+    accentColor: 'rgba(16, 185, 129, 0.5)',
     icon: MessageSquare,
     github: 'https://github.com/henasivenom',
     live: undefined
@@ -31,11 +31,11 @@ const projects: {
   {
     id: 2,
     title: 'ATM Simulator System',
-    description: 'Developed a secure desktop-based ATM system using Java Swing/AWT. Implemented signup, login, deposit, withdrawal, PIN change, and mini-statement features. Designed MySQL schemas for account and transaction management with event handling and validation logic for secure workflows.',
-    image: '/projects/atm.jpg',
+    description: 'Secure desktop ATM system using Java Swing/AWT with signup, login, deposits, withdrawals, PIN change, and mini-statements. MySQL schemas for account and transaction management.',
     tags: ['Java', 'Swing', 'AWT', 'MySQL', 'JDBC'],
-    color: 'from-blue-500 to-cyan-500',
-    logoColor: 'bg-gradient-to-br from-blue-500 to-cyan-500',
+    color: 'from-blue-500/20 to-cyan-500/10',
+    logoColor: 'from-blue-500 to-cyan-500',
+    accentColor: 'rgba(59, 130, 246, 0.5)',
     icon: DollarSign,
     github: 'https://github.com/henasivenom',
     live: undefined
@@ -43,11 +43,11 @@ const projects: {
   {
     id: 3,
     title: 'Airline Management System',
-    description: 'Built a GUI-based airline booking and management system using Java Swing and MySQL. Applied OOP principles including abstraction, inheritance, method overloading and overriding. Integrated MySQL for flight scheduling, bookings, and passenger records with functional testing for booking flows and validations.',
-    image: '/projects/airline.jpg',
-    tags: ['Java', 'Swing', 'MySQL'],
-    color: 'from-purple-500 to-pink-500',
-    logoColor: 'bg-gradient-to-br from-purple-500 to-pink-500',
+    description: 'GUI-based airline booking and management using Java Swing and MySQL. Applied OOP principles including abstraction, inheritance and polymorphism with full flight scheduling and passenger records.',
+    tags: ['Java', 'Swing', 'MySQL', 'OOP'],
+    color: 'from-purple-500/20 to-pink-500/10',
+    logoColor: 'from-purple-500 to-pink-500',
+    accentColor: 'rgba(168, 85, 247, 0.5)',
     icon: Plane,
     github: 'https://github.com/henasivenom',
     live: undefined
@@ -55,61 +55,6 @@ const projects: {
 ]
 
 export default function ProjectsSection() {
-  const [activeProject, setActiveProject] = useState(0)
-  const [direction, setDirection] = useState(0)
-
-  const nextProject = () => {
-    setDirection(1)
-    setActiveProject((prev) => (prev + 1) % projects.length)
-  }
-
-  const prevProject = () => {
-    setDirection(-1)
-    setActiveProject((prev) => (prev - 1 + projects.length) % projects.length)
-  }
-
-  // Touch/swipe handling for mobile
-  const [touchStart, setTouchStart] = useState(0)
-  const [touchEnd, setTouchEnd] = useState(0)
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.targetTouches[0].clientX)
-  }
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX)
-  }
-
-  const handleTouchEnd = () => {
-    if (touchStart - touchEnd > 75) {
-      // Swipe left
-      nextProject()
-    }
-
-    if (touchStart - touchEnd < -75) {
-      // Swipe right
-      prevProject()
-    }
-  }
-
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 300 : -300,
-      opacity: 0,
-      scale: 0.9
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-      scale: 1
-    },
-    exit: (direction: number) => ({
-      x: direction > 0 ? -300 : 300,
-      opacity: 0,
-      scale: 0.9
-    })
-  }
-
   return (
     <section id="projects" className="relative py-24 md:py-32 overflow-hidden">
       {/* Noise texture */}
@@ -118,36 +63,18 @@ export default function ProjectsSection() {
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute top-1/3 right-0 w-96 h-96 bg-gradient-to-bl from-emerald-500/10 via-teal-500/10 to-transparent rounded-full blur-3xl"
-          animate={{
-            x: ['20%', '-20%', '20%'],
-            y: ['-20%', '20%', '-20%'],
-            scale: [1, 1.2, 1],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
+          animate={{ x: ['20%', '-20%', '20%'], y: ['-20%', '20%', '-20%'], scale: [1, 1.2, 1] }}
+          transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
           className="absolute bottom-1/4 left-0 w-96 h-96 bg-gradient-to-tr from-purple-500/10 via-pink-500/10 to-transparent rounded-full blur-3xl"
-          animate={{
-            x: ['-20%', '20%', '-20%'],
-            y: ['20%', '-20%', '20%'],
-            scale: [1, 1.15, 1],
-            rotate: [360, 180, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
+          animate={{ x: ['-20%', '20%', '-20%'], y: ['20%', '-20%', '20%'], scale: [1, 1.15, 1] }}
+          transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
         />
       </div>
       
       <div className="section-container relative z-10">
-        {/* Section Header with massive typography */}
+        {/* Section Header */}
         <motion.div
           className="text-center mb-16 md:mb-20"
           initial={{ opacity: 0, y: 30 }}
@@ -166,7 +93,6 @@ export default function ProjectsSection() {
           </span>
           <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mt-6 mb-6 tracking-tighter text-balance leading-[0.9]">
             <span className="text-slate-100">My </span>
-            <br className="hidden md:block" />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-primary-400 to-pink-500 animate-gradient relative" 
                   style={{ backgroundSize: '200% auto' }}>
               Projects
@@ -178,213 +104,135 @@ export default function ProjectsSection() {
           </p>
         </motion.div>
 
-        {/* Project Showcase */}
-        <div className="relative">
-          {/* Mobile Scroll Hint */}
-          <motion.div
-            className="md:hidden text-center mb-4 text-xs text-slate-500 flex items-center justify-center gap-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            <ChevronLeft className="w-4 h-4" />
-            <span>Swipe to navigate</span>
-            <ChevronRight className="w-4 h-4" />
-          </motion.div>
-
-          {/* Navigation Buttons - Desktop */}
-          <motion.button
-            className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 z-10 p-3 glass rounded-full text-slate-400 hover:text-primary-400 hover:border-primary-500/50 transition-all"
-            onClick={prevProject}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </motion.button>
-          
-          <motion.button
-            className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 z-10 p-3 glass rounded-full text-slate-400 hover:text-primary-400 hover:border-primary-500/50 transition-all"
-            onClick={nextProject}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <ChevronRight className="w-6 h-6" />
-          </motion.button>
-
-          {/* Mobile Navigation Buttons - Bottom */}
-          <div className="md:hidden absolute bottom-4 left-0 right-0 flex justify-center gap-4 z-20">
-            <motion.button
-              className="p-3 glass rounded-full text-slate-400 active:text-primary-400 active:border-primary-500/50 transition-all"
-              onClick={prevProject}
-              whileTap={{ scale: 0.9 }}
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          {projects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              className="group relative rounded-2xl overflow-hidden border border-white/8 card-shine"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.5, delay: index * 0.12 }}
+              whileHover={{ y: -8, borderColor: `${project.accentColor}` }}
+              style={{
+                background: 'rgba(255,255,255,0.03)',
+                boxShadow: '0 4px 24px rgba(0,0,0,0.3)'
+              }}
             >
-              <ChevronLeft className="w-5 h-5" />
-            </motion.button>
-            <motion.button
-              className="p-3 glass rounded-full text-slate-400 active:text-primary-400 active:border-primary-500/50 transition-all"
-              onClick={nextProject}
-              whileTap={{ scale: 0.9 }}
-            >
-              <ChevronRight className="w-5 h-5" />
-            </motion.button>
-          </div>
-
-          {/* Project Cards Container */}
-          <div 
-            className="relative min-h-[650px] md:h-[450px]"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-          >
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={activeProject}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.4, ease: 'easeOut' }}
-                className="absolute inset-0"
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 h-full">
-                  {/* Project Image */}
-                  <motion.div 
-                    className="relative rounded-2xl overflow-hidden glass h-56 md:h-auto"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
+              {/* Card top gradient banner */}
+              <div className={`relative h-48 bg-gradient-to-br ${project.color} overflow-hidden`}>
+                {/* Grid pattern */}
+                <div className="absolute inset-0 opacity-10"
+                  style={{
+                    backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+                    backgroundSize: '24px 24px'
+                  }}
+                />
+                {/* Large icon */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <motion.div
+                    className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${project.logoColor} flex items-center justify-center shadow-2xl`}
+                    whileHover={{ scale: 1.08, rotate: 5 }}
+                    transition={{ duration: 0.3 }}
                   >
-                    {/* Gradient placeholder */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${projects[activeProject].color} opacity-20`} />
-                    
-                    {/* Project number */}
-                    <div className="absolute top-3 left-3 md:top-4 md:left-4 px-2 py-1 md:px-3 md:py-1 glass rounded-full text-xs md:text-sm font-mono">
-                      0{projects[activeProject].id}/0{projects.length}
-                    </div>
-
-                    {/* Large project logo icon */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <motion.div
-                        className={`w-32 h-32 md:w-48 md:h-48 rounded-2xl md:rounded-3xl ${projects[activeProject].logoColor} flex items-center justify-center shadow-2xl`}
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ delay: 0.2, duration: 0.5 }}
-                        whileHover={{ scale: 1.05, rotate: 5 }}
-                      >
-                        {React.createElement(projects[activeProject].icon, {
-                          className: "w-16 h-16 md:w-24 md:h-24 text-white",
-                          strokeWidth: 2
-                        })}
-                      </motion.div>
-                    </div>
+                    <project.icon className="w-10 h-10 text-white" strokeWidth={2} />
                   </motion.div>
-
-                  {/* Project Info */}
-                  <div className="flex flex-col justify-start md:justify-center pb-16 md:pb-0">
-                    {/* Project Logo */}
-                    <motion.div
-                      className="mb-4 md:mb-6"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.05 }}
-                    >
-                      <div className={`w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl ${projects[activeProject].logoColor} flex items-center justify-center shadow-lg`}>
-                        {React.createElement(projects[activeProject].icon, {
-                          className: "w-6 h-6 md:w-8 md:h-8 text-white",
-                          strokeWidth: 2.5
-                        })}
-                      </div>
-                    </motion.div>
-
-                    <motion.h3 
-                      className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-100 mb-3 md:mb-4"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 }}
-                    >
-                      {projects[activeProject].title}
-                    </motion.h3>
-                    
-                    <motion.p 
-                      className="text-sm md:text-base text-slate-400 mb-4 md:mb-6 leading-relaxed"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 }}
-                    >
-                      {projects[activeProject].description}
-                    </motion.p>
-
-                    {/* Tags */}
-                    <motion.div 
-                      className="flex flex-wrap gap-1.5 md:gap-2 mb-6 md:mb-8"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
-                    >
-                      {projects[activeProject].tags.map((tag) => (
-                        <span 
-                          key={tag}
-                          className={`px-2 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium bg-gradient-to-r ${projects[activeProject].color} bg-opacity-10 text-slate-200 border border-slate-700/50`}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </motion.div>
-
-                    {/* Links */}
-                    <motion.div 
-                      className="flex flex-col sm:flex-row gap-3 md:gap-4"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                    >
-                      <a
-                        href={projects[activeProject].github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 px-4 py-2.5 md:px-6 md:py-3 glass rounded-xl text-slate-300 hover:text-primary-400 hover:border-primary-500/50 transition-all text-sm md:text-base"
-                      >
-                        <Github className="w-4 h-4 md:w-5 md:h-5" />
-                        <span>View Code</span>
-                      </a>
-                      {projects[activeProject].live && (
-                        <a
-                          href={projects[activeProject].live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-2 px-4 py-2.5 md:px-6 md:py-3 bg-gradient-to-r from-primary-500 to-purple-500 rounded-xl text-white font-medium hover:opacity-90 transition-opacity text-sm md:text-base"
-                        >
-                          <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
-                          <span>Live Demo</span>
-                        </a>
-                      )}
-                    </motion.div>
-                  </div>
                 </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
+                {/* Project number */}
+                <div className="absolute top-3 left-3 px-2 py-1 rounded-full bg-black/30 backdrop-blur-sm text-xs font-mono text-white/70 border border-white/10">
+                  0{project.id} / 0{projects.length}
+                </div>
+                {/* Hover shine overlay */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                />
+              </div>
 
-          {/* Dots indicator */}
-          <div className="flex justify-center gap-3 mt-8">
-            {projects.map((_, index) => (
-              <motion.button
-                key={index}
-                className={`w-3 h-3 rounded-full transition-all ${
-                  index === activeProject 
-                    ? 'bg-primary-500 w-8' 
-                    : 'bg-slate-600 hover:bg-slate-500'
-                }`}
-                onClick={() => {
-                  setDirection(index > activeProject ? 1 : -1)
-                  setActiveProject(index)
-                }}
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-              />
-            ))}
-          </div>
+              {/* Card content */}
+              <div className="p-6">
+                {/* Icon small */}
+                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${project.logoColor} flex items-center justify-center mb-4 shadow-lg`}>
+                  <project.icon className="w-5 h-5 text-white" strokeWidth={2.5} />
+                </div>
+
+                <h3 className="text-lg font-bold text-slate-100 mb-2 leading-tight group-hover:text-white transition-colors">
+                  {project.title}
+                </h3>
+                <p className="text-sm text-slate-400 leading-relaxed mb-4 line-clamp-3">
+                  {project.description}
+                </p>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-1.5 mb-5">
+                  {project.tags.map((tag) => (
+                    <span 
+                      key={tag}
+                      className="px-2.5 py-1 text-xs rounded-full bg-slate-800/60 text-slate-300 border border-slate-700/50 font-mono"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Links */}
+                <div className="flex items-center gap-3">
+                  <motion.a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl text-slate-400 hover:text-primary-400 text-sm font-medium transition-all border border-slate-700/50 hover:border-primary-500/40 hover:bg-primary-500/5"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                  >
+                    <Github className="w-4 h-4" />
+                    <span>Code</span>
+                  </motion.a>
+                  {project.live ? (
+                    <motion.a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`flex items-center gap-2 px-4 py-2 rounded-xl text-white text-sm font-medium bg-gradient-to-r ${project.logoColor}`}
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      <span>Live</span>
+                    </motion.a>
+                  ) : (
+                    <span className="flex items-center gap-1.5 text-xs text-slate-600 font-mono">
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-600" />
+                      Desktop App
+                    </span>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
+
+        {/* GitHub CTA */}
+        <motion.div
+          className="flex justify-center mt-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <motion.a
+            href="https://github.com/henasivenom"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-3 px-8 py-4 glass rounded-2xl text-slate-300 hover:text-white border border-slate-700/50 hover:border-primary-500/40 transition-all font-medium"
+            whileHover={{ scale: 1.03, boxShadow: '0 0 30px rgba(168, 85, 247, 0.3)' }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Github className="w-5 h-5" />
+            <span>View All on GitHub</span>
+            <ArrowUpRight className="w-4 h-4 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </motion.a>
+        </motion.div>
       </div>
     </section>
   )

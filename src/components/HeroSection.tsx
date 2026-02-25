@@ -2,14 +2,40 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Mail, ChevronDown, Sparkles, Instagram, Twitter } from 'lucide-react'
+import { Github, Linkedin, Mail, ChevronDown, Sparkles, Instagram, Twitter, Download, MapPin } from 'lucide-react'
+
+const roles = ['Java Developer', 'Spring Boot Engineer', 'Problem Solver', 'AWS Cloud Practitioner']
 
 export default function HeroSection() {
   const [mounted, setMounted] = useState(false)
+  const [roleIndex, setRoleIndex] = useState(0)
+  const [displayed, setDisplayed] = useState('')
+  const [typing, setTyping] = useState(true)
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  useEffect(() => {
+    if (!mounted) return
+    const currentRole = roles[roleIndex]
+    let timeout: ReturnType<typeof setTimeout>
+    if (typing) {
+      if (displayed.length < currentRole.length) {
+        timeout = setTimeout(() => setDisplayed(currentRole.slice(0, displayed.length + 1)), 70)
+      } else {
+        timeout = setTimeout(() => setTyping(false), 2200)
+      }
+    } else {
+      if (displayed.length > 0) {
+        timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 35)
+      } else {
+        setRoleIndex((prev) => (prev + 1) % roles.length)
+        setTyping(true)
+      }
+    }
+    return () => clearTimeout(timeout)
+  }, [mounted, displayed, typing, roleIndex])
 
   if (!mounted) return null
 
@@ -83,29 +109,23 @@ export default function HeroSection() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
-            {/* Floating decorative elements */}
-            <div className="absolute -left-20 top-0 hidden lg:block">
-              <motion.div
-                className="text-6xl opacity-10"
-                animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                💻
-              </motion.div>
-            </div>
-            <div className="absolute -right-20 bottom-20 hidden lg:block">
-              <motion.div
-                className="text-6xl opacity-10"
-                animate={{ y: [0, 20, 0], rotate: [0, -10, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-              >
-                ⚡
-              </motion.div>
-            </div>
+            {/* Open to Work Badge */}
+            <motion.div
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 mb-5"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.1 }}
+            >
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+              </span>
+              <span className="text-emerald-400 text-xs md:text-sm font-semibold font-mono tracking-wide">Open to Work</span>
+            </motion.div>
 
             {/* Greeting with sparkle */}
             <motion.div
-              className="flex items-center justify-center lg:justify-start gap-3 mb-6"
+              className="flex items-center justify-center lg:justify-start gap-3 mb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -119,9 +139,9 @@ export default function HeroSection() {
               <span className="text-accent-cyan font-mono text-sm md:text-base tracking-[0.2em] uppercase font-semibold">Welcome to my universe</span>
             </motion.div>
 
-            {/* Main heading with MASSIVE typography */}
+            {/* Main heading */}
             <motion.h1 
-              className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 md:mb-8 leading-[0.9] tracking-tighter text-balance"
+              className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-4 md:mb-5 leading-[0.9] tracking-tighter text-balance"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -131,30 +151,61 @@ export default function HeroSection() {
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent-cyan via-primary-400 to-accent-fuchsia animate-gradient relative" 
                     style={{ backgroundSize: '200% auto' }}>
                 Mukesh
-                {/* Glow effect behind text */}
                 <span className="absolute inset-0 bg-gradient-to-r from-accent-cyan via-primary-400 to-accent-fuchsia blur-2xl opacity-30 -z-10" />
               </span>
             </motion.h1>
 
-            {/* Subtitle with enhanced hierarchy */}
+            {/* Typewriter role */}
             <motion.h2 
-              className="text-2xl md:text-4xl lg:text-5xl text-slate-300 font-light mb-6 md:mb-8 tracking-tight"
+              className="text-2xl md:text-4xl lg:text-5xl font-light mb-4 tracking-tight min-h-[2.5rem] md:min-h-[3.5rem]"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              A <span className="text-accent-cyan font-semibold">Java Developer</span>
+              <span className="text-slate-300">A </span>
+              <span className="text-accent-cyan font-semibold">{displayed}</span>
+              <span className="inline-block w-0.5 h-7 md:h-10 bg-accent-cyan ml-1 animate-blink align-middle rounded-full" />
             </motion.h2>
 
-            {/* Description with better spacing */}
+            {/* Location */}
+            <motion.div
+              className="flex items-center justify-center lg:justify-start gap-2 text-slate-500 text-sm mb-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.45 }}
+            >
+              <MapPin className="w-4 h-4 text-accent-fuchsia" />
+              <span>India &mdash; Available Remotely</span>
+            </motion.div>
+
+            {/* Description */}
             <motion.p 
-              className="text-base md:text-xl text-slate-400 max-w-2xl mx-auto lg:mx-0 mb-10 md:mb-12 leading-relaxed px-2 md:px-0 text-balance"
+              className="text-base md:text-xl text-slate-400 max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed px-2 md:px-0 text-balance"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
             >
-              Highly motivated Computer Science graduate skilled in Java development, manual testing, SQL databases, and GUI-based application design. Experienced in building end-to-end applications using Java Swing, AWT, JDBC, and MySQL with a strong understanding of SDLC and Agile methodologies.
+              Computer Science graduate skilled in Java, Spring Boot, SQL &amp; manual testing. I build reliable, end-to-end applications with clean architecture and a strong focus on user experience.
             </motion.p>
+
+            {/* Stats Row */}
+            <motion.div
+              className="flex flex-wrap gap-8 justify-center lg:justify-start mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55 }}
+            >
+              {[
+                { number: '3+', label: 'Projects Built' },
+                { number: 'AWS', label: 'Cloud Certified' },
+                { number: '2024', label: 'CS Graduate' },
+              ].map(({ number, label }) => (
+                <div key={label} className="text-center lg:text-left">
+                  <div className="text-2xl md:text-3xl font-bold gradient-text">{number}</div>
+                  <div className="text-xs text-slate-500 font-mono uppercase tracking-widest mt-1">{label}</div>
+                </div>
+              ))}
+            </motion.div>
 
             {/* CTA Buttons */}
             <motion.div 
@@ -183,16 +234,32 @@ export default function HeroSection() {
               </motion.a>
               
               <motion.a
+                href="/resume.pdf"
+                download
+                className="group flex items-center gap-2 px-8 py-4 glass rounded-xl font-semibold text-slate-200 transition-all duration-300 border border-emerald-500/30 hover:border-emerald-400/60"
+                whileHover={{ 
+                  scale: 1.05,
+                  backgroundColor: 'rgba(16, 185, 129, 0.08)',
+                  boxShadow: '0 0 30px rgba(16, 185, 129, 0.3)',
+                }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Download className="w-4 h-4 text-emerald-400 group-hover:animate-bounce" />
+                <span>Resume</span>
+              </motion.a>
+
+              <motion.a
                 href="#contact"
                 className="px-8 py-4 glass rounded-xl font-semibold text-slate-200 transition-all duration-300 border border-accent-cyan/30"
                 whileHover={{ 
                   scale: 1.05,
-                  backgroundColor: 'rgba(6, 182, 212, 0.1)',
-                  boxShadow: '0 0 30px rgba(6, 182, 212, 0.5), 0 0 60px rgba(6, 182, 212, 0.3)',
+                  backgroundColor: 'rgba(6, 182, 212, 0.08)',
+                  boxShadow: '0 0 30px rgba(6, 182, 212, 0.3)',
                   borderColor: 'rgba(6, 182, 212, 0.6)'
                 }}
                 whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.3 }}
               >
                 Get In Touch
               </motion.a>
@@ -215,10 +282,10 @@ export default function HeroSection() {
                 <motion.a
                   key={label}
                   href={href}
-                  target="_blank"
+                  target={label !== 'Email' ? '_blank' : undefined}
                   rel="noopener noreferrer"
                   className="p-3 glass rounded-xl text-slate-400 hover:text-primary-400 hover:border-primary-500/30 transition-all duration-300"
-                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileHover={{ scale: 1.1, y: -3 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label={label}
                 >
@@ -236,60 +303,59 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="relative flex items-center justify-center">
-              {/* Glow effect - Reduced on mobile */}
+              {/* Outer animated rings */}
               <motion.div
-                className="absolute -inset-4 bg-gradient-to-r from-primary-500/20 via-purple-500/20 to-pink-500/20 rounded-full blur-2xl hidden md:block"
-                animate={{
-                  scale: [1, 1.1, 1],
-                  opacity: [0.5, 0.8, 0.5],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
+                className="absolute w-72 h-72 md:w-96 md:h-96 rounded-full border border-primary-500/20"
+                animate={{ scale: [1, 1.06, 1], opacity: [0.3, 0.7, 0.3] }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              />
+              <motion.div
+                className="absolute w-64 h-64 md:w-80 md:h-80 rounded-full border border-accent-cyan/15"
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
+              />
+
+              {/* Glow */}
+              <motion.div
+                className="absolute -inset-4 bg-gradient-to-r from-primary-500/20 via-purple-500/20 to-pink-500/20 rounded-full blur-3xl hidden md:block"
+                animate={{ scale: [1, 1.12, 1], opacity: [0.4, 0.8, 0.4] }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
               />
               
               {/* Profile container */}
               <motion.div 
-                className="relative w-56 h-56 md:w-80 md:h-80 rounded-full overflow-hidden glass border-2 border-primary-500/20"
-                whileHover={{ scale: 1.02 }}
+                className="relative w-56 h-56 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-primary-500/30"
+                whileHover={{ scale: 1.03 }}
                 transition={{ duration: 0.3 }}
+                style={{ 
+                  background: 'rgba(255,255,255,0.04)',
+                  boxShadow: '0 0 60px rgba(168, 85, 247, 0.35), 0 0 120px rgba(168, 85, 247, 0.15), inset 0 1px 0 rgba(255,255,255,0.1)' 
+                }}
               >
-                {/* Placeholder avatar with gradient */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary-500/30 via-purple-500/30 to-pink-500/30 flex items-center justify-center">
-                  <span className="text-8xl font-bold gradient-text">M</span>
+                  <span className="text-8xl md:text-9xl font-bold gradient-text select-none">M</span>
                 </div>
-                
-                {/* Animated ring - Reduced on mobile */}
+                {/* Shimmer sweep */}
                 <motion.div
-                  className="absolute inset-0 border-4 border-primary-400/30 rounded-full hidden md:block"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/8 to-transparent skew-x-12"
+                  animate={{ x: ['-120%', '120%'] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: 'linear', repeatDelay: 3 }}
                 />
               </motion.div>
 
-              {/* Floating elements around profile - Desktop only */}
+              {/* Floating tech badges */}
               {[
-                { emoji: '💻', delay: 0, position: '-top-4 -right-4' },
-                { emoji: '🚀', delay: 0.5, position: '-bottom-2 -left-2' },
-                { emoji: '✨', delay: 1, position: 'top-1/2 -right-8' },
-              ].map(({ emoji, delay, position }) => (
+                { text: 'Java', color: 'from-orange-500 to-red-500', delay: 0, position: '-top-3 right-4 md:-top-3 md:right-0', emoji: '☕' },
+                { text: 'Spring', color: 'from-green-500 to-emerald-500', delay: 0.6, position: '-bottom-3 left-4 md:-bottom-3 md:left-0', emoji: '🌱' },
+                { text: 'AWS ☁️', color: 'from-yellow-500 to-amber-500', delay: 1.2, position: 'top-1/3 -right-2 md:top-1/3 md:-right-8', emoji: '' },
+              ].map(({ text, color, delay, position }) => (
                 <motion.div
-                  key={emoji}
-                  className={`absolute ${position} text-2xl hidden md:block`}
-                  animate={{
-                    y: [0, -10, 0],
-                    rotate: [0, 10, -10, 0],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    delay,
-                    ease: 'easeInOut',
-                  }}
+                  key={text}
+                  className={`absolute ${position} px-3 py-1.5 rounded-full bg-gradient-to-r ${color} text-white text-xs font-bold shadow-xl`}
+                  animate={{ y: [0, -8, 0], rotate: [-2, 2, -2] }}
+                  transition={{ duration: 3 + delay, repeat: Infinity, delay, ease: 'easeInOut' }}
                 >
-                  {emoji}
+                  {text}
                 </motion.div>
               ))}
             </div>

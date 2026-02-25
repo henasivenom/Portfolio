@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion'
 import { Menu, X, Palette, Moon, Sun, Sparkles, Zap } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext'
 
@@ -24,6 +24,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
   const { theme, toggleTheme } = useTheme()
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 })
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,6 +53,16 @@ export default function Navbar() {
 
   return (
     <>
+      {/* Scroll Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[3px] z-[100] origin-left"
+        style={{
+          scaleX,
+          background: 'linear-gradient(90deg, #06b6d4, #a855f7, #d946ef)',
+          boxShadow: '0 0 10px rgba(168, 85, 247, 0.8)',
+        }}
+      />
+
       <motion.nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled ? 'py-3' : 'py-5'

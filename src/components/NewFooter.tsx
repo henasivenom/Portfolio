@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Heart, Github, Linkedin, Twitter, ArrowUp, Code2, Instagram } from 'lucide-react'
+import { Heart, Github, Linkedin, Twitter, ArrowUp, Instagram } from 'lucide-react'
 
 const socialLinks = [
   { icon: Github, href: 'https://github.com/henasivenom', label: 'GitHub' },
@@ -24,9 +24,11 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative py-16 border-t border-slate-800/50">
+    <footer className="relative py-16 overflow-hidden">
+      {/* Gradient separator at top */}
+      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(6,182,212,0.6) 25%, rgba(168,85,247,0.8) 50%, rgba(217,70,239,0.6) 75%, transparent 100%)' }} />
       {/* Background subtle gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/50 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-3 gap-12 mb-12">
@@ -38,13 +40,17 @@ export default function Footer() {
             transition={{ duration: 0.5 }}
           >
             <div className="flex items-center gap-2 mb-4">
-              <Code2 className="w-8 h-8 text-primary-500" />
+              <img src="/logo.svg" alt="MP Logo" className="w-8 h-8" />
               <span className="text-2xl font-bold gradient-text">Mukesh</span>
             </div>
-            <p className="text-slate-400 text-sm leading-relaxed">
-              Crafting digital experiences with passion and precision. 
-              Let&apos;s build something amazing together.
+            <p className="text-slate-400 text-sm leading-relaxed mb-4">
+              Building reliable, scalable Java applications with clean architecture.
+              Open to exciting opportunities and collaborations.
             </p>
+            <div className="flex items-center gap-2 text-xs font-mono text-slate-600">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Available for opportunities</span>
+            </div>
           </motion.div>
 
           {/* Quick Links */}
@@ -102,7 +108,7 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-slate-800/50 pt-8">
+        <div className="border-t border-slate-800/40 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Copyright with heartbeat */}
             <motion.p 
@@ -111,15 +117,14 @@ export default function Footer() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
             >
-              <span>© {new Date().getFullYear()} Mukesh. Made with</span>
+              <span>© {new Date().getFullYear()} Mukesh Patel. Built with</span>
               <motion.span
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 0.8, repeat: Infinity, ease: 'easeInOut' }}
               >
-                <Heart className="w-5 h-5 text-red-500 fill-red-500" />
+                <Heart className="w-4 h-4 text-red-500 fill-red-500" />
               </motion.span>
-              <span>and lots of</span>
-              <span className="text-lg">☕</span>
+              <span>using Next.js &amp; Tailwind</span>
             </motion.p>
 
             {/* Back to top */}
