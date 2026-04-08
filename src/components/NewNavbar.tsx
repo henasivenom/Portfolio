@@ -2,14 +2,14 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion'
-import { Menu, X, Palette, Moon, Sun, Sparkles, Zap } from 'lucide-react'
+import { Menu, X, Moon, Sun, Sparkles, Zap, ArrowUpRight } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext'
 
 const navItems = [
-  { name: 'Home', href: '#home' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Home 🏠', href: '#home' },
+  { name: 'Skills 🛠️', href: '#skills' },
+  { name: 'Projects 🚀', href: '#projects' },
+  { name: 'Contact 💬', href: '#contact' },
 ]
 
 const themeIcons = {
@@ -65,7 +65,7 @@ export default function Navbar() {
 
       <motion.nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? 'py-3' : 'py-5'
+          scrolled ? 'py-2.5' : 'py-4.5'
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -73,21 +73,22 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            className={`flex items-center justify-between rounded-2xl px-6 py-3 transition-all duration-500 ${
-              scrolled ? 'glass shadow-lg' : 'bg-transparent'
+            className={`gradient-outline flex items-center justify-between rounded-2xl px-4 sm:px-6 py-3 transition-all duration-500 border ${
+              scrolled
+                ? 'bg-slate-900/75 border-white/10 backdrop-blur-xl shadow-[0_10px_35px_rgba(2,6,23,0.55)]'
+                : 'bg-slate-900/45 border-white/10 backdrop-blur-lg'
             }`}
           >
             {/* Logo */}
             <motion.a
               href="#home"
-              className="relative group flex items-center gap-2"
+              className="relative group flex items-center gap-0 shrink-0"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <img src="/logo.svg" alt="MP Logo" className="w-10 h-10" />
+              <img src="/logo.svg" alt="MP Logo" className="h-8 w-8 drop-shadow-[0_0_18px_rgba(168,85,247,0.35)]" />
               <div>
-                <span className="text-2xl font-bold gradient-text">M</span>
-                <span className="text-2xl font-bold text-slate-200">ukesh</span>
+                <span className="text-[1.45rem] font-bold gradient-text tracking-tight leading-none">Mukesh</span>
               </div>
               <motion.span
                 className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary-500 to-purple-500 group-hover:w-full transition-all duration-300"
@@ -95,15 +96,15 @@ export default function Navbar() {
             </motion.a>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-8 ml-6 xl:ml-14">
               {navItems.map((item) => (
                 <motion.a
                   key={item.name}
                   href={item.href}
-                  className={`relative text-sm font-medium transition-colors ${
+                  className={`relative text-sm font-medium px-2 py-1 transition-colors ${
                     activeSection === item.href.replace('#', '')
                       ? 'text-primary-400'
-                      : 'text-slate-400 hover:text-slate-200'
+                      : 'text-slate-300 hover:text-white'
                   }`}
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0 }}
@@ -125,7 +126,7 @@ export default function Navbar() {
               {/* Theme Toggle */}
               <motion.button
                 onClick={toggleTheme}
-                className="p-2 glass rounded-xl text-slate-400 hover:text-primary-400 transition-colors"
+                className="p-2 rounded-xl border border-white/10 bg-white/5 text-slate-300 hover:text-primary-300 transition-colors"
                 whileHover={{ scale: 1.05, rotate: 15 }}
                 whileTap={{ scale: 0.95 }}
                 title={`Current theme: ${theme}`}
@@ -136,7 +137,7 @@ export default function Navbar() {
               {/* Mobile menu button */}
               <motion.button
                 onClick={() => setIsOpen(!isOpen)}
-                className="md:hidden p-2 glass rounded-xl text-slate-400"
+                className="md:hidden p-2 rounded-xl border border-white/10 bg-white/5 text-slate-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -146,12 +147,12 @@ export default function Navbar() {
               {/* CTA Button */}
               <motion.a
                 href="#contact"
-                className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-primary-500 to-purple-500 rounded-xl text-white text-sm font-medium"
+                className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-500 via-violet-500 to-fuchsia-500 rounded-xl text-white text-sm font-semibold shadow-lg shadow-violet-600/25"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Palette className="w-4 h-4" />
-                Hire Me
+                <ArrowUpRight className="w-4 h-4" />
+                Hire Me ✨
               </motion.a>
             </div>
           </motion.div>
@@ -178,7 +179,7 @@ export default function Navbar() {
 
             {/* Menu Content */}
             <motion.div
-              className="absolute top-24 left-4 right-4 p-6 glass rounded-2xl"
+              className="absolute top-24 left-4 right-4 p-6 rounded-2xl border border-white/10 bg-slate-900/90 backdrop-blur-xl"
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -20, opacity: 0 }}
@@ -193,7 +194,7 @@ export default function Navbar() {
                     className={`text-lg font-medium py-2 transition-colors ${
                       activeSection === item.href.replace('#', '')
                         ? 'text-primary-400'
-                        : 'text-slate-300'
+                        : 'text-slate-200'
                     }`}
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
@@ -205,12 +206,12 @@ export default function Navbar() {
                 <motion.a
                   href="#contact"
                   onClick={() => setIsOpen(false)}
-                  className="mt-4 py-3 text-center bg-gradient-to-r from-primary-500 to-purple-500 rounded-xl text-white font-medium"
+                  className="mt-4 py-3 text-center bg-gradient-to-r from-cyan-500 via-primary-500 to-purple-500 rounded-xl text-white font-medium"
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.4 }}
                 >
-                  Hire Me
+                  Hire Me ✨
                 </motion.a>
               </div>
             </motion.div>

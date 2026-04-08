@@ -1,450 +1,200 @@
 'use client'
 
 import React from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
-import { Code2, Trophy, Flame, Target, GitBranch, Star, GitFork } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Activity, Code2, ExternalLink, GitBranch, Layers3, Trophy } from 'lucide-react'
+
+const leetcodeUsername = 'henasi_venom'
+const githubUsername = 'henasivenom'
+
+const modernStack = [
+  'Java',
+  'Spring Boot',
+  'TypeScript',
+  'React',
+  'Next.js',
+  'Tailwind CSS',
+  'Framer Motion',
+  'Selenium',
+  'Playwright',
+  'Cypress',
+  'Postman',
+  'GitHub Actions',
+]
 
 export default function LeetCodeStats() {
-  const leetcodeUsername = 'henasi_venom'
-  const githubUsername = 'henasivenom'
-  const prefersReducedMotion = useReducedMotion()
-  
   return (
-    <section id="leetcode" className="relative py-24 md:py-32 px-4 sm:px-6 overflow-hidden">
-      {/* Static gradient blobs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-yellow-400/8 via-orange-500/8 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-tl from-purple-500/8 via-violet-500/8 to-transparent rounded-full blur-3xl" />
+    <section id="leetcode" className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <div className="absolute left-1/3 top-0 h-80 w-80 rounded-full bg-yellow-400/10 blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 h-80 w-80 rounded-full bg-violet-500/12 blur-3xl" />
       </div>
-      
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section Header - Mobile Optimized with massive typography */}
+
+      <div className="relative mx-auto max-w-7xl">
         <motion.div
-          className="text-center mb-16 md:mb-20"
-          initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+          className="mb-12 text-center"
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.45 }}
         >
-          <motion.span 
-            className="text-accent-violet font-mono tracking-[0.3em] uppercase font-semibold block mb-4"
-            style={{ fontSize: 'clamp(0.75rem, 2vw, 1rem)' }}
-            initial={prefersReducedMotion ? {} : { opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: prefersReducedMotion ? 0 : 0.1 }}
-          >
-            Coding Practice & Contributions
-          </motion.span>
-          
-          <motion.h2 
-            className="font-bold mb-6 leading-[0.9] tracking-tighter text-balance"
-            style={{ fontSize: 'clamp(2.5rem, 8vw, 5rem)' }}
-            initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: prefersReducedMotion ? 0 : 0.2, duration: 0.6 }}
-          >
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-primary-400 to-purple-500 animate-gradient relative" 
-                  style={{ backgroundSize: '200% auto' }}>
-              Code & Contributions
-              <span className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-primary-400 to-purple-500 blur-3xl opacity-20 -z-10" />
-            </span>
-          </motion.h2>
-          
-          <motion.p
-            className="text-slate-400 max-w-3xl mx-auto px-4 leading-relaxed text-balance"
-            style={{ fontSize: 'clamp(1rem, 3vw, 1.25rem)', lineHeight: '1.7' }}
-            initial={prefersReducedMotion ? {} : { opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: prefersReducedMotion ? 0 : 0.3 }}
-          >
-            Daily problem-solving on LeetCode and active open-source contributions on GitHub
-          </motion.p>
+          <span className="text-sm font-semibold uppercase tracking-[0.26em] text-cyan-300">
+            Coding Universe ✨
+          </span>
+          <h2 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Metrics + Momentum 🚀
+          </h2>
+          <p className="mx-auto mt-4 max-w-3xl text-sm leading-7 text-slate-400 sm:text-base">
+            Live coding activity from LeetCode and GitHub, combined with the modern tools and libraries I use in real projects.
+          </p>
         </motion.div>
 
-        {/* Stats Cards Grid - Mobile First */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 md:gap-6 mb-5 sm:mb-6">
-          {/* LeetCode Stats Card - Touch Optimized */}
-          <motion.div
-            className="glass-panel rounded-xl flex flex-col overflow-hidden touch-card"
-            style={{ 
-              willChange: 'transform',
-              padding: 'clamp(1rem, 3vw, 1.5rem)',
-              minHeight: '44px'
-            }}
-            initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          <motion.article
+            className="rounded-3xl border border-white/10 bg-slate-950/45 p-5 backdrop-blur-xl sm:p-6"
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            whileTap={{ scale: 0.98, y: -2 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45 }}
           >
-            <div className="flex items-center gap-2 sm:gap-2.5 mb-3 sm:mb-4">
-              <div 
-                className="rounded-lg bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center flex-shrink-0"
-                style={{ 
-                  width: 'clamp(36px, 10vw, 44px)',
-                  height: 'clamp(36px, 10vw, 44px)'
-                }}
-              >
-                <Trophy style={{ width: 'clamp(18px, 5vw, 22px)', height: 'clamp(18px, 5vw, 22px)' }} className="text-white" />
+            <div className="mb-4 flex items-center gap-3">
+              <div className="rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 p-2.5 text-white">
+                <Trophy className="h-5 w-5" />
               </div>
-              <div className="min-w-0 flex-1">
-                <h3 className="font-bold text-white truncate" style={{ fontSize: 'clamp(1rem, 3vw, 1.125rem)' }}>
-                  LeetCode Stats
-                </h3>
-                <p className="text-slate-400 truncate" style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)' }}>
-                  Problem Solving Progress
-                </p>
+              <div>
+                <h3 className="font-semibold text-white">LeetCode 🧠</h3>
+                <p className="text-xs uppercase tracking-[0.16em] text-slate-400">Problem Solving</p>
               </div>
             </div>
-            
-            <div className="relative overflow-hidden rounded-lg bg-slate-900/50 p-2 sm:p-3 flex-1">
-              <img 
+
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60 p-2">
+              <img
                 src={`https://leetcard.jacoblin.cool/${leetcodeUsername}?theme=dark&font=Noto%20Sans&ext=heatmap`}
-                alt="LeetCode Stats"
-                className="w-full h-auto object-contain"
+                alt="LeetCode statistics"
+                className="h-auto w-full"
                 loading="lazy"
                 decoding="async"
               />
             </div>
-          </motion.div>
 
-          {/* GitHub Stats Card - Touch Optimized */}
-          <motion.div
-            className="glass-panel rounded-xl flex flex-col overflow-hidden touch-card"
-            style={{ 
-              willChange: 'transform',
-              padding: 'clamp(1rem, 3vw, 1.5rem)',
-              minHeight: '44px'
-            }}
-            initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+            <a
+              href={`https://leetcode.com/${leetcodeUsername}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-amber-300 hover:text-amber-200"
+            >
+              Visit profile ↗️
+              <ExternalLink className="h-4 w-4" />
+            </a>
+          </motion.article>
+
+          <motion.article
+            className="rounded-3xl border border-white/10 bg-slate-950/45 p-5 backdrop-blur-xl sm:p-6"
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            whileTap={{ scale: 0.98, y: -2 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, delay: 0.06 }}
           >
-            <div className="flex items-center gap-2 sm:gap-2.5 mb-3 sm:mb-4">
-              <div 
-                className="rounded-lg bg-gradient-to-br from-purple-400 to-violet-600 flex items-center justify-center flex-shrink-0"
-                style={{ 
-                  width: 'clamp(36px, 10vw, 44px)',
-                  height: 'clamp(36px, 10vw, 44px)'
-                }}
-              >
-                <GitBranch style={{ width: 'clamp(18px, 5vw, 22px)', height: 'clamp(18px, 5vw, 22px)' }} className="text-white" />
+            <div className="mb-4 flex items-center gap-3">
+              <div className="rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 p-2.5 text-white">
+                <GitBranch className="h-5 w-5" />
               </div>
-              <div className="min-w-0 flex-1">
-                <h3 className="font-bold text-white truncate" style={{ fontSize: 'clamp(1rem, 3vw, 1.125rem)' }}>
-                  GitHub Activity
-                </h3>
-                <p className="text-slate-400 truncate" style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)' }}>
-                  Open Source Contributions
+              <div>
+                <h3 className="font-semibold text-white">GitHub 🌌</h3>
+                <p className="text-xs uppercase tracking-[0.16em] text-slate-400">Open Source Activity</p>
+              </div>
+            </div>
+
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60 p-3">
+              <img
+                src={`https://ghchart.rshah.org/a855f7/${githubUsername}`}
+                alt="GitHub contribution graph"
+                className="h-auto w-full"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <a
+                href={`https://github.com/${githubUsername}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center text-xs font-semibold uppercase tracking-[0.13em] text-slate-300 hover:border-violet-400/40"
+              >
+                Profile
+              </a>
+              <a
+                href={`https://github.com/${githubUsername}?tab=repositories`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center text-xs font-semibold uppercase tracking-[0.13em] text-slate-300 hover:border-violet-400/40"
+              >
+                Repositories
+              </a>
+            </div>
+          </motion.article>
+
+          <motion.article
+            className="rounded-3xl border border-white/10 bg-slate-950/45 p-5 backdrop-blur-xl sm:p-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, delay: 0.12 }}
+          >
+            <div className="mb-5 flex items-center gap-3">
+              <div className="rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 p-2.5 text-white">
+                <Layers3 className="h-5 w-5" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-white">Stack Highlights</h3>
+                <p className="text-xs uppercase tracking-[0.16em] text-slate-400">Languages + Libraries</p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {modernStack.map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-300"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-5 rounded-2xl border border-white/10 bg-gradient-to-br from-cyan-500/10 via-violet-500/10 to-pink-500/10 p-4">
+              <div className="flex items-start gap-3">
+                <Code2 className="mt-0.5 h-4 w-4 text-cyan-300" />
+                <p className="text-sm leading-6 text-slate-300">
+                  I combine backend logic, automation-first QA, and modern frontend libraries to create polished products.
                 </p>
               </div>
             </div>
-            
-            <div className="flex-1 flex flex-col gap-2 sm:gap-3">
-              {/* Contribution Graph */}
-              <div className="relative overflow-hidden rounded-lg bg-slate-900/50 p-2 sm:p-3 flex-1">
-                <img 
-                  src={`https://ghchart.rshah.org/a855f7/${githubUsername}`}
-                  alt="GitHub Contribution Graph"
-                  className="w-full h-auto brightness-110"
-                  loading="lazy"
-                  decoding="async"
-                />
+
+            <div className="mt-4 grid grid-cols-2 gap-3 text-center">
+              <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-3">
+                <p className="text-xl font-bold text-white">12+</p>
+                <p className="text-[11px] uppercase tracking-[0.16em] text-slate-400">Tech Stack</p>
               </div>
-              
-              {/* Quick Stats - Touch Friendly */}
-              <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
-                <motion.a 
-                  href={`https://github.com/${githubUsername}?tab=repositories`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-slate-900/50 rounded-lg border border-slate-800 active:border-primary-500/50 touch-none"
-                  style={{ 
-                    padding: 'clamp(0.75rem, 2vw, 1rem)',
-                    minHeight: '44px',
-                    WebkitTapHighlightColor: 'transparent'
-                  }}
-                  whileTap={{ scale: 0.96 }}
-                >
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <Star style={{ width: 'clamp(14px, 3vw, 16px)', height: 'clamp(14px, 3vw, 16px)' }} className="text-yellow-400" />
-                    <span className="text-slate-400 truncate" style={{ fontSize: 'clamp(0.7rem, 2vw, 0.75rem)' }}>
-                      Repositories
-                    </span>
-                  </div>
-                  <p className="font-bold text-white truncate" style={{ fontSize: 'clamp(0.875rem, 2.5vw, 1rem)' }}>
-                    View All →
-                  </p>
-                </motion.a>
-                
-                <motion.a 
-                  href={`https://github.com/${githubUsername}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-slate-900/50 rounded-lg border border-slate-800 active:border-primary-500/50 touch-none"
-                  style={{ 
-                    padding: 'clamp(0.75rem, 2vw, 1rem)',
-                    minHeight: '44px',
-                    WebkitTapHighlightColor: 'transparent'
-                  }}
-                  whileTap={{ scale: 0.96 }}
-                >
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <GitFork style={{ width: 'clamp(14px, 3vw, 16px)', height: 'clamp(14px, 3vw, 16px)' }} className="text-emerald-400" />
-                    <span className="text-slate-400 truncate" style={{ fontSize: 'clamp(0.7rem, 2vw, 0.75rem)' }}>
-                      Activity
-                    </span>
-                  </div>
-                  <p className="font-bold text-white truncate" style={{ fontSize: 'clamp(0.875rem, 2.5vw, 1rem)' }}>
-                    View Stats →
-                  </p>
-                </motion.a>
+              <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-3">
+                <p className="text-xl font-bold text-white">Daily</p>
+                <p className="text-[11px] uppercase tracking-[0.16em] text-slate-400">Practice</p>
               </div>
             </div>
-          </motion.div>
+          </motion.article>
         </div>
 
-        {/* GitHub Profile Summary - Mobile Optimized */}
         <motion.div
-          className="glass-panel rounded-xl mb-5 sm:mb-6 overflow-hidden"
-          style={{ padding: 'clamp(1rem, 3vw, 1.5rem)' }}
-          initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: prefersReducedMotion ? 0 : 0.3, delay: 0.1 }}
+          className="mt-6 flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-300"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.15 }}
         >
-          <div className="flex items-center gap-2 sm:gap-2.5 mb-3 sm:mb-4">
-            <div 
-              className="rounded-lg bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center flex-shrink-0"
-              style={{ 
-                width: 'clamp(36px, 10vw, 44px)',
-                height: 'clamp(36px, 10vw, 44px)'
-              }}
-            >
-              <Code2 style={{ width: 'clamp(18px, 5vw, 22px)', height: 'clamp(18px, 5vw, 22px)' }} className="text-white" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <h3 className="font-bold text-white truncate" style={{ fontSize: 'clamp(1rem, 3vw, 1.125rem)' }}>
-                Active Developer
-              </h3>
-              <p className="text-slate-400 truncate" style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)' }}>
-                Building and contributing to open source
-              </p>
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
-            {/* Projects Card - Premium Popup Effect */}
-            <motion.div 
-              className="bg-gradient-to-br from-purple-500/10 to-violet-500/10 border border-purple-500/20 rounded-lg overflow-hidden"
-              style={{ 
-                padding: 'clamp(0.875rem, 2.5vw, 1rem)',
-                minHeight: '44px',
-                WebkitTapHighlightColor: 'transparent',
-                willChange: 'transform'
-              }}
-              whileHover={{ 
-                scale: 1.06, 
-                y: -4,
-                boxShadow: '0 20px 40px -12px rgba(168, 85, 247, 0.4), 0 0 30px -8px rgba(217, 70, 239, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
-              }}
-              whileTap={{ 
-                scale: 1.06, 
-                y: -4,
-                boxShadow: '0 20px 40px -12px rgba(168, 85, 247, 0.4), 0 0 30px -8px rgba(217, 70, 239, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
-              }}
-              transition={{ 
-                duration: 0.4, 
-                ease: [0.25, 0.1, 0.25, 1]
-              }}
-            >
-              <div className="flex items-center gap-1.5 mb-1">
-                <Code2 style={{ width: 'clamp(14px, 3vw, 16px)', height: 'clamp(14px, 3vw, 16px)' }} className="text-purple-400" />
-                <span className="text-slate-300 font-medium truncate" style={{ fontSize: 'clamp(0.8125rem, 2vw, 0.875rem)' }}>
-                  Projects
-                </span>
-              </div>
-              <p className="font-bold text-white mb-0.5" style={{ fontSize: 'clamp(1.125rem, 3vw, 1.25rem)' }}>
-                Multiple
-              </p>
-              <p className="text-slate-400 truncate" style={{ fontSize: 'clamp(0.7rem, 2vw, 0.75rem)' }}>
-                Active repositories
-              </p>
-            </motion.div>
-            
-            {/* Commits Card - Premium Popup Effect */}
-            <motion.div 
-              className="bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 border border-emerald-500/20 rounded-lg overflow-hidden"
-              style={{ 
-                padding: 'clamp(0.875rem, 2.5vw, 1rem)',
-                minHeight: '44px',
-                WebkitTapHighlightColor: 'transparent',
-                willChange: 'transform'
-              }}
-              whileHover={{ 
-                scale: 1.06, 
-                y: -4,
-                boxShadow: '0 20px 40px -12px rgba(16, 185, 129, 0.4), 0 0 30px -8px rgba(6, 182, 212, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
-              }}
-              whileTap={{ 
-                scale: 1.06, 
-                y: -4,
-                boxShadow: '0 20px 40px -12px rgba(16, 185, 129, 0.4), 0 0 30px -8px rgba(6, 182, 212, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
-              }}
-              transition={{ 
-                duration: 0.4, 
-                ease: [0.25, 0.1, 0.25, 1]
-              }}
-            >
-              <div className="flex items-center gap-1.5 mb-1">
-                <GitBranch style={{ width: 'clamp(14px, 3vw, 16px)', height: 'clamp(14px, 3vw, 16px)' }} className="text-emerald-400" />
-                <span className="text-slate-300 font-medium truncate" style={{ fontSize: 'clamp(0.8125rem, 2vw, 0.875rem)' }}>
-                  Commits
-                </span>
-              </div>
-              <p className="font-bold text-white mb-0.5" style={{ fontSize: 'clamp(1.125rem, 3vw, 1.25rem)' }}>
-                Regular
-              </p>
-              <p className="text-slate-400 truncate" style={{ fontSize: 'clamp(0.7rem, 2vw, 0.75rem)' }}>
-                Consistent contributions
-              </p>
-            </motion.div>
-            
-            {/* Experience Card - Premium Popup Effect */}
-            <motion.div 
-              className="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/20 rounded-lg overflow-hidden"
-              style={{ 
-                padding: 'clamp(0.875rem, 2.5vw, 1rem)',
-                minHeight: '44px',
-                WebkitTapHighlightColor: 'transparent',
-                willChange: 'transform'
-              }}
-              whileHover={{ 
-                scale: 1.06, 
-                y: -4,
-                boxShadow: '0 20px 40px -12px rgba(234, 179, 8, 0.4), 0 0 30px -8px rgba(249, 115, 22, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
-              }}
-              whileTap={{ 
-                scale: 1.06, 
-                y: -4,
-                boxShadow: '0 20px 40px -12px rgba(234, 179, 8, 0.4), 0 0 30px -8px rgba(249, 115, 22, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
-              }}
-              transition={{ 
-                duration: 0.4, 
-                ease: [0.25, 0.1, 0.25, 1]
-              }}
-            >
-              <div className="flex items-center gap-1.5 mb-1">
-                <Star style={{ width: 'clamp(14px, 3vw, 16px)', height: 'clamp(14px, 3vw, 16px)' }} className="text-yellow-400" />
-                <span className="text-slate-300 font-medium truncate" style={{ fontSize: 'clamp(0.8125rem, 2vw, 0.875rem)' }}>
-                  Experience
-                </span>
-              </div>
-              <p className="font-bold text-white mb-0.5" style={{ fontSize: 'clamp(1.125rem, 3vw, 1.25rem)' }}>
-                Growing
-              </p>
-              <p className="text-slate-400 truncate" style={{ fontSize: 'clamp(0.7rem, 2vw, 0.75rem)' }}>
-                Continuous learning
-              </p>
-            </motion.div>
-          </div>
+          <Activity className="h-4 w-4 text-cyan-300" />
+          Continuous growth through build + test + iterate
         </motion.div>
-
-        {/* Profile Links - Touch Optimized */}
-        <motion.div
-          className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center px-2 sm:px-0"
-          initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: prefersReducedMotion ? 0 : 0.3, delay: 0.2 }}
-        >
-          <motion.a 
-            href={`https://leetcode.com/u/${leetcodeUsername}/`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto touch-none"
-            style={{ WebkitTapHighlightColor: 'transparent' }}
-            whileTap={{ scale: 0.96 }}
-          >
-            <button
-              className="w-full sm:w-auto bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg font-medium shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2 active:shadow-orange-500/40"
-              style={{ 
-                padding: 'clamp(0.75rem, 2.5vw, 0.875rem) clamp(1.5rem, 4vw, 2rem)',
-                fontSize: 'clamp(0.875rem, 2.5vw, 1rem)',
-                minHeight: '44px'
-              }}
-            >
-              <Trophy style={{ width: 'clamp(16px, 4vw, 18px)', height: 'clamp(16px, 4vw, 18px)' }} />
-              <span className="whitespace-nowrap">View LeetCode Profile</span>
-            </button>
-          </motion.a>
-          
-          <motion.a 
-            href={`https://github.com/${githubUsername}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto touch-none"
-            style={{ WebkitTapHighlightColor: 'transparent' }}
-            whileTap={{ scale: 0.96 }}
-          >
-            <button
-              className="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-violet-600 text-white rounded-lg font-medium shadow-lg shadow-purple-500/20 flex items-center justify-center gap-2 active:shadow-purple-500/40"
-              style={{ 
-                padding: 'clamp(0.75rem, 2.5vw, 0.875rem) clamp(1.5rem, 4vw, 2rem)',
-                fontSize: 'clamp(0.875rem, 2.5vw, 1rem)',
-                minHeight: '44px'
-              }}
-            >
-              <GitBranch style={{ width: 'clamp(16px, 4vw, 18px)', height: 'clamp(16px, 4vw, 18px)' }} />
-              <span className="whitespace-nowrap">View GitHub Profile</span>
-            </button>
-          </motion.a>
-        </motion.div>
-
-        {/* Premium Glassmorphism + Neon Interaction Styles */}
-        <style jsx global>{`
-          @media (hover: none) and (pointer: coarse) {
-            /* Mobile-specific touch interactions */
-            .touch-card:active {
-              transform: scale(0.98) translateY(-2px);
-              box-shadow: 0 10px 25px -8px rgba(168, 85, 247, 0.3),
-                          0 0 20px -8px rgba(217, 70, 239, 0.2);
-            }
-          }
-          
-          @media (hover: hover) and (pointer: fine) {
-            /* Desktop hover interactions */
-            .touch-card:hover {
-              transform: scale(1.02) translateY(-4px);
-              box-shadow: 0 15px 35px -10px rgba(168, 85, 247, 0.3),
-                          0 0 25px -8px rgba(217, 70, 239, 0.2);
-              transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-          }
-          
-          /* Performance optimization */
-          .touch-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          }
-          
-          /* Prevent text selection during touch */
-          .touch-none {
-            -webkit-user-select: none;
-            user-select: none;
-            -webkit-touch-callout: none;
-          }
-          
-          @media (prefers-reduced-motion: reduce) {
-            .touch-card {
-              transition: none !important;
-            }
-          }
-        `}</style>
       </div>
     </section>
   )

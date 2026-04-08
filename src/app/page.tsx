@@ -3,8 +3,6 @@
 import React, { useState, useEffect } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import CinematicOpening from '../components/CinematicOpening'
-import LivingBackground from '../components/LivingBackground'
-import ThreeDReality from '../components/ThreeDReality'
 import Navbar from '../components/NewNavbar'
 import HeroSection from '../components/HeroSection'
 import SkillsSection from '../components/SkillsSection'
@@ -54,14 +52,10 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      {/* Living Background - Always present */}
-      <LivingBackground />
-
-      {/* 3D Reality Layer */}
-      <ThreeDReality />
-
       {/* Main Content */}
-      <div className="relative z-10">
+      <div className="relative z-10 isolate aurora-bg">
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_20%,rgba(6,182,212,0.12),transparent_30%),radial-gradient(circle_at_85%_12%,rgba(168,85,247,0.12),transparent_30%),radial-gradient(circle_at_50%_85%,rgba(236,72,153,0.08),transparent_26%)]" />
+        <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.17] mesh-overlay" />
         {/* Navigation */}
         <Navbar />
 

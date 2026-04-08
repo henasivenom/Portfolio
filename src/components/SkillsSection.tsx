@@ -13,9 +13,10 @@ const skillCategories = [
     glowColor: 'rgba(6, 182, 212, 0.25)',
     skills: [
       { name: 'Java (Core, OOP)', level: 90 },
+      { name: 'TypeScript', level: 76 },
       { name: 'SQL', level: 85 },
-      { name: 'HTML / CSS', level: 78 },
-      { name: 'JavaScript', level: 65 },
+      { name: 'JavaScript (ES6+)', level: 72 },
+      { name: 'HTML / CSS', level: 80 },
     ]
   },
   {
@@ -26,9 +27,11 @@ const skillCategories = [
     glowColor: 'rgba(168, 85, 247, 0.25)',
     skills: [
       { name: 'Spring Boot', level: 82 },
+      { name: 'React / Next.js', level: 74 },
+      { name: 'Tailwind CSS / Framer Motion', level: 76 },
       { name: 'MySQL / MongoDB', level: 82 },
       { name: 'Postman / REST APIs', level: 80 },
-      { name: 'JIRA / Confluence', level: 78 },
+      { name: 'GitHub Actions / CI Basics', level: 70 },
     ]
   },
   {
@@ -42,6 +45,7 @@ const skillCategories = [
       { name: 'TestNG / JUnit 5', level: 82 },
       { name: 'Cucumber (BDD / POM)', level: 75 },
       { name: 'Mockito / Maven', level: 78 },
+      { name: 'Playwright / Cypress Basics', level: 68 },
     ]
   },
   {
@@ -55,6 +59,7 @@ const skillCategories = [
       { name: 'Agile / Scrum', level: 87 },
       { name: 'Defect Lifecycle Mgmt', level: 88 },
       { name: 'Test Planning & RTM', level: 83 },
+      { name: 'JIRA / Confluence', level: 80 },
     ]
   }
 ]
@@ -108,7 +113,7 @@ export default function SkillsSection() {
           transition={{ duration: 0.55 }}
         >
           <span className="text-accent-cyan font-mono text-sm md:text-base tracking-[0.3em] uppercase font-semibold inline-block">
-            My Expertise
+            My Expertise ✨
           </span>
           <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mt-6 mb-6 tracking-tighter text-balance leading-[0.9]">
             <span className="text-slate-100">Skills & </span>
@@ -119,7 +124,7 @@ export default function SkillsSection() {
             </span>
           </h2>
           <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto px-4 text-balance leading-relaxed">
-            A curated collection of technologies I work with to bring ideas to life
+            A curated collection of technologies I use to craft high-impact digital experiences 🚀
           </p>
         </motion.div>
 
@@ -135,7 +140,7 @@ export default function SkillsSection() {
             <motion.div
               key={category.title}
               variants={cardVariants}
-              className={`relative p-5 md:p-6 rounded-2xl glass cursor-pointer border ${category.borderColor} transition-colors duration-300 hover:border-opacity-60`}
+              className={`relative p-5 md:p-6 rounded-2xl bento-card cursor-pointer border ${category.borderColor} transition-colors duration-300 hover:border-opacity-60`}
               onClick={() => setActiveCategory(activeCategory === index ? null : index)}
               whileHover={{ y: -5 }}
               transition={{ duration: 0.25 }}

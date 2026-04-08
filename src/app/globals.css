@@ -18,7 +18,7 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -36,7 +36,11 @@
 
   body {
     @apply bg-slate-950 text-white font-sans;
-    background: linear-gradient(180deg, #020617 0%, #0f172a 50%, #020617 100%);
+    background:
+      radial-gradient(circle at top left, rgba(14, 165, 233, 0.12), transparent 28%),
+      radial-gradient(circle at top right, rgba(168, 85, 247, 0.14), transparent 26%),
+      radial-gradient(circle at bottom, rgba(236, 72, 153, 0.08), transparent 22%),
+      linear-gradient(180deg, #020617 0%, #0f172a 48%, #020617 100%);
     opacity: 0;
     animation: fadeIn 0.6s ease-out forwards;
   }
@@ -80,11 +84,20 @@
     }
   }
 
-  /* Smooth section entrance */
+  @keyframes aurora-shift {
+    0% { transform: translate3d(-8%, -6%, 0) scale(1); }
+    50% { transform: translate3d(8%, 6%, 0) scale(1.08); }
+    100% { transform: translate3d(-8%, -6%, 0) scale(1); }
+  }
+
+  @keyframes float-soft {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* Keep section reveal subtle without vertical movement */
   section {
-    animation: fadeInUp 0.6s ease-out forwards;
-    animation-timeline: view();
-    animation-range: entry 0% entry 30%;
+    animation: fadeIn 0.35s ease-out both;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -200,6 +213,70 @@
       0 8px 32px rgba(0, 0, 0, 0.3),
       0 0 0 1px rgba(255, 255, 255, 0.05) inset,
       0 0 40px rgba(168, 85, 247, 0.08);
+  }
+
+  .aurora-bg {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .aurora-bg::before,
+  .aurora-bg::after {
+    content: '';
+    position: absolute;
+    inset: -20%;
+    z-index: -1;
+    pointer-events: none;
+    filter: blur(56px);
+    opacity: 0.45;
+    animation: aurora-shift 16s ease-in-out infinite;
+  }
+
+  .aurora-bg::before {
+    background: radial-gradient(circle at 30% 30%, rgba(34, 211, 238, 0.25), transparent 45%),
+      radial-gradient(circle at 70% 60%, rgba(168, 85, 247, 0.22), transparent 50%);
+  }
+
+  .aurora-bg::after {
+    background: radial-gradient(circle at 70% 30%, rgba(236, 72, 153, 0.2), transparent 45%),
+      radial-gradient(circle at 20% 70%, rgba(59, 130, 246, 0.18), transparent 50%);
+    animation-delay: -8s;
+  }
+
+  .mesh-overlay {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(circle at center, black 35%, transparent 100%);
+  }
+
+  .bento-card {
+    @apply rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl;
+    box-shadow:
+      0 16px 40px rgba(2, 6, 23, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  }
+
+  .gradient-outline {
+    position: relative;
+  }
+
+  .gradient-outline::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.5), rgba(168, 85, 247, 0.45), rgba(244, 114, 182, 0.45));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .float-soft {
+    animation: float-soft 4s ease-in-out infinite;
   }
 
   @media (max-width: 768px) {

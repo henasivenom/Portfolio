@@ -1,57 +1,36 @@
-<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none">
   <defs>
-    <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="50%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#ec4899"/>
     </linearGradient>
-    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#67e8f9"/>
+      <stop offset="100%" stop-color="#c084fc"/>
     </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="55%" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#0f172a" flood-opacity="0.45"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#8b5cf6" flood-opacity="0.25"/>
+    </filter>
   </defs>
-  
-  <!-- Shield Background -->
-  <path d="M100 20 L170 50 L170 110 Q170 150 100 180 Q30 150 30 110 L30 50 Z" 
-        fill="url(#shieldGradient)" opacity="0.9"/>
-  
-  <!-- Circuit Board Pattern -->
-  <g stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.3">
-    <!-- Horizontal lines -->
-    <line x1="50" y1="60" x2="80" y2="60"/>
-    <line x1="120" y1="60" x2="150" y2="60"/>
-    <line x1="60" y1="80" x2="90" y2="80"/>
-    <line x1="110" y1="80" x2="140" y2="80"/>
-    <line x1="50" y1="100" x2="70" y2="100"/>
-    <line x1="130" y1="100" x2="150" y2="100"/>
-    <line x1="60" y1="120" x2="85" y2="120"/>
-    <line x1="115" y1="120" x2="140" y2="120"/>
-    
-    <!-- Vertical lines -->
-    <line x1="70" y1="50" x2="70" y2="75"/>
-    <line x1="130" y1="50" x2="130" y2="75"/>
-    <line x1="85" y1="90" x2="85" y2="110"/>
-    <line x1="115" y1="90" x2="115" y2="110"/>
-    
-    <!-- Connection nodes -->
-    <circle cx="70" cy="60" r="2" fill="#ffffff"/>
-    <circle cx="130" cy="60" r="2" fill="#ffffff"/>
-    <circle cx="85" cy="80" r="2" fill="#ffffff"/>
-    <circle cx="115" cy="80" r="2" fill="#ffffff"/>
-    <circle cx="70" cy="100" r="2" fill="#ffffff"/>
-    <circle cx="130" cy="100" r="2" fill="#ffffff"/>
-    <circle cx="85" cy="120" r="2" fill="#ffffff"/>
-    <circle cx="115" cy="120" r="2" fill="#ffffff"/>
-  </g>
-  
-  <!-- Shield Border -->
-  <path d="M100 20 L170 50 L170 110 Q170 150 100 180 Q30 150 30 110 L30 50 Z" 
-        fill="none" stroke="url(#textGradient)" stroke-width="3"/>
-  
-  <!-- MP Text -->
-  <text x="100" y="110" font-family="Arial, sans-serif" font-size="70" font-weight="bold" 
-        fill="#ffffff" text-anchor="middle" dominant-baseline="middle">MP</text>
-  
-  <!-- Highlight effect -->
-  <path d="M100 20 L170 50 L170 80" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.4"/>
+
+  <path d="M100 18L163 54V118L100 182L37 118V54L100 18Z" fill="url(#bgGrad)" filter="url(#softShadow)"/>
+  <path d="M100 30L153 61V115L100 170L47 115V61L100 30Z" fill="#0f172a" fill-opacity="0.34"/>
+  <path d="M100 25L158 58V116L100 175L42 116V58L100 25Z" stroke="url(#ringGrad)" stroke-width="3" opacity="0.9"/>
+
+  <circle cx="100" cy="93" r="58" fill="url(#glow)"/>
+  <circle cx="100" cy="93" r="40" fill="#ffffff" fill-opacity="0.08"/>
+
+  <path d="M63 128V72L79 72L100 98L121 72L137 72V128H123V93L100 119L77 93V128H63Z" fill="#ffffff"/>
+  <path d="M85 128V72H100C115 72 123 81 123 94C123 107 115 116 100 116H96V128H85ZM96 104H100C108 104 111 100 111 94C111 88 108 84 100 84H96V104Z" fill="#ffffff" fill-opacity="0.92"/>
+
+  <circle cx="154" cy="50" r="7" fill="#67e8f9" fill-opacity="0.95"/>
+  <circle cx="47" cy="145" r="5" fill="#f472b6" fill-opacity="0.75"/>
+  <path d="M58 46C72 34 86 30 100 30C117 30 132 35 146 47" stroke="#ffffff" stroke-opacity="0.22" stroke-width="3" stroke-linecap="round"/>
 </svg>

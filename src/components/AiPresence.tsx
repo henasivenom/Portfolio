@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { MessageCircle, X, Send, Bot, User, Sparkles } from 'lucide-react'
+import { MessageCircle, X, Send, Bot, User, Sparkles, RefreshCw } from 'lucide-react'
 
 interface Message {
   id: number
@@ -12,14 +12,30 @@ interface Message {
 }
 
 const aiResponses: Record<string, string> = {
-  'default': "Hi! I'm Mukesh's AI assistant. I can tell you about his skills, projects, or how to get in touch. What would you like to know?",
-  'skills': "Mukesh specializes in React, Next.js, TypeScript, and Node.js. He's also experienced with Python, Java, and cloud technologies like AWS. Want to know more about a specific technology?",
-  'projects': "Mukesh has built several exciting projects including an ATM Banking System, an Airline Reservation System, and an interactive Quiz Application. Each showcases his full-stack development skills!",
-  'contact': "You can reach Mukesh at amukeshpatel222@gmail.com or through the contact form above. He's currently open to new opportunities and collaborations!",
-  'experience': "Mukesh is a passionate software developer focused on creating elegant, performant applications. He believes in clean code, continuous learning, and user-centric design.",
+  'default': "Hi! 👋 I'm Mukesh's AI assistant. Ask me about skills, projects, resume, achievements, or availability 🚀",
+  'skills': "Mukesh works with Java, Spring Boot, React, Next.js, TypeScript, and modern UI tooling like Tailwind + Framer Motion. He also uses Selenium, Playwright, Postman, and Git workflows ⚙️",
+  'projects': "Featured builds include an ATM Banking System, Airline Reservation System, and interactive web apps with polished UI + performance tuning. Want project-wise tech stack details? ✨",
+  'contact': "You can reach Mukesh at amukeshpatel222@gmail.com or via the contact section. He is open to internships, freelance projects, and full-time roles 🤝",
+  'experience': "Mukesh focuses on reliable engineering + attractive product design: backend architecture, test automation, and smooth frontend delivery 💡",
   'hello': "Hello! Great to meet you! 👋 How can I help you learn more about Mukesh today?",
-  'hire': "Mukesh is available for freelance projects and full-time opportunities! You can reach out through the contact form or email at amukeshpatel222@gmail.com. He'd love to hear about your project!",
+  'hire': "Mukesh is available for freelance and full-time opportunities. Share your project goals and timeline via email/contact, and he can quickly suggest a plan ✅",
+  'resume': "You can download Mukesh's resume from the hero section. It highlights Java backend development, automation testing, cloud foundations, and modern frontend work 📄",
+  'availability': "Current status: available for interviews and collaboration. Preferred roles include Java developer, full-stack intern, and automation-focused engineering roles 🟢",
+  'achievements': "Highlights include AWS Cloud Foundations, strong DSA practice on LeetCode, and multiple end-to-end projects delivered with responsive UI and clean architecture 🏆",
+  'services': "Mukesh can help with Java backend APIs, Spring Boot app architecture, automation test setup, responsive UI polishing, and end-to-end delivery support 🧩",
+  'timeline': "Typical timelines: portfolio enhancements in days, feature modules in 1-2 weeks, and larger full-stack builds based on scope + review checkpoints 🗓️",
+  'design': "Design style blends modern gradients, glassmorphism, bento sections, and subtle motion for premium visuals without heavy lag 🎨",
+  'backend': "Backend strengths include Java, Spring Boot, JDBC/JPA, REST APIs, MySQL/MongoDB, and practical testing with JUnit/TestNG/Mockito ⚙️",
 }
+
+const quickPrompts = [
+  'Show top skills ⚙️',
+  'Best projects 🚀',
+  'How to contact 📩',
+  'Resume details 📄',
+  'Services offered 🧩',
+  'Design style 🎨',
+]
 
 function getAiResponse(message: string): string {
   const lowerMessage = message.toLowerCase()
@@ -41,6 +57,27 @@ function getAiResponse(message: string): string {
   }
   if (lowerMessage.includes('hire') || lowerMessage.includes('job') || lowerMessage.includes('work together')) {
     return aiResponses['hire']
+  }
+  if (lowerMessage.includes('resume') || lowerMessage.includes('cv')) {
+    return aiResponses['resume']
+  }
+  if (lowerMessage.includes('available') || lowerMessage.includes('availability')) {
+    return aiResponses['availability']
+  }
+  if (lowerMessage.includes('achievement') || lowerMessage.includes('certification') || lowerMessage.includes('leetcode')) {
+    return aiResponses['achievements']
+  }
+  if (lowerMessage.includes('service') || lowerMessage.includes('help') || lowerMessage.includes('offer')) {
+    return aiResponses['services']
+  }
+  if (lowerMessage.includes('timeline') || lowerMessage.includes('deadline') || lowerMessage.includes('duration')) {
+    return aiResponses['timeline']
+  }
+  if (lowerMessage.includes('design') || lowerMessage.includes('ui') || lowerMessage.includes('style')) {
+    return aiResponses['design']
+  }
+  if (lowerMessage.includes('backend') || lowerMessage.includes('api') || lowerMessage.includes('spring')) {
+    return aiResponses['backend']
   }
   
   return aiResponses['default']
@@ -95,12 +132,50 @@ export default function AiPresence() {
     }, 1000 + Math.random() * 1000)
   }
 
+  const handleQuickPrompt = (prompt: string) => {
+    setInput(prompt)
+    const userMessage: Message = {
+      id: messages.length + 1,
+      text: prompt,
+      sender: 'user',
+      timestamp: new Date()
+    }
+
+    setMessages(prev => [...prev, userMessage])
+    setIsTyping(true)
+
+    setTimeout(() => {
+      const aiMessage: Message = {
+        id: messages.length + 2,
+        text: getAiResponse(prompt),
+        sender: 'ai',
+        timestamp: new Date()
+      }
+      setMessages(prev => [...prev, aiMessage])
+      setInput('')
+      setIsTyping(false)
+    }, 700)
+  }
+
+  const handleResetChat = () => {
+    setMessages([
+      {
+        id: 1,
+        text: aiResponses['default'],
+        sender: 'ai',
+        timestamp: new Date(),
+      },
+    ])
+    setInput('')
+    setIsTyping(false)
+  }
+
   return (
     <>
       {/* Floating Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 p-4 rounded-full bg-gradient-to-r from-primary-500 to-purple-500 text-white shadow-lg shadow-primary-500/25 ${isOpen ? 'hidden' : ''}`}
+        className={`fixed bottom-6 right-6 z-50 p-4 rounded-full bg-gradient-to-r from-cyan-500 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-fuchsia-500/35 ${isOpen ? 'hidden' : ''}`}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         initial={{ scale: 0 }}
@@ -111,7 +186,7 @@ export default function AiPresence() {
         
         {/* Pulse effect */}
         <motion.span
-          className="absolute inset-0 rounded-full bg-primary-500"
+          className="absolute inset-0 rounded-full bg-violet-500"
           animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         />
@@ -121,37 +196,63 @@ export default function AiPresence() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed bottom-6 right-6 z-50 w-[380px] max-w-[calc(100vw-48px)] h-[500px] max-h-[calc(100vh-100px)] glass rounded-2xl shadow-2xl shadow-slate-950/50 flex flex-col overflow-hidden"
+            className="gradient-outline fixed bottom-6 right-6 z-50 w-[400px] max-w-[calc(100vw-32px)] h-[560px] max-h-[calc(100vh-80px)] glass rounded-3xl shadow-2xl shadow-slate-950/65 flex flex-col overflow-hidden border border-fuchsia-400/20"
             initial={{ scale: 0.8, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.8, opacity: 0, y: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-slate-700/50 bg-slate-900/50">
+            <div className="flex items-center justify-between p-4 border-b border-slate-700/50 bg-gradient-to-r from-slate-900/85 via-slate-900/75 to-violet-950/40">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-500 to-purple-500 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 via-violet-500 to-fuchsia-500 flex items-center justify-center">
                     <Bot className="w-5 h-5 text-white" />
                   </div>
                   <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-slate-900" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-slate-100 flex items-center gap-1">
-                    Ask Mukesh
-                    <Sparkles className="w-4 h-4 text-primary-400" />
+                    Ask Mukesh AI ✨
+                    <Sparkles className="w-4 h-4 text-cyan-300" />
                   </h3>
-                  <p className="text-xs text-slate-400">AI-powered assistant</p>
+                  <p className="text-xs text-slate-400">Smart portfolio assistant • instant answers • 24/7</p>
                 </div>
               </div>
-              <motion.button
-                onClick={() => setIsOpen(false)}
-                className="p-2 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <X className="w-5 h-5" />
-              </motion.button>
+              <div className="flex items-center gap-2">
+                <motion.button
+                  onClick={handleResetChat}
+                  className="p-2 rounded-lg text-slate-400 hover:text-cyan-300 hover:bg-slate-800/50 transition-colors"
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.9 }}
+                  title="Reset chat"
+                >
+                  <RefreshCw className="w-4 h-4" />
+                </motion.button>
+
+                <motion.button
+                  onClick={() => setIsOpen(false)}
+                  className="p-2 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-colors"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <X className="w-5 h-5" />
+                </motion.button>
+              </div>
+            </div>
+
+            <div className="px-4 py-3 border-b border-slate-700/40 bg-slate-900/45">
+              <div className="flex flex-wrap gap-2">
+                {quickPrompts.map((prompt) => (
+                  <button
+                    key={prompt}
+                    onClick={() => handleQuickPrompt(prompt)}
+                    className="rounded-full border border-cyan-400/20 bg-gradient-to-r from-cyan-500/10 via-violet-500/10 to-fuchsia-500/10 px-3 py-1.5 text-xs text-slate-200 hover:border-cyan-300/30"
+                  >
+                    {prompt}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Messages */}
@@ -166,7 +267,7 @@ export default function AiPresence() {
                 >
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
                     message.sender === 'ai' 
-                      ? 'bg-gradient-to-br from-primary-500 to-purple-500' 
+                      ? 'bg-gradient-to-br from-cyan-500 via-violet-500 to-fuchsia-500' 
                       : 'bg-slate-700'
                   }`}>
                     {message.sender === 'ai' 
@@ -174,10 +275,10 @@ export default function AiPresence() {
                       : <User className="w-4 h-4 text-slate-300" />
                     }
                   </div>
-                  <div className={`max-w-[75%] px-4 py-2.5 rounded-2xl text-sm ${
+                  <div className={`max-w-[75%] px-4 py-2.5 rounded-2xl text-sm leading-6 ${
                     message.sender === 'ai'
-                      ? 'bg-slate-800/80 text-slate-200 rounded-tl-md'
-                      : 'bg-gradient-to-r from-primary-500 to-purple-500 text-white rounded-tr-md'
+                      ? 'bg-slate-800/85 text-slate-200 rounded-tl-md border border-white/10'
+                      : 'bg-gradient-to-r from-cyan-500 via-violet-500 to-fuchsia-500 text-white rounded-tr-md'
                   }`}>
                     {message.text}
                   </div>
@@ -219,13 +320,13 @@ export default function AiPresence() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                  placeholder="Ask me anything..."
-                  className="flex-1 px-4 py-2.5 bg-slate-800/50 border border-slate-700/50 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-primary-500/50 transition-colors text-sm"
+                  placeholder="Ask about skills, projects, resume, contact..."
+                  className="flex-1 px-4 py-2.5 bg-slate-800/50 border border-slate-700/50 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-400/50 transition-colors text-sm"
                 />
                 <motion.button
                   onClick={handleSend}
                   disabled={!input.trim()}
-                  className="p-2.5 bg-gradient-to-r from-primary-500 to-purple-500 rounded-xl text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="p-2.5 bg-gradient-to-r from-cyan-500 via-violet-500 to-fuchsia-500 rounded-xl text-white disabled:opacity-50 disabled:cursor-not-allowed"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -233,7 +334,7 @@ export default function AiPresence() {
                 </motion.button>
               </div>
               <p className="text-xs text-slate-500 mt-2 text-center">
-                Try asking about skills, projects, or contact info
+                Try quick prompts above for faster answers ⚡
               </p>
             </div>
           </motion.div>

@@ -93,7 +93,7 @@ export default function ProjectsSection() {
         >
           <span className="text-accent-fuchsia font-mono text-sm md:text-base tracking-[0.3em] uppercase font-semibold flex items-center justify-center gap-3">
             <Sparkles className="w-4 h-4 md:w-5 md:h-5" />
-            Featured Work
+            Featured Work ✨
           </span>
           <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mt-6 mb-6 tracking-tighter text-balance leading-[0.9]">
             <span className="text-slate-100">My </span>
@@ -139,10 +139,7 @@ export default function ProjectsSection() {
                 className="cursor-grab active:cursor-grabbing select-none"
                 style={{ willChange: 'transform' }}
               >
-                <div
-                  className="rounded-2xl overflow-hidden border border-white/8"
-                  style={{ background: 'rgba(255,255,255,0.03)', boxShadow: '0 8px 40px rgba(0,0,0,0.4)' }}
-                >
+                <div className="bento-card gradient-outline rounded-2xl overflow-hidden border border-white/8">
                   {/* Banner */}
                   <div className={`relative h-52 md:h-64 bg-gradient-to-br ${project.color} overflow-hidden`}>
                     <div

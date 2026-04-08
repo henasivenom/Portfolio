@@ -24,7 +24,7 @@ export default function ContactSection() {
     setTimeout(() => setStatus('idle'), 3000)
   }
 
-  const inputClasses = "w-full px-4 py-3.5 bg-slate-900/60 border border-slate-700/60 rounded-xl text-slate-100 placeholder-slate-600 focus:outline-none focus:border-primary-500/60 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 hover:border-slate-600/60"
+  const inputClasses = "w-full px-4 py-3.5 bg-slate-900/60 border border-slate-700/60 rounded-xl text-slate-100 placeholder-slate-600 focus:outline-none focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 hover:border-slate-500/70"
 
   return (
     <section id="contact" className="relative py-24 md:py-32 overflow-hidden">
@@ -50,7 +50,7 @@ export default function ContactSection() {
               >
                 <Sparkles className="w-4 h-4 md:w-5 md:h-5" />
               </motion.div>
-              Let&apos;s Connect
+              Let&apos;s Connect ✨
             </span>
             <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mt-6 mb-6 tracking-tighter text-balance leading-[0.9]">
               <span className="text-slate-100">Get In </span>
@@ -63,7 +63,7 @@ export default function ContactSection() {
             </h2>
             <p className="text-sm md:text-base text-slate-400 mt-4 md:mt-6 leading-relaxed">
               Have a project in mind or want to collaborate? I&apos;d love to hear from you. 
-              Let&apos;s create something amazing together.
+              Let&apos;s create something amazing together 🚀
             </p>
 
             {/* Contact Info Cards */}
@@ -198,7 +198,7 @@ export default function ContactSection() {
               <motion.button
                 type="submit"
                 disabled={status === 'loading' || status === 'success'}
-                className="w-full py-4 bg-gradient-to-r from-primary-500 to-purple-500 rounded-xl font-semibold text-white flex items-center justify-center gap-2 hover:opacity-90 disabled:opacity-70 transition-all"
+                className="w-full py-4 bg-gradient-to-r from-cyan-500 via-violet-500 to-fuchsia-500 rounded-xl font-semibold text-white flex items-center justify-center gap-2 hover:opacity-90 disabled:opacity-70 transition-all"
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
                 initial={{ opacity: 0, y: 20 }}
