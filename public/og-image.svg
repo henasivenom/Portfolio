@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#050816" />
+      <stop offset="0.5" stop-color="#0b1220" />
+      <stop offset="1" stop-color="#12192b" />
+    </linearGradient>
+    <linearGradient id="accent" x1="280" y1="120" x2="920" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00f5d4" />
+      <stop offset="0.55" stop-color="#7c3aed" />
+      <stop offset="1" stop-color="#f97316" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <circle cx="1010" cy="108" r="130" fill="#7c3aed" fill-opacity="0.16" />
+  <circle cx="168" cy="520" r="178" fill="#00f5d4" fill-opacity="0.12" />
+  <rect x="96" y="96" width="1008" height="438" rx="36" fill="#09111f" fill-opacity="0.72" stroke="rgba(255,255,255,0.12)" />
+  <path d="M600 132L742 214V378L600 460L458 378V214L600 132Z" stroke="url(#accent)" stroke-width="10" />
+  <path d="M534 342V220h50l41 70 41-70h-50v122" stroke="url(#accent)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="96" y="520" fill="#f8fafc" font-family="Arial, sans-serif" font-size="58" font-weight="700">Mukesh Patel</text>
+  <text x="96" y="572" fill="#94a3b8" font-family="Arial, sans-serif" font-size="28">Creative Java Portfolio · Dark glassmorphism · Neon execution</text>
+</svg>

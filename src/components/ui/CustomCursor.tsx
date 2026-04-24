@@ -1,75 +1,111 @@
 'use client'
 
-import { motion, useReducedMotion, useSpring } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
 
-export default function CustomCursor() {
-  const reduceMotion = useReducedMotion()
-  const [hidden, setHidden] = useState(true)
-  const [hovering, setHovering] = useState(false)
-  const [target, setTarget] = useState({ x: 0, y: 0 })
+export function CustomCursor() {
+  const isMobile = typeof navigator !== 'undefined' && /Mobi|Android/i.test(navigator.userAgent)
+  const cursorX = useMotionValue(-100)
+  const cursorY = useMotionValue(-100)
+  const springX = useSpring(cursorX, { stiffness: 500, damping: 40 })
+  const springY = useSpring(cursorY, { stiffness: 500, damping: 40 })
+  const ringX = useSpring(cursorX, { stiffness: 120, damping: 20 })
+  const ringY = useSpring(cursorY, { stiffness: 120, damping: 20 })
+  const [hovered, setHovered] = useState(false)
+  const [hidden, setHidden] = useState(false)
 
-  const ringX = useSpring(0, { stiffness: 400, damping: 35, mass: 0.6 })
-  const ringY = useSpring(0, { stiffness: 400, damping: 35, mass: 0.6 })
+  const handleHoverEnter = useCallback(() => {
+    setHovered(true)
+  }, [])
+
+  const handleHoverLeave = useCallback(() => {
+    setHovered(false)
+  }, [])
 
   useEffect(() => {
-    if (reduceMotion) return
+    if (isMobile) return
 
-    const coarse = window.matchMedia('(pointer: coarse)').matches
-    if (coarse) return
-
-    const move = (event: MouseEvent) => {
-      setTarget({ x: event.clientX, y: event.clientY })
-      ringX.set(event.clientX)
-      ringY.set(event.clientY)
-      setHidden(false)
+    const handleMove = (event: MouseEvent) => {
+      cursorX.set(event.clientX)
+      cursorY.set(event.clientY)
     }
 
-    const detectHover = (event: MouseEvent) => {
-      const element = event.target as HTMLElement | null
-      const interactive = element?.closest('a, button, input, textarea, [role="button"], [data-magnetic]')
-      setHovering(Boolean(interactive))
-    }
+    const handleEnter = () => setHidden(false)
+    const handleLeave = () => setHidden(true)
 
-    const leave = () => setHidden(true)
+    const elements = globalThis.document.querySelectorAll('a,button,[data-cursor="pointer"]')
+    elements.forEach((element) => {
+      element.addEventListener('mouseenter', handleHoverEnter)
+      element.addEventListener('mouseleave', handleHoverLeave)
+    })
 
-    window.addEventListener('mousemove', move)
-    window.addEventListener('mouseover', detectHover)
-    window.addEventListener('mouseout', leave)
+    globalThis.addEventListener('mousemove', handleMove)
+    globalThis.document.addEventListener('mouseenter', handleEnter)
+    globalThis.document.addEventListener('mouseleave', handleLeave)
+
+    const observer = new MutationObserver(() => {
+      globalThis.document.querySelectorAll('a,button,[data-cursor="pointer"]').forEach((element) => {
+        element.addEventListener('mouseenter', handleHoverEnter)
+        element.addEventListener('mouseleave', handleHoverLeave)
+      })
+    })
+    observer.observe(globalThis.document.body, { childList: true, subtree: true })
 
     return () => {
-      window.removeEventListener('mousemove', move)
-      window.removeEventListener('mouseover', detectHover)
-      window.removeEventListener('mouseout', leave)
+      globalThis.removeEventListener('mousemove', handleMove)
+      globalThis.document.removeEventListener('mouseenter', handleEnter)
+      globalThis.document.removeEventListener('mouseleave', handleLeave)
+      observer.disconnect()
     }
-  }, [ringX, ringY, reduceMotion])
+  }, [cursorX, cursorY, handleHoverEnter, handleHoverLeave, isMobile])
 
-  if (reduceMotion) return null
+  if (isMobile) {
+    return null
+  }
+
+  let ringOpacity = 0.5
+  if (hidden) {
+    ringOpacity = 0
+  } else if (hovered) {
+    ringOpacity = 0.9
+  }
 
   return (
     <>
-      <motion.span
-        aria-hidden
-        className="pointer-events-none fixed z-[120] h-1 w-1 rounded-full bg-[var(--accent-teal)]"
-        animate={{
-          x: target.x - 2,
-          y: target.y - 2,
-          opacity: hidden ? 0 : 1,
-        }}
-        transition={{ type: 'tween', duration: 0.05 }}
-      />
-      <motion.span
-        aria-hidden
-        className="pointer-events-none fixed z-[119] rounded-full border border-[var(--accent-teal)]"
+      <motion.div
         style={{
+          position: 'fixed',
+          pointerEvents: 'none',
+          zIndex: 99999,
+          x: springX,
+          y: springY,
+          translateX: '-50%',
+          translateY: '-50%',
+          width: hovered ? 6 : 4,
+          height: hovered ? 6 : 4,
+          borderRadius: '50%',
+          background: hovered ? 'var(--violet)' : 'var(--teal)',
+          opacity: hidden ? 0 : 1,
+          transition: 'width 0.2s, height 0.2s, background 0.2s',
+        }}
+      />
+
+      <motion.div
+        style={{
+          position: 'fixed',
+          pointerEvents: 'none',
+          zIndex: 99998,
           x: ringX,
           y: ringY,
-          width: hovering ? 52 : 32,
-          height: hovering ? 52 : 32,
-          marginLeft: hovering ? -26 : -16,
-          marginTop: hovering ? -26 : -16,
-          mixBlendMode: hovering ? 'difference' : 'normal',
-          opacity: hidden ? 0 : 0.9,
+          translateX: '-50%',
+          translateY: '-50%',
+          width: hovered ? 44 : 28,
+          height: hovered ? 44 : 28,
+          borderRadius: '50%',
+          border: `1.5px solid ${hovered ? 'var(--violet)' : 'var(--teal)'}`,
+          opacity: ringOpacity,
+          mixBlendMode: hovered ? 'difference' : 'normal',
+          transition: 'width 0.3s, height 0.3s, border-color 0.3s, opacity 0.3s',
         }}
       />
     </>

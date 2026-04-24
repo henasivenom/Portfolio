@@ -33,7 +33,8 @@ export default function Navbar() {
 
       // Determine active section - include leetcode but don't highlight navbar
       const allSections = ['home', 'skills', 'projects', 'leetcode', 'contact']
-      for (const section of allSections.reverse()) {
+      allSections.reverse()
+      for (const section of allSections) {
         const element = document.getElementById(section)
         if (element) {
           const rect = element.getBoundingClientRect()
@@ -89,7 +90,7 @@ export default function Navbar() {
             <motion.a
               href="#home"
               className="relative group flex items-center gap-0 shrink-0"
-              onClick={(e) => {
+              onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                 e.preventDefault()
                 scrollToSection('home')
               }}
@@ -116,7 +117,7 @@ export default function Navbar() {
                       ? 'text-primary-400'
                       : 'text-slate-300 hover:text-white'
                   }`}
-                  onClick={(e) => {
+                  onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                     e.preventDefault()
                     scrollToSection(item.href.replace('#', ''))
                   }}
@@ -162,7 +163,7 @@ export default function Navbar() {
               <motion.a
                 href="#contact"
                 className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-500 via-violet-500 to-fuchsia-500 rounded-xl text-white text-sm font-semibold shadow-lg shadow-violet-600/25"
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                   e.preventDefault()
                   scrollToSection('contact')
                 }}
@@ -208,7 +209,7 @@ export default function Navbar() {
                   <motion.a
                     key={item.name}
                     href={item.href}
-                    onClick={(e) => {
+                    onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                       e.preventDefault()
                       scrollToSection(item.href.replace('#', ''))
                     }}
@@ -226,7 +227,7 @@ export default function Navbar() {
                 ))}
                 <motion.a
                   href="#contact"
-                    onClick={(e) => {
+                    onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                       e.preventDefault()
                       scrollToSection('contact')
                     }}

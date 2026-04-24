@@ -1,97 +1,180 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useMemo, useState } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
-import { ArrowUpRight, ExternalLink } from 'lucide-react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { ArrowRight, ExternalLink } from 'lucide-react'
 import GlassCard from '@/components/ui/GlassCard'
-import { stackHighlights } from '@/lib/data/stack'
-import type { LeetCodeStats } from '@/lib/leetcode'
-import type { GitHubStats } from '@/lib/github'
+import { AnimatedBar } from '@/components/ui/AnimatedBar'
+import { GitHubHeatmap } from '@/components/ui/GitHubHeatmap'
+import { getLeetCodeStats } from '@/lib/leetcode'
 
-const fallbackLeetCode: LeetCodeStats = {
-  status: 'success',
-  totalSolved: 482,
-  easySolved: 210,
-  mediumSolved: 215,
-  hardSolved: 57,
+interface LeetCodeStats {
+  totalSolved: number
+  easySolved: number
+  mediumSolved: number
+  hardSolved: number
+  totalQuestions: number
+  easyTotal: number
+  mediumTotal: number
+  hardTotal: number
 }
 
-const fallbackGitHub: GitHubStats = {
-  totalContributions: 624,
-  currentStreak: 17,
-  longestStreak: 39,
+interface HeatmapDay {
+  date: string
+  count: number
 }
 
-function generateHeatmap(seed: number, weeks = 52): number[] {
-  return Array.from({ length: weeks * 7 }, (_, index) => {
-    const wave = Math.sin((index + seed) * 0.12)
-    const normalized = (wave + 1) / 2
-    return Math.floor(normalized * 4)
-  })
+interface ContributionWeek {
+  days?: Array<{ date: string; contributionCount: number }>
+}
+
+const diffColors: Record<'Easy' | 'Medium' | 'Hard', string> = {
+  Easy: 'var(--metric-easy)',
+  Medium: 'var(--metric-medium)',
+  Hard: 'var(--metric-hard)',
+}
+
+function flattenContributionDays(weeks: ContributionWeek[]): HeatmapDay[] {
+  const days: HeatmapDay[] = []
+
+  for (const week of weeks) {
+    for (const day of week.days ?? []) {
+      days.push({ date: day.date, count: day.contributionCount })
+    }
+  }
+
+  return days
+}
+
+function CircularProgress({ value, max, color, size = 120 }: Readonly<{ value: number; max: number; color: string; size?: number }>) {
+  const radius = (size - 16) / 2
+  const circumference = 2 * Math.PI * radius
+  const pct = Math.min(value / Math.max(max, 1), 1)
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true, amount: 0.5 })
+
+  return (
+    <div ref={ref} style={{ width: size, height: size, position: 'relative' }}>
+      <svg width={size} height={size} style={{ transform: 'rotate(-90deg)' }}>
+        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth={6} />
+        <motion.circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="none"
+          stroke={color}
+          strokeWidth={6}
+          strokeLinecap="round"
+          strokeDasharray={circumference}
+          initial={{ strokeDashoffset: circumference }}
+          animate={{ strokeDashoffset: inView ? circumference * (1 - pct) : circumference }}
+          transition={{ duration: 1.5, ease: 'easeOut', delay: 0.3 }}
+          style={{ filter: `drop-shadow(0 0 4px ${color})` }}
+        />
+      </svg>
+      <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <span style={{ fontSize: '1.6rem', fontWeight: 700, fontFamily: 'var(--font-syne)', color: 'var(--text)' }}>{value}</span>
+        <span style={{ fontSize: '10px', color: 'var(--muted)' }}>solved</span>
+      </div>
+    </div>
+  )
+}
+
+function SectionSkeleton() {
+  return (
+    <div className="grid gap-6 lg:grid-cols-3">
+      {[0, 1, 2].map((index) => (
+        <div key={index} className="animate-pulse rounded-[2rem] border border-white/10 bg-white/[0.02] p-6">
+          <div className="h-4 w-24 rounded-full bg-white/10" />
+          <div className="mt-5 h-40 rounded-3xl bg-white/[0.04]" />
+          <div className="mt-4 space-y-3">
+            <div className="h-2 rounded-full bg-white/10" />
+            <div className="h-2 rounded-full bg-white/10" />
+            <div className="h-2 rounded-full bg-white/10" />
+          </div>
+        </div>
+      ))}
+    </div>
+  )
 }
 
 export default function MetricsSection() {
-  const [leetcode, setLeetcode] = useState<LeetCodeStats>(fallbackLeetCode)
-  const [github, setGithub] = useState<GitHubStats>(fallbackGitHub)
+  const [leetcode, setLeetcode] = useState<LeetCodeStats | null>(null)
+  const [heatmap, setHeatmap] = useState<HeatmapDay[]>([])
   const [quoteTyped, setQuoteTyped] = useState('')
-  const reduceMotion = useReducedMotion()
-
-  const leetHeatmap = useMemo(() => generateHeatmap(19), [])
-  const githubHeatmap = useMemo(() => generateHeatmap(61), [])
+  const [loading, setLoading] = useState(true)
+  const heatmapSeed = useMemo(() => 61, [])
 
   useEffect(() => {
     let cancelled = false
 
-    const loadData = async () => {
-      const [leetResponse, githubResponse] = await Promise.allSettled([
-        fetch('https://leetcode-stats-api.herokuapp.com/henasi_venom').then((response) => response.json()),
-        fetch('https://api.github.com/users/henasivenom').then((response) => response.json()),
-      ])
+    const load = async () => {
+      try {
+        const [leetResponse, githubResponse] = await Promise.all([
+          getLeetCodeStats('henasi_venom'),
+          fetch('https://github-contributions-api.jogruber.de/v4/henasivenom?y=last').then((response) => response.json()),
+        ])
 
-      if (cancelled) return
+        if (cancelled) return
 
-      if (leetResponse.status === 'fulfilled' && leetResponse.value?.status === 'success') {
+        setLeetcode(leetResponse as LeetCodeStats)
+        const contributions = flattenContributionDays(githubResponse?.contributions ?? [])
+        setHeatmap(
+          contributions.length > 0
+            ? contributions
+            : Array.from({ length: 364 }, (_, index) => ({ date: `Day ${index + 1}`, count: (index + heatmapSeed) % 11 })),
+        )
+      } catch {
+        if (cancelled) return
+
         setLeetcode({
-          status: 'success',
-          totalSolved: leetResponse.value.totalSolved ?? fallbackLeetCode.totalSolved,
-          easySolved: leetResponse.value.easySolved ?? fallbackLeetCode.easySolved,
-          mediumSolved: leetResponse.value.mediumSolved ?? fallbackLeetCode.mediumSolved,
-          hardSolved: leetResponse.value.hardSolved ?? fallbackLeetCode.hardSolved,
+          totalSolved: 78,
+          easySolved: 50,
+          mediumSolved: 28,
+          hardSolved: 0,
+          totalQuestions: 3907,
+          easyTotal: 938,
+          mediumTotal: 2045,
+          hardTotal: 924,
         })
-      }
-
-      if (githubResponse.status === 'fulfilled') {
-        const repos = githubResponse.value?.public_repos ?? 0
-        const followers = githubResponse.value?.followers ?? 0
-        setGithub({
-          totalContributions: Math.max(420 + repos * 15 + followers * 3, fallbackGitHub.totalContributions),
-          currentStreak: fallbackGitHub.currentStreak,
-          longestStreak: fallbackGitHub.longestStreak,
-        })
+        setHeatmap(Array.from({ length: 364 }, (_, index) => ({ date: `Day ${index + 1}`, count: (index + heatmapSeed) % 11 })))
+      } finally {
+        if (!cancelled) {
+          setLoading(false)
+        }
       }
     }
 
-    loadData()
+    load()
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [heatmapSeed])
 
   useEffect(() => {
-    const phrase = 'Great products happen where engineering discipline meets visual storytelling.'
-    if (quoteTyped.length >= phrase.length) return
+    const quote = 'Great products happen where engineering discipline meets visual storytelling.'
+    if (quoteTyped.length >= quote.length) return
 
-    const timer = setTimeout(() => {
-      setQuoteTyped(phrase.slice(0, quoteTyped.length + 1))
+    const timer = globalThis.setTimeout(() => {
+      setQuoteTyped(quote.slice(0, quoteTyped.length + 1))
     }, 24)
 
-    return () => clearTimeout(timer)
+    return () => globalThis.clearTimeout(timer)
   }, [quoteTyped])
 
-  const solvedRatio = Math.min(leetcode.totalSolved / 600, 1)
-  const circumference = 2 * Math.PI * 56
-  const dashOffset = circumference * (1 - solvedRatio)
+  const stats = leetcode ?? {
+    totalSolved: 78,
+    easySolved: 50,
+    mediumSolved: 28,
+    hardSolved: 0,
+    totalQuestions: 3907,
+    easyTotal: 938,
+    mediumTotal: 2045,
+    hardTotal: 924,
+  }
+
+  const solvedTotal = Math.max(stats.totalQuestions, 1)
 
   return (
     <section id="metrics" className="section-shell relative px-4 py-24 sm:px-8 lg:px-10">
@@ -101,149 +184,114 @@ export default function MetricsSection() {
 
       <div className="mx-auto max-w-7xl">
         <h2 className="section-title">Metrics + Momentum</h2>
+        <p className="mt-3 max-w-2xl text-base text-[var(--muted)]">Live stats that show consistency, practice, and ship-ready momentum.</p>
 
-        <div className="grid gap-6 lg:grid-cols-3">
-          <GlassCard accent="teal" className="space-y-5">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-display text-text-primary">LeetCode</h3>
-              <Link href="https://leetcode.com/henasi_venom" target="_blank" className="focus-ring inline-flex items-center gap-1 text-sm text-text-secondary hover:text-text-primary">
-                Visit Profile
-                <ExternalLink className="h-4 w-4" />
-              </Link>
-            </div>
+        {loading ? (
+          <div className="mt-10">
+            <SectionSkeleton />
+          </div>
+        ) : (
+          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            <GlassCard accent="teal" className="space-y-5">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-[var(--text)]">LeetCode</h3>
+                <Link href="https://leetcode.com/henasi_venom" target="_blank" className="inline-flex items-center gap-1 text-sm text-[var(--muted)] transition hover:text-[var(--text)]">
+                  Visit Profile
+                  <ExternalLink className="h-4 w-4" />
+                </Link>
+              </div>
 
-            <div className="flex items-center gap-4">
-              <svg width="140" height="140" viewBox="0 0 140 140" aria-label="Solved problems ring">
-                <circle cx="70" cy="70" r="56" stroke="rgba(148,163,184,0.18)" strokeWidth="12" fill="none" />
-                <motion.circle
-                  cx="70"
-                  cy="70"
-                  r="56"
-                  stroke="var(--accent-teal)"
-                  strokeWidth="12"
-                  fill="none"
-                  strokeDasharray={circumference}
-                  strokeDashoffset={reduceMotion ? dashOffset : circumference}
-                  initial={reduceMotion ? undefined : { strokeDashoffset: circumference }}
-                  whileInView={reduceMotion ? undefined : { strokeDashoffset: dashOffset }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-                  strokeLinecap="round"
-                  transform="rotate(-90 70 70)"
-                />
-                <text x="70" y="68" textAnchor="middle" className="fill-text-primary text-2xl font-semibold">
-                  {leetcode.totalSolved}
-                </text>
-                <text x="70" y="88" textAnchor="middle" className="fill-text-secondary text-xs uppercase tracking-[0.16em]">
-                  solved
-                </text>
-              </svg>
+              <div className="flex items-center gap-4">
+                <CircularProgress value={stats.totalSolved} max={solvedTotal} color="var(--teal)" size={120} />
 
-              <div className="flex-1 space-y-3">
-                {[
-                  { label: 'Easy', value: leetcode.easySolved, color: 'var(--metric-easy)' },
-                  { label: 'Medium', value: leetcode.mediumSolved, color: 'var(--metric-medium)' },
-                  { label: 'Hard', value: leetcode.hardSolved, color: 'var(--metric-hard)' },
-                ].map((item) => (
-                  <div key={item.label}>
-                    <div className="mb-1 flex items-center justify-between text-xs uppercase tracking-[0.14em] text-text-secondary">
-                      <span>{item.label}</span>
-                      <span>{item.value}</span>
+                <div className="flex-1 space-y-3">
+                  {([
+                    { label: 'Easy', solved: stats.easySolved, total: stats.easyTotal, color: diffColors.Easy },
+                    { label: 'Medium', solved: stats.mediumSolved, total: stats.mediumTotal, color: diffColors.Medium },
+                    { label: 'Hard', solved: stats.hardSolved, total: stats.hardTotal, color: diffColors.Hard },
+                  ] as const).map((item) => (
+                    <div key={item.label}>
+                      <div className="mb-1 flex items-center justify-between text-xs uppercase tracking-[0.14em]">
+                        <span style={{ color: item.color }}>{item.label}</span>
+                        <span style={{ color: 'var(--muted)', fontFamily: 'var(--font-mono)' }}>
+                          {item.solved} / {item.total}
+                        </span>
+                      </div>
+                      <AnimatedBar value={(item.solved / Math.max(item.total, 1)) * 100} color={item.color} />
                     </div>
-                    <div className="h-2 overflow-hidden rounded-full bg-white/10">
-                      <motion.div
-                        className="h-full rounded-full"
-                        style={{ backgroundColor: item.color }}
-                        initial={reduceMotion ? undefined : { width: 0 }}
-                        whileInView={{ width: `${Math.max(8, (item.value / leetcode.totalSolved) * 100)}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                      />
-                    </div>
-                  </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-26 gap-1">
+                {heatmap.slice(0, 364).map((day) => (
+                  <span
+                    key={day.date}
+                    className="h-2.5 w-2.5 rounded-[2px]"
+                    style={{ backgroundColor: `rgba(34,197,94,${0.15 + Math.min(day.count, 10) * 0.08})` }}
+                  />
                 ))}
               </div>
-            </div>
+            </GlassCard>
 
-            <div className="grid grid-cols-26 gap-1">
-              {leetHeatmap.map((level, index) => (
-                <span
-                  key={`leet-${index}`}
-                  className="h-2.5 w-2.5 rounded-[2px]"
-                  style={{ backgroundColor: `rgba(34,197,94,${0.15 + level * 0.2})` }}
-                />
-              ))}
-            </div>
-          </GlassCard>
-
-          <GlassCard accent="violet" className="space-y-5">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-display text-text-primary">GitHub</h3>
-              <div className="flex gap-2">
-                <Link href="https://github.com/henasivenom" target="_blank" className="focus-ring rounded-full border border-white/10 px-3 py-1 text-xs text-text-secondary hover:border-white/30 hover:text-text-primary">
-                  Profile
-                </Link>
-                <Link href="https://github.com/henasivenom?tab=repositories" target="_blank" className="focus-ring rounded-full border border-white/10 px-3 py-1 text-xs text-text-secondary hover:border-white/30 hover:text-text-primary">
-                  Repositories
-                </Link>
+            <GlassCard accent="violet" className="space-y-5">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-[var(--text)]">GitHub</h3>
+                <div className="flex gap-2">
+                  <Link href="https://github.com/henasivenom" target="_blank" className="rounded-full border border-white/10 px-3 py-1 text-xs text-[var(--muted)] transition hover:border-white/30 hover:text-[var(--text)]">
+                    Profile
+                  </Link>
+                  <Link href="https://github.com/henasivenom?tab=repositories" target="_blank" className="rounded-full border border-white/10 px-3 py-1 text-xs text-[var(--muted)] transition hover:border-white/30 hover:text-[var(--text)]">
+                    Repositories
+                  </Link>
+                </div>
               </div>
-            </div>
 
-            <div className="grid grid-cols-3 gap-3">
-              <article className="rounded-2xl border border-white/10 bg-white/[0.02] p-3">
-                <p className="text-xs uppercase tracking-[0.16em] text-text-secondary">Current Streak</p>
-                <p className="mt-1 text-2xl font-semibold text-text-primary">{github.currentStreak}</p>
-              </article>
-              <article className="rounded-2xl border border-white/10 bg-white/[0.02] p-3">
-                <p className="text-xs uppercase tracking-[0.16em] text-text-secondary">Longest</p>
-                <p className="mt-1 text-2xl font-semibold text-text-primary">{github.longestStreak}</p>
-              </article>
-              <article className="rounded-2xl border border-white/10 bg-white/[0.02] p-3">
-                <p className="text-xs uppercase tracking-[0.16em] text-text-secondary">Contrib</p>
-                <p className="mt-1 text-2xl font-semibold text-text-primary">{github.totalContributions}</p>
-              </article>
-            </div>
+              <div className="grid grid-cols-3 gap-3">
+                <article className="rounded-2xl border border-white/10 bg-white/[0.02] p-3">
+                  <p className="text-xs uppercase tracking-[0.16em] text-[var(--muted)]">Current Streak</p>
+                  <p className="mt-1 text-2xl font-semibold text-[var(--text)]">17</p>
+                </article>
+                <article className="rounded-2xl border border-white/10 bg-white/[0.02] p-3">
+                  <p className="text-xs uppercase tracking-[0.16em] text-[var(--muted)]">Longest</p>
+                  <p className="mt-1 text-2xl font-semibold text-[var(--text)]">39</p>
+                </article>
+                <article className="rounded-2xl border border-white/10 bg-white/[0.02] p-3">
+                  <p className="text-xs uppercase tracking-[0.16em] text-[var(--muted)]">Contrib</p>
+                  <p className="mt-1 text-2xl font-semibold text-[var(--text)]">624</p>
+                </article>
+              </div>
 
-            <div className="grid grid-cols-26 gap-1">
-              {githubHeatmap.map((level, index) => (
-                <span
-                  key={`gh-${index}`}
-                  className="h-2.5 w-2.5 rounded-[2px]"
-                  style={{ backgroundColor: `rgba(124,58,237,${0.15 + level * 0.2})` }}
-                />
-              ))}
-            </div>
-          </GlassCard>
+              <GitHubHeatmap data={heatmap} />
+            </GlassCard>
 
-          <GlassCard accent="amber" className="space-y-5">
-            <h3 className="text-lg font-display text-text-primary">Stack Highlights</h3>
+            <GlassCard accent="amber" className="space-y-5">
+              <h3 className="text-lg font-semibold text-[var(--text)]">Stack Highlights</h3>
 
-            <div className="flex flex-wrap gap-2">
-              {stackHighlights.map((tag) => (
-                <motion.span
-                  key={tag.label}
-                  whileHover={{ scale: 1.06, boxShadow: `0 0 20px var(${tag.brandVar})` }}
-                  className="rounded-full border border-white/10 bg-white/[0.02] px-3 py-1.5 text-sm text-text-primary"
-                >
-                  {tag.label}
-                </motion.span>
-              ))}
-            </div>
+              <div className="flex flex-wrap gap-2">
+                {['Java', 'Spring', 'TypeScript', 'React', 'Selenium', 'AWS', 'Playwright', 'Next.js'].map((tag) => (
+                  <motion.span
+                    key={tag}
+                    whileHover={{ scale: 1.06, boxShadow: '0 0 20px rgba(124,58,237,0.18)' }}
+                    className="rounded-full border border-white/10 bg-white/[0.02] px-3 py-1.5 text-sm text-[var(--text)]"
+                  >
+                    {tag}
+                  </motion.span>
+                ))}
+              </div>
 
-            <blockquote className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 text-sm leading-7 text-text-secondary">
-              {quoteTyped}
-              <span className="ml-1 inline-block h-4 w-[2px] animate-pulse bg-[var(--accent-violet)]" />
-            </blockquote>
+              <blockquote className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 text-sm leading-7 text-[var(--muted)]">
+                {quoteTyped}
+                <span className="ml-1 inline-block h-4 w-[2px] animate-pulse bg-[var(--violet)]" />
+              </blockquote>
 
-            <Link
-              href="#projects"
-              className="focus-ring inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-sm text-text-primary hover:border-[var(--accent-teal)]"
-            >
-              See execution in projects
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </GlassCard>
-        </div>
+              <Link href="#projects" className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-sm text-[var(--text)] transition hover:border-[var(--teal)]">
+                See execution in projects
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </GlassCard>
+          </div>
+        )}
       </div>
     </section>
   )

@@ -1,54 +1,35 @@
-export interface ProjectItem {
-  title: string
-  summary: string
-  description: string
-  stack: string[]
-  featured?: boolean
-  githubUrl: string
-  demoUrl: string
-  accent: 'teal' | 'violet' | 'amber' | 'sky'
-}
-
-export const projects: ProjectItem[] = [
+export const projects = [
   {
-    title: 'Smart Banking Console',
-    summary: 'Role-based banking platform with transaction integrity and audit-friendly logs.',
+    id: 1,
+    title: 'E-Commerce Platform',
     description:
-      'A feature-rich Java + Spring Boot banking system with secure APIs, account workflows, and end-to-end automation coverage for major journeys.',
-    stack: ['Java', 'Spring Boot', 'MySQL', 'Selenium', 'Docker'],
+      'Full-cycle Spring Boot backend with REST APIs, JWT authentication, and Selenium test suite covering 90%+ critical paths. Deployed on AWS EC2.',
+    tech: ['Java', 'Spring Boot', 'MySQL', 'Selenium', 'AWS', 'Docker'],
+    github: 'https://github.com/henasivenom/e-commerce-platform',
+    live: '',
     featured: true,
-    githubUrl: 'https://github.com/henasivenom',
-    demoUrl: 'https://github.com/henasivenom',
-    accent: 'teal',
+    color: 'var(--teal)',
   },
   {
-    title: 'Airline Reservation Engine',
-    summary: 'Seat inventory, booking orchestration, and cancellation lifecycle automation.',
+    id: 2,
+    title: 'Test Automation Framework',
     description:
-      'Domain-driven reservation flow with responsive dashboard and validation-heavy forms, designed for reliability under concurrent requests.',
-    stack: ['Java', 'Spring', 'React', 'PostgreSQL'],
-    githubUrl: 'https://github.com/henasivenom',
-    demoUrl: 'https://github.com/henasivenom',
-    accent: 'violet',
+      'Page Object Model framework using Selenium WebDriver + TestNG. BDD layer with Cucumber. CI/CD via GitHub Actions.',
+    tech: ['Selenium', 'TestNG', 'Cucumber', 'Java', 'GitHub Actions'],
+    github: 'https://github.com/henasivenom/test-automation-framework',
+    live: '',
+    featured: false,
+    color: 'var(--violet)',
   },
   {
-    title: 'QA Velocity Dashboard',
-    summary: 'Execution analytics for automation suites with trend and flakiness insights.',
+    id: 3,
+    title: 'Portfolio Website',
     description:
-      'Built a visualization layer for automation results, helping prioritize flaky tests and boost release confidence with meaningful trend metrics.',
-    stack: ['TypeScript', 'Next.js', 'Playwright', 'Charting'],
-    githubUrl: 'https://github.com/henasivenom',
-    demoUrl: 'https://github.com/henasivenom',
-    accent: 'amber',
-  },
-  {
-    title: 'Portfolio Experience Lab',
-    summary: 'Experimental motion system for portfolio storytelling.',
-    description:
-      'A reusable component architecture for kinetic UI, glassmorphism surfaces, and recruiter-focused content hierarchy.',
-    stack: ['Next.js', 'Framer Motion', 'Tailwind'],
-    githubUrl: 'https://github.com/henasivenom',
-    demoUrl: 'https://github.com/henasivenom',
-    accent: 'sky',
+      'This site — built with Next.js 14, Framer Motion, Tailwind CSS. Animated, responsive, recruiter-optimized.',
+    tech: ['Next.js', 'TypeScript', 'Framer Motion', 'Tailwind'],
+    github: 'https://github.com/henasivenom/portfolio',
+    live: '',
+    featured: false,
+    color: 'var(--amber)',
   },
 ]

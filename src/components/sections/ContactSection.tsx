@@ -1,43 +1,57 @@
 'use client'
 
 import Link from 'next/link'
-import { FormEvent, useMemo, useState } from 'react'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { motion } from 'framer-motion'
-import { CheckCircle2, Github, Linkedin, Mail } from 'lucide-react'
+import { Linkedin, Loader2, Mail, CheckCircle2 } from 'lucide-react'
+import { SiGithub } from 'react-icons/si'
 import GlassCard from '@/components/ui/GlassCard'
-import MagneticButton from '@/components/ui/MagneticButton'
 
-const initialForm = {
-  name: '',
-  email: '',
-  message: '',
+type ContactIcon = React.ComponentType<{ className?: string }>
+
+interface ContactValues {
+  name: string
+  email: string
+  message: string
 }
 
 export default function ContactSection() {
-  const [form, setForm] = useState(initialForm)
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ContactValues>({
+    mode: 'onTouched',
+    defaultValues: {
+      name: '',
+      email: '',
+      message: '',
+    },
+  })
+
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
+  const [success, setSuccess] = useState(false)
 
-  const characterCount = useMemo(() => form.message.length, [form.message])
-
-  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const onSubmit = handleSubmit(async () => {
     setIsSubmitting(true)
-    setSubmitted(false)
+    setSuccess(false)
 
-    await new Promise((resolve) => setTimeout(resolve, 1200))
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 1200))
 
     const confetti = (await import('canvas-confetti')).default
     confetti({
       particleCount: 120,
-      spread: 65,
-      origin: { y: 0.7 },
+      spread: 70,
+      colors: ['#00f5d4', '#7c3aed', '#f97316'],
+      origin: { y: 0.6 },
     })
 
+    reset()
     setIsSubmitting(false)
-    setSubmitted(true)
-    setForm(initialForm)
-  }
+    setSuccess(true)
+  })
 
   return (
     <section id="contact" className="section-shell relative px-4 py-24 sm:px-8 lg:px-10">
@@ -46,113 +60,126 @@ export default function ContactSection() {
       </span>
 
       <div className="mx-auto max-w-7xl">
-        <h2 className="section-title mb-10">Contact & Collaborate</h2>
+        <h2 className="section-title">Contact & Collaborate</h2>
+        <p className="mt-3 max-w-2xl text-base text-[var(--muted)]">Open to full-time roles, high-trust freelance work, and product collaborations.</p>
 
-        <div className="grid gap-6 lg:grid-cols-2">
-          <GlassCard accent="teal">
+        <div className="mt-10 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+          <GlassCard accent="teal" className="relative overflow-hidden">
             <form onSubmit={onSubmit} className="space-y-5">
-              {[
-                { key: 'name', label: 'Your Name', type: 'text' },
-                { key: 'email', label: 'Your Email', type: 'email' },
-              ].map((field) => (
-                <label key={field.key} className="group relative block">
-                  <input
-                    required
-                    type={field.type}
-                    value={form[field.key as 'name' | 'email']}
-                    onChange={(event) => setForm((prev) => ({ ...prev, [field.key]: event.target.value }))}
-                    className="peer w-full rounded-2xl border border-white/15 bg-transparent px-4 pb-3 pt-6 text-text-primary transition focus:border-[var(--accent-teal)] focus:shadow-[0_0_20px_rgba(0,245,212,0.22)] focus:outline-none"
-                    placeholder=" "
-                  />
-                  <span className="pointer-events-none absolute left-4 top-4 text-sm text-text-secondary transition peer-focus:top-2 peer-focus:text-xs peer-focus:text-[var(--accent-teal)] peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-xs">
-                    {field.label}
-                  </span>
-                </label>
-              ))}
-
-              <label className="group relative block">
-                <textarea
-                  required
-                  rows={6}
-                  value={form.message}
-                  onChange={(event) => setForm((prev) => ({ ...prev, message: event.target.value.slice(0, 500) }))}
-                  className="peer w-full rounded-2xl border border-white/15 bg-transparent px-4 pb-3 pt-6 text-text-primary transition focus:border-[var(--accent-teal)] focus:shadow-[0_0_20px_rgba(0,245,212,0.22)] focus:outline-none"
+              <div className="input-wrapper">
+                <input
+                  id="contact-name"
+                  {...register('name', { required: 'Name is required' })}
                   placeholder=" "
+                  className="peer w-full rounded-2xl border border-white/10 bg-transparent px-4 pb-3 pt-6 text-[var(--text)] outline-none transition focus:border-[var(--teal)] focus:shadow-[0_0_0_3px_rgba(0,245,212,0.1)]"
                 />
-                <span className="pointer-events-none absolute left-4 top-4 text-sm text-text-secondary transition peer-focus:top-2 peer-focus:text-xs peer-focus:text-[var(--accent-teal)] peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-xs">
-                  Message
-                </span>
-              </label>
+                <label htmlFor="contact-name" className="float-label">Name</label>
+                {errors.name ? <p className="mt-2 text-xs text-[var(--amber)]">{errors.name.message}</p> : null}
+              </div>
 
-              <p className="text-right text-xs font-mono text-text-secondary">{characterCount}/500</p>
+              <div className="input-wrapper">
+                <input
+                  id="contact-email"
+                  {...register('email', {
+                    required: 'Email is required',
+                    pattern: {
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message: 'Enter a valid email address',
+                    },
+                  })}
+                  placeholder=" "
+                  className="peer w-full rounded-2xl border border-white/10 bg-transparent px-4 pb-3 pt-6 text-[var(--text)] outline-none transition focus:border-[var(--teal)] focus:shadow-[0_0_0_3px_rgba(0,245,212,0.1)]"
+                />
+                <label htmlFor="contact-email" className="float-label">Email</label>
+                {errors.email ? <p className="mt-2 text-xs text-[var(--amber)]">{errors.email.message}</p> : null}
+              </div>
 
-              <MagneticButton
+              <div className="input-wrapper">
+                <textarea
+                  id="contact-message"
+                  {...register('message', { required: 'Message is required', minLength: { value: 20, message: 'Please write a bit more detail' } })}
+                  placeholder=" "
+                  rows={7}
+                  className="peer w-full rounded-2xl border border-white/10 bg-transparent px-4 pb-3 pt-6 text-[var(--text)] outline-none transition focus:border-[var(--teal)] focus:shadow-[0_0_0_3px_rgba(0,245,212,0.1)]"
+                />
+                <label htmlFor="contact-message" className="float-label">Message</label>
+                {errors.message ? <p className="mt-2 text-xs text-[var(--amber)]">{errors.message.message}</p> : null}
+              </div>
+
+              <button
                 type="submit"
-                data-magnetic
                 disabled={isSubmitting}
-                className="focus-ring inline-flex w-full items-center justify-center rounded-2xl bg-[linear-gradient(135deg,var(--accent-violet),var(--accent-teal))] px-6 py-3 font-semibold text-white disabled:opacity-70"
+                className="group relative inline-flex w-full items-center justify-center overflow-hidden rounded-2xl bg-[linear-gradient(135deg,var(--teal),var(--violet))] px-6 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70"
               >
+                <span className="absolute inset-y-0 left-[-100%] w-1/2 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.7),transparent)] group-hover:animate-[sweep_0.9s_ease]" />
                 {isSubmitting ? (
                   <span className="inline-flex items-center gap-2">
-                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/70 border-t-transparent" />
+                    <Loader2 className="h-4 w-4 animate-spin" />
                     Sending...
                   </span>
                 ) : (
                   'Send Message'
                 )}
-              </MagneticButton>
+              </button>
 
-              {submitted ? (
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm text-emerald-300"
-                >
+              {success ? (
+                <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm text-emerald-300">
                   <CheckCircle2 className="h-4 w-4" />
-                  Message sent. Thanks for reaching out.
-                </motion.p>
+                  Message sent successfully.
+                </motion.div>
               ) : null}
             </form>
           </GlassCard>
 
-          <GlassCard accent="violet" className="space-y-4">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-xs uppercase tracking-[0.16em] text-emerald-300">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-300" />
-              Open to Work
-            </div>
+          <GlassCard accent="violet" className="space-y-5">
+            <h3 className="text-2xl font-semibold text-[var(--text)]">Let's build something great</h3>
+            <p className="text-sm leading-7 text-[var(--muted)]">If you need a Spring Boot engineer, an automation-first problem solver, or a portfolio that converts attention into interviews, let&apos;s talk.</p>
 
             {[
               {
                 label: 'Email',
                 value: 'amukeshpatel222@gmail.com',
                 href: 'mailto:amukeshpatel222@gmail.com',
-                Icon: Mail,
+                Icon: Mail as ContactIcon,
+                border: 'rgba(0,245,212,0.25)',
               },
               {
                 label: 'LinkedIn',
                 value: 'linkedin.com/in/henasivenom',
                 href: 'https://www.linkedin.com/in/henasivenom',
-                Icon: Linkedin,
+                Icon: Linkedin as ContactIcon,
+                border: 'rgba(124,58,237,0.25)',
               },
               {
                 label: 'GitHub',
                 value: 'github.com/henasivenom',
                 href: 'https://github.com/henasivenom',
-                Icon: Github,
+                Icon: SiGithub as ContactIcon,
+                border: 'rgba(249,115,22,0.25)',
               },
-            ].map(({ label, value, href, Icon }) => (
-              <motion.div key={label} whileHover={{ y: -4, boxShadow: '0 0 24px rgba(124,58,237,0.28)' }} className="rounded-2xl border border-white/10 bg-white/[0.02]">
-                <Link href={href} target="_blank" className="focus-ring flex items-center gap-3 px-4 py-4">
-                  <motion.span whileHover={{ y: -2 }} className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-text-secondary">
+            ].map(({ label, value, href, Icon, border }) => (
+              <motion.div
+                key={label}
+                whileHover={{ y: -4 }}
+                className="rounded-2xl border border-white/10 bg-white/[0.02]"
+                style={{ boxShadow: `0 0 0 1px ${border}` }}
+              >
+                <Link href={href} target="_blank" className="flex items-center gap-3 px-4 py-4 transition hover:bg-white/[0.03]">
+                  <motion.span whileHover={{ y: -4 }} className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-[var(--text)]">
                     <Icon className="h-5 w-5" />
                   </motion.span>
                   <span>
-                    <p className="text-xs uppercase tracking-[0.16em] text-text-secondary">{label}</p>
-                    <p className="text-sm text-text-primary">{value}</p>
+                    <p className="text-xs uppercase tracking-[0.16em] text-[var(--muted)]">{label}</p>
+                    <p className="text-sm text-[var(--text)]">{value}</p>
                   </span>
                 </Link>
               </motion.div>
             ))}
+
+            <div className="mt-6 flex w-fit items-center gap-2 rounded-full border border-[#22c55e] bg-[rgba(34,197,94,0.08)] px-4 py-2.5">
+              <span className="pulse-green-dot" />
+              <span className="text-sm text-[var(--text)]">Available for full-time roles</span>
+            </div>
           </GlassCard>
         </div>
       </div>

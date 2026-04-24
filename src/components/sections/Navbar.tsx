@@ -5,6 +5,7 @@ import { Menu, Moon, Sun, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
+import Logo from '@/components/ui/Logo'
 
 const navItems = [
   { label: 'Home', href: 'home' },
@@ -36,7 +37,7 @@ export default function Navbar() {
 
     const sections = navItems
       .map((item) => document.getElementById(item.href))
-      .filter(Boolean) as HTMLElement[]
+      .filter((section): section is HTMLElement => Boolean(section))
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -68,12 +69,7 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className="pointer-events-auto mx-auto flex max-w-5xl items-center justify-between rounded-full border border-white/15 bg-[rgba(5,8,22,0.72)] px-3 py-2 shadow-[0_18px_60px_rgba(2,6,23,0.65)] backdrop-blur-xl"
       >
-        <button
-          onClick={() => scrollTo('home')}
-          className="rounded-full px-4 py-2 text-sm font-semibold tracking-[0.08em] text-text-primary transition hover:text-[var(--accent-teal)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-teal)]"
-        >
-          MP
-        </button>
+        <Logo />
 
         <ul className="hidden items-center gap-1 md:flex">
           {navItems.map((item) => {
