@@ -1,18 +1,21 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { DM_Sans, JetBrains_Mono, Syne } from 'next/font/google'
-import SmoothScrollProvider from '@/components/ui/SmoothScrollProvider'
-import { CustomCursor } from '@/components/ui/CustomCursor'
-import { ScrollProgress } from '@/components/ui/ScrollProgress'
 import Navbar from '@/components/sections/Navbar'
 import PageTransition from '@/components/ui/PageTransition'
 import { ThemeProvider } from '@/components/ui/ThemeProvider'
+import ClientOnly from '@/components/ui/ClientOnly'
+import { CustomCursor } from '@/components/ui/CustomCursor'
+import { ScrollProgress } from '@/components/ui/ScrollProgress'
+import { LenisProvider } from '@/components/providers/LenisProvider'
 
 const syne = Syne({
   subsets: ['latin'],
   weight: ['400', '600', '700', '800'],
   variable: '--font-syne',
   display: 'swap',
+  preload: true,
+  fallback: ['system-ui'],
 })
 
 const dmSans = DM_Sans({
@@ -20,6 +23,8 @@ const dmSans = DM_Sans({
   weight: ['300', '400', '500'],
   variable: '--font-dm-sans',
   display: 'swap',
+  preload: true,
+  fallback: ['system-ui'],
 })
 
 const jetBrainsMono = JetBrains_Mono({
@@ -27,6 +32,7 @@ const jetBrainsMono = JetBrains_Mono({
   weight: ['400', '500', '700'],
   variable: '--font-mono',
   display: 'swap',
+  preload: false,
 })
 
 export const metadata: Metadata = {
@@ -72,14 +78,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${syne.variable} ${dmSans.variable} ${jetBrainsMono.variable} bg-bg-primary text-text-primary antialiased`}>
-        <ScrollProgress />
+      <head>
+        <meta name="color-scheme" content="dark" />
+        <meta name="theme-color" content="#050816" />
+      </head>
+      <body
+        className={`${syne.variable} ${dmSans.variable} ${jetBrainsMono.variable} bg-bg-primary text-text-primary antialiased`}
+        style={{ backgroundColor: '#050816' }}
+        suppressHydrationWarning
+      >
+        <ClientOnly>
+          <ScrollProgress />
+        </ClientOnly>
         <ThemeProvider>
-          <SmoothScrollProvider>
+          <ClientOnly>
+            <LenisProvider />
+          </ClientOnly>
+          <ClientOnly fallback={null}>
             <CustomCursor />
-            <Navbar />
-            <PageTransition>{children}</PageTransition>
-          </SmoothScrollProvider>
+          </ClientOnly>
+          <Navbar />
+          <PageTransition>{children}</PageTransition>
         </ThemeProvider>
       </body>
     </html>

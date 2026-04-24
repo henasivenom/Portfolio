@@ -8,9 +8,8 @@ import { ArrowRight, ChevronDown, Download, Linkedin, Mail } from 'lucide-react'
 import { FaAws, FaJava } from 'react-icons/fa6'
 import { SiGithub, SiInstagram, SiReact, SiSelenium, SiSpringboot, SiTypescript, SiX } from 'react-icons/si'
 import type { IconType } from 'react-icons'
-import { initParticlesEngine, Particles } from '@tsparticles/react'
-import type { ISourceOptions } from '@tsparticles/engine'
-import { loadSlim } from '@tsparticles/slim'
+import ClientOnly from '@/components/ui/ClientOnly'
+import ParticlesBackground from '@/components/ui/ParticlesBackground'
 import ProfileAvatar from '@/components/ui/ProfileAvatar'
 
 const name = 'Mukesh Patel'
@@ -57,44 +56,14 @@ const stackPills: Array<{ name: string; Icon: IconType; colorVar: string }> = [
   { name: 'AWS', Icon: FaAws, colorVar: 'var(--brand-aws)' },
 ]
 
-const particlesOptions: ISourceOptions = {
-  fullScreen: { enable: false },
-  background: { color: 'transparent' },
-  particles: {
-    number: { value: 80 },
-    color: { value: '#00f5d4' },
-    links: {
-      enable: true,
-      color: '#7c3aed',
-      opacity: 0.3,
-      distance: 130,
-    },
-    move: {
-      enable: true,
-      speed: 0.8,
-    },
-    opacity: { value: 0.4 },
-    size: { value: { min: 1, max: 2 } },
-  },
-  detectRetina: true,
-}
-
 export default function Hero() {
   const reduceMotion = useReducedMotion()
-  const [particlesReady, setParticlesReady] = useState(false)
   const [roleIndex, setRoleIndex] = useState(0)
   const [displayed, setDisplayed] = useState('')
+  const [isTyping, setIsTyping] = useState(false)
   const [typedDescription, setTypedDescription] = useState('')
   const descriptionRef = useRef<HTMLParagraphElement>(null)
   const descriptionInView = useInView(descriptionRef, { once: true, amount: 0.2 })
-
-  useEffect(() => {
-    if (reduceMotion) return
-
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine)
-    }).then(() => setParticlesReady(true))
-  }, [reduceMotion])
 
   useEffect(() => {
     const interval = globalThis.setInterval(() => {
@@ -106,14 +75,18 @@ export default function Hero() {
 
   useEffect(() => {
     setDisplayed('')
+    setIsTyping(true)
+
     const role = roles[roleIndex]
     let index = 0
 
     const timer = globalThis.setInterval(() => {
       index += 1
       setDisplayed(role.slice(0, index))
+
       if (index >= role.length) {
         globalThis.clearInterval(timer)
+        setIsTyping(false)
       }
     }, 60)
 
@@ -121,16 +94,20 @@ export default function Hero() {
   }, [roleIndex])
 
   useEffect(() => {
-    const description = 'I build fast, stable, recruiter-ready products across Spring Boot, test automation, and polished front-end delivery.'
+    const description =
+      'I build fast, stable, recruiter-ready products across Spring Boot, test automation, and polished front-end delivery.'
+
     if (!descriptionInView || reduceMotion) {
       return
     }
 
     setTypedDescription('')
     let index = 0
+
     const timer = globalThis.setInterval(() => {
       index += 1
       setTypedDescription(description.slice(0, index))
+
       if (index >= description.length) {
         globalThis.clearInterval(timer)
       }
@@ -145,181 +122,196 @@ export default function Hero() {
     <section id="home" className="relative min-h-screen overflow-hidden px-4 pb-16 pt-32 sm:px-8 lg:px-10">
       <div className="noise-overlay pointer-events-none absolute inset-0" aria-hidden />
 
-      {!reduceMotion && particlesReady ? (
-        <div className="pointer-events-none absolute inset-0 z-0 opacity-70">
-          <Particles id="hero-particles" options={particlesOptions} />
-        </div>
+      {!reduceMotion ? (
+        <ClientOnly fallback={null}>
+          <div className="pointer-events-none absolute inset-0 z-0 opacity-70">
+            <ParticlesBackground />
+          </div>
+        </ClientOnly>
       ) : null}
 
       <div className="pointer-events-none absolute right-16 top-24 -z-[1] h-64 w-64 rounded-full bg-[var(--accent-violet)]/20 blur-[90px] hero-float" />
       <div className="pointer-events-none absolute bottom-14 right-40 -z-[1] h-56 w-56 rounded-full bg-[var(--accent-teal)]/20 blur-[90px] hero-float-delayed" />
       <div className="pointer-events-none absolute bottom-20 left-1/2 -z-[1] h-52 w-52 -translate-x-1/2 rounded-full bg-[var(--accent-amber)]/10 blur-[90px] hero-float" />
 
-      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
-        <div className="space-y-8">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring' }}
-            className="badge-border-animated"
-          >
-            ✦ CRAFTED WITH CREATIVE CODE ✦
-          </motion.div>
+      <div className="relative z-10 mx-auto grid min-h-screen grid-cols-1 items-center gap-12 px-6 lg:grid-cols-[60fr_40fr] lg:px-16">
+        <div style={{ maxWidth: '620px', minWidth: 0, overflow: 'hidden' }}>
+          <div className="space-y-8">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, type: 'spring' }}
+              className="badge-border-animated"
+            >
+              ✦ CRAFTED WITH CREATIVE CODE ✦
+            </motion.div>
 
-          <motion.h1
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            style={{
-              fontFamily: 'var(--font-syne)',
-              fontSize: 'clamp(2.8rem,6vw,5rem)',
-              fontWeight: 800,
-              perspective: '600px',
-            }}
-          >
-            <span style={{ color: 'var(--text)', display: 'block' }}>Hi, I'm</span>
-            <span
+            <motion.h1
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
               style={{
-                display: 'inline-flex',
-                flexWrap: 'wrap',
-                gap: '0 4px',
-                background: 'linear-gradient(135deg, var(--teal), var(--violet))',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
+                fontFamily: 'var(--font-syne)',
+                fontWeight: 800,
+                lineHeight: 1.1,
+                whiteSpace: 'nowrap',
+                fontSize: 'clamp(2rem, 4.5vw, 4.2rem)',
               }}
             >
-              {name.split('').map((char, index) => (
-                <motion.span
-                  key={`${char}-${index}`}
-                  variants={letterVariants}
-                  style={{ display: 'inline-block', whiteSpace: char === ' ' ? 'pre' : 'normal' }}
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </span>
-          </motion.h1>
-
-          <div style={{ height: '2rem', overflow: 'hidden' }}>
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={roleIndex}
-                variants={roleEntryVariants}
-                initial={reduceMotion ? false : 'hidden'}
-                animate={reduceMotion ? { opacity: 1, y: 0 } : 'visible'}
-                exit={reduceMotion ? undefined : 'exit'}
+              <span style={{ color: '#e2e8f0', display: 'block' }}>Hi, I'm</span>
+              <span
                 style={{
-                  fontFamily: 'var(--font-syne)',
-                  fontSize: '1.4rem',
-                  fontWeight: 600,
-                  color: 'var(--teal)',
+                  display: 'inline-flex',
+                  flexWrap: 'nowrap',
+                  background: 'linear-gradient(135deg, #00f5d4 0%, #7c3aed 60%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
                 }}
               >
-                I build as a{' '}
-                <span
-                  style={{
-                    background: 'linear-gradient(90deg,var(--teal),var(--violet))',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                  }}
-                >
-                  {displayed}
-                </span>
-                <span className="cursor-blink">|</span>
-              </motion.span>
-            </AnimatePresence>
-          </div>
+                {name.split('').map((char, index) => (
+                  <motion.span
+                    key={`${char}-${index}`}
+                    variants={letterVariants}
+                    style={{
+                      display: 'inline-block',
+                      whiteSpace: char === ' ' ? 'pre' : 'normal',
+                    }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </span>
+            </motion.h1>
 
-          <motion.p
-            ref={descriptionRef}
-            initial={{ opacity: 0, y: 28 }}
-            animate={descriptionVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            style={{
-              maxWidth: '42rem',
-              fontFamily: 'var(--font-dm-sans)',
-              color: 'var(--muted)',
-              lineHeight: 1.9,
-            }}
-          >
-            {typedDescription}
-          </motion.p>
-
-          <div className="flex flex-wrap gap-3">
-            {stackPills.map((pill, index) => {
-              const Icon = pill.Icon as React.ComponentType<{ style?: React.CSSProperties }>
-
-              return (
+            <div style={{ height: '2rem', overflow: 'hidden' }}>
+              <AnimatePresence mode="wait">
                 <motion.span
-                  key={pill.name}
-                  initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-                  whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ delay: index * 0.1, duration: 0.35 }}
-                  whileHover={{ scale: 1.08 }}
+                  key={roleIndex}
+                  variants={roleEntryVariants}
+                  initial={reduceMotion ? false : 'hidden'}
+                  animate={reduceMotion ? { opacity: 1, y: 0 } : 'visible'}
+                  exit={reduceMotion ? undefined : 'exit'}
                   style={{
-                    boxShadow: `0 0 0 1px rgba(255,255,255,0.08)`,
-                    background: 'rgba(255,255,255,0.03)',
-                    color: 'var(--text)',
+                    fontFamily: 'var(--font-syne)',
+                    fontSize: '1.4rem',
+                    fontWeight: 600,
+                    color: 'var(--teal)',
                   }}
-                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
                 >
-                  <Icon style={{ color: pill.colorVar }} />
-                  <span>{pill.name}</span>
+                  I build as a{' '}
+                  <span
+                    style={{
+                      background: 'linear-gradient(90deg,var(--teal),var(--violet))',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                    }}
+                  >
+                    {displayed}
+                  </span>
+                  <span
+                    className="cursor-blink"
+                    style={{
+                      opacity: isTyping ? 1 : undefined,
+                      animationPlayState: isTyping ? 'paused' : 'running',
+                    }}
+                  >
+                    |
+                  </span>
                 </motion.span>
-              )
-            })}
-          </div>
+              </AnimatePresence>
+            </div>
 
-          <div className="flex flex-wrap gap-3 pt-2">
-            <Link
-              href="#projects"
-              className="inline-flex items-center gap-2 rounded-full border border-transparent bg-[linear-gradient(var(--bg),var(--bg))_padding-box,linear-gradient(135deg,var(--violet),var(--teal))_border-box] px-6 py-3 font-semibold text-[var(--text)] transition-transform hover:-translate-y-0.5"
+            <motion.p
+              ref={descriptionRef}
+              initial={{ opacity: 0, y: 28 }}
+              animate={descriptionVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                maxWidth: '42rem',
+                fontFamily: 'var(--font-dm-sans)',
+                color: 'var(--muted)',
+                lineHeight: 1.9,
+              }}
             >
-              Explore Projects 🚀
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+              {typedDescription}
+            </motion.p>
 
-            <Link
-              href="/resume.pdf"
-              download
-              className="inline-flex items-center gap-2 rounded-full bg-[var(--teal)] px-6 py-3 font-semibold text-[#00110f] transition-transform hover:-translate-y-0.5"
-            >
-              Download Resume 📄
-              <Download className="h-4 w-4" />
-            </Link>
+            <div className="flex flex-wrap gap-3">
+              {stackPills.map((pill, index) => {
+                const Icon = pill.Icon as React.ComponentType<{ style?: React.CSSProperties }>
 
-            <Link
-              href="#contact"
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-[var(--text)] transition-transform hover:-translate-y-0.5"
-            >
-              Contact Me 💬
-            </Link>
-          </div>
+                return (
+                  <motion.span
+                    key={pill.name}
+                    initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+                    whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ delay: index * 0.1, duration: 0.35 }}
+                    whileHover={{ scale: 1.08 }}
+                    style={{
+                      boxShadow: '0 0 0 1px rgba(255,255,255,0.08)',
+                      background: 'rgba(255,255,255,0.03)',
+                      color: 'var(--text)',
+                    }}
+                    className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
+                  >
+                    <Icon style={{ color: pill.colorVar }} />
+                    <span>{pill.name}</span>
+                  </motion.span>
+                )
+              })}
+            </div>
 
-          <div className="flex items-center gap-3 pt-2">
-            {[
-              { icon: SiGithub, href: 'https://github.com/henasivenom', label: 'GitHub' },
-              { icon: Linkedin, href: 'https://www.linkedin.com/in/henasivenom', label: 'LinkedIn' },
-              { icon: SiX, href: 'https://x.com/henasi_venom', label: 'Twitter' },
-              { icon: SiInstagram, href: 'https://www.instagram.com/henasi_venom', label: 'Instagram' },
-              { icon: Mail, href: 'mailto:amukeshpatel222@gmail.com', label: 'Email' },
-            ].map(({ icon: Icon, href, label }) => {
-              const SocialIcon = Icon as React.ComponentType<{ className?: string }>
-
-              return (
+            <div className="flex flex-wrap gap-3 pt-2">
               <Link
-                key={label}
-                href={href}
-                  target={label === 'Email' ? undefined : '_blank'}
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-[var(--muted)] transition-transform hover:-translate-y-0.5 hover:text-[var(--teal)]"
+                href="#projects"
+                className="inline-flex items-center gap-2 rounded-full border border-transparent bg-[linear-gradient(var(--bg),var(--bg))_padding-box,linear-gradient(135deg,var(--violet),var(--teal))_border-box] px-6 py-3 font-semibold text-[var(--text)] transition-transform hover:-translate-y-0.5"
               >
-                <SocialIcon className="h-4.5 w-4.5" />
+                Explore Projects 🚀
+                <ArrowRight className="h-4 w-4" />
               </Link>
-              )
-            })}
+
+              <Link
+                href="/resume.pdf"
+                download
+                className="inline-flex items-center gap-2 rounded-full bg-[var(--teal)] px-6 py-3 font-semibold text-[#00110f] transition-transform hover:-translate-y-0.5"
+              >
+                Download Resume 📄
+                <Download className="h-4 w-4" />
+              </Link>
+
+              <Link
+                href="#contact"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-[var(--text)] transition-transform hover:-translate-y-0.5"
+              >
+                Contact Me 💬
+              </Link>
+            </div>
+
+            <div className="flex items-center gap-3 pt-2">
+              {[
+                { icon: SiGithub, href: 'https://github.com/henasivenom', label: 'GitHub' },
+                { icon: Linkedin, href: 'https://www.linkedin.com/in/henasivenom', label: 'LinkedIn' },
+                { icon: SiX, href: 'https://x.com/henasi_venom', label: 'Twitter' },
+                { icon: SiInstagram, href: 'https://www.instagram.com/henasi_venom', label: 'Instagram' },
+                { icon: Mail, href: 'mailto:amukeshpatel222@gmail.com', label: 'Email' },
+              ].map(({ icon: Icon, href, label }) => {
+                const SocialIcon = Icon as React.ComponentType<{ className?: string }>
+
+                return (
+                  <Link
+                    key={label}
+                    href={href}
+                    target={label === 'Email' ? undefined : '_blank'}
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-[var(--muted)] transition-transform hover:-translate-y-0.5 hover:text-[var(--teal)]"
+                  >
+                    <SocialIcon className="h-4.5 w-4.5" />
+                  </Link>
+                )
+              })}
+            </div>
           </div>
         </div>
 
