@@ -33,8 +33,12 @@ export default function Footer() {
     window.scrollTo({ top: 0, behavior: 'auto' })
   }
 
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'auto', block: 'start' })
+  }
+
   return (
-    <footer className="relative overflow-hidden py-14 sm:py-16 lg:py-20">
+    <footer className="relative overflow-hidden py-10 sm:py-12 lg:py-14">
       <div
         className="absolute top-0 left-0 right-0 h-px"
         style={{
@@ -89,6 +93,10 @@ export default function Footer() {
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <a
                     href="#contact"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      scrollToSection('contact')
+                    }}
                     className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-violet-500 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition-transform hover:-translate-y-0.5"
                   >
                     Start a conversation 💬
@@ -96,6 +104,10 @@ export default function Footer() {
                   </a>
                   <a
                     href="#projects"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      scrollToSection('projects')
+                    }}
                     className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-slate-950/40 px-5 py-3 text-sm font-semibold text-slate-200 transition-colors hover:border-cyan-400/30 hover:text-cyan-300"
                   >
                     Explore projects 🚀
@@ -115,6 +127,10 @@ export default function Footer() {
                       <a
                         key={link.name}
                         href={link.href}
+                        onClick={(e) => {
+                          e.preventDefault()
+                          scrollToSection(link.href.replace('#', ''))
+                        }}
                         className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 transition-all hover:border-cyan-400/30 hover:bg-cyan-400/10 hover:text-cyan-200"
                       >
                         {link.name}
@@ -231,6 +247,10 @@ export default function Footer() {
                 <a
                   key={link.name}
                   href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    scrollToSection(link.href.replace('#', ''))
+                  }}
                   className="rounded-full border border-white/8 bg-white/5 px-4 py-2 text-sm text-slate-300 transition-all hover:border-cyan-400/30 hover:bg-cyan-400/10 hover:text-cyan-200"
                 >
                   {link.name}

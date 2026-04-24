@@ -24,7 +24,7 @@ const modernStack = [
 
 export default function LeetCodeStats() {
   return (
-    <section id="leetcode" className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
+    <section id="leetcode" className="scroll-mt-28 relative overflow-hidden px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <div className="absolute left-1/3 top-0 h-80 w-80 rounded-full bg-yellow-400/10 blur-3xl" />
         <div className="absolute bottom-0 right-1/4 h-80 w-80 rounded-full bg-violet-500/12 blur-3xl" />

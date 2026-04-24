@@ -19,6 +19,7 @@
 @layer base {
   html {
     scroll-behavior: auto;
+    overflow-anchor: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -32,6 +33,7 @@
   body {
     max-width: 100%;
     overflow-x: hidden;
+    overflow-anchor: none;
   }
 
   body {
@@ -95,15 +97,9 @@
     50% { transform: translateY(-8px); }
   }
 
-  /* Keep section reveal subtle without vertical movement */
+  /* Keep sections static to avoid scroll anchoring jumps */
   section {
-    animation: fadeIn 0.35s ease-out both;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    section {
-      animation: none;
-    }
+    animation: none;
   }
 
   /* Light Theme */

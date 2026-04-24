@@ -96,7 +96,7 @@ export default function SkillsSection() {
   const [activeCategory, setActiveCategory] = useState<number | null>(null)
 
   return (
-    <section id="skills" className="relative py-24 md:py-32 overflow-hidden">
+    <section id="skills" className="scroll-mt-28 relative py-24 md:py-32 overflow-hidden">
       {/* Static gradient blobs — no animation to keep it smooth */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-bl from-cyan-400/8 via-blue-500/8 to-transparent rounded-full blur-3xl" />

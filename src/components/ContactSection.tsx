@@ -27,7 +27,7 @@ export default function ContactSection() {
   const inputClasses = "w-full px-4 py-3.5 bg-slate-900/60 border border-slate-700/60 rounded-xl text-slate-100 placeholder-slate-600 focus:outline-none focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 hover:border-slate-500/70"
 
   return (
-    <section id="contact" className="relative py-24 md:py-32 overflow-hidden">
+    <section id="contact" className="scroll-mt-28 relative py-24 md:py-32 overflow-hidden">
       {/* Static gradient blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
         <div className="absolute top-1/4 left-0 w-96 h-96 bg-gradient-to-br from-primary-500/8 via-cyan-500/8 to-transparent rounded-full blur-3xl" />

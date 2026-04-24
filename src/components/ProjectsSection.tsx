@@ -75,7 +75,7 @@ export default function ProjectsSection() {
   const project = projects[page]
 
   return (
-    <section id="projects" className="relative py-24 md:py-32 overflow-hidden">
+    <section id="projects" className="scroll-mt-28 relative py-24 md:py-32 overflow-hidden">
       {/* Static gradient blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
         <div className="absolute top-1/3 right-0 w-96 h-96 bg-gradient-to-bl from-emerald-500/8 via-teal-500/8 to-transparent rounded-full blur-3xl" />

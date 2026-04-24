@@ -52,7 +52,7 @@ export default function HeroSection() {
   }, [displayed, typing, roleIndex])
 
   return (
-    <section id="home" className="relative overflow-hidden px-4 pb-20 pt-28 sm:px-6 lg:px-8 lg:pt-32">
+    <section id="home" className="scroll-mt-28 relative overflow-hidden px-4 pb-20 pt-28 sm:px-6 lg:px-8 lg:pt-32">
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <div className="absolute -top-28 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-cyan-400/15 blur-3xl" />
         <div className="absolute right-0 top-40 h-72 w-72 rounded-full bg-violet-500/12 blur-3xl" />
@@ -103,6 +103,10 @@ export default function HeroSection() {
           <div className="mt-8 flex flex-wrap gap-3">
             <a
               href="#projects"
+              onClick={(e) => {
+                e.preventDefault()
+                document.getElementById('projects')?.scrollIntoView({ behavior: 'auto', block: 'start' })
+              }}
               className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-500 to-violet-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition-transform hover:-translate-y-0.5"
             >
               Explore projects 🚀
@@ -118,6 +122,10 @@ export default function HeroSection() {
             </a>
             <a
               href="#contact"
+              onClick={(e) => {
+                e.preventDefault()
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'auto', block: 'start' })
+              }}
               className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-slate-200 hover:border-cyan-400/40 hover:text-cyan-300"
             >
               Contact me 💬
@@ -189,6 +197,10 @@ export default function HeroSection() {
       >
         <a
           href="#skills"
+          onClick={(e) => {
+            e.preventDefault()
+            document.getElementById('skills')?.scrollIntoView({ behavior: 'auto', block: 'start' })
+          }}
           className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-300 hover:border-cyan-400/40 hover:text-cyan-300"
         >
           Scroll ↓

@@ -49,6 +49,12 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id)
+    element?.scrollIntoView({ behavior: 'auto', block: 'start' })
+    setIsOpen(false)
+  }
+
   const ThemeIcon = themeIcons[theme]
 
   return (
@@ -83,6 +89,10 @@ export default function Navbar() {
             <motion.a
               href="#home"
               className="relative group flex items-center gap-0 shrink-0"
+              onClick={(e) => {
+                e.preventDefault()
+                scrollToSection('home')
+              }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -106,6 +116,10 @@ export default function Navbar() {
                       ? 'text-primary-400'
                       : 'text-slate-300 hover:text-white'
                   }`}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    scrollToSection(item.href.replace('#', ''))
+                  }}
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0 }}
                 >
@@ -148,6 +162,10 @@ export default function Navbar() {
               <motion.a
                 href="#contact"
                 className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-500 via-violet-500 to-fuchsia-500 rounded-xl text-white text-sm font-semibold shadow-lg shadow-violet-600/25"
+                onClick={(e) => {
+                  e.preventDefault()
+                  scrollToSection('contact')
+                }}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -190,7 +208,10 @@ export default function Navbar() {
                   <motion.a
                     key={item.name}
                     href={item.href}
-                    onClick={() => setIsOpen(false)}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      scrollToSection(item.href.replace('#', ''))
+                    }}
                     className={`text-lg font-medium py-2 transition-colors ${
                       activeSection === item.href.replace('#', '')
                         ? 'text-primary-400'
@@ -205,7 +226,10 @@ export default function Navbar() {
                 ))}
                 <motion.a
                   href="#contact"
-                  onClick={() => setIsOpen(false)}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      scrollToSection('contact')
+                    }}
                   className="mt-4 py-3 text-center bg-gradient-to-r from-cyan-500 via-primary-500 to-purple-500 rounded-xl text-white font-medium"
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}

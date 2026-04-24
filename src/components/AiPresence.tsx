@@ -88,7 +88,7 @@ export default function AiPresence() {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [isTyping, setIsTyping] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const messagesContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
@@ -102,8 +102,12 @@ export default function AiPresence() {
   }, [isOpen, messages.length])
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages])
+    const container = messagesContainerRef.current
+    if (!container) return
+
+    // Keep auto-scroll scoped to the chat panel and avoid moving the document.
+    container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' })
+  }, [messages, isTyping])
 
   const handleSend = () => {
     if (!input.trim()) return
@@ -256,7 +260,7 @@ export default function AiPresence() {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4">
               {messages.map((message) => (
                 <motion.div
                   key={message.id}
@@ -309,7 +313,6 @@ export default function AiPresence() {
                   </div>
                 </motion.div>
               )}
-              <div ref={messagesEndRef} />
             </div>
 
             {/* Input */}
