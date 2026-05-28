@@ -38,7 +38,7 @@ export default function ContactSection() {
     setIsSubmitting(true)
     setSuccess(false)
 
-    await new Promise((resolve) => globalThis.setTimeout(resolve, 1200))
+    await new Promise((resolve) => setTimeout(resolve, 1200))
 
     const confetti = (await import('canvas-confetti')).default
     confetti({
@@ -123,7 +123,13 @@ export default function ContactSection() {
               </button>
 
               {success ? (
-                <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm text-emerald-300">
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm text-emerald-300"
+                  role="status"
+                  aria-live="polite"
+                >
                   <CheckCircle2 className="h-4 w-4" />
                   Message sent successfully.
                 </motion.div>
@@ -164,7 +170,7 @@ export default function ContactSection() {
                 className="rounded-2xl border border-white/10 bg-white/[0.02]"
                 style={{ boxShadow: `0 0 0 1px ${border}` }}
               >
-                <Link href={href} target="_blank" className="flex items-center gap-3 px-4 py-4 transition hover:bg-white/[0.03]">
+                <Link href={href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-4 transition hover:bg-white/[0.03]">
                   <motion.span whileHover={{ y: -4 }} className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-[var(--text)]">
                     <Icon className="h-5 w-5" />
                   </motion.span>

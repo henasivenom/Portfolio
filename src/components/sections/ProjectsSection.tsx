@@ -96,6 +96,7 @@ export default function ProjectsSection() {
                     <Link
                       href={project.github}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-[var(--muted)] transition hover:-translate-y-0.5 hover:border-[var(--teal)] hover:text-[var(--teal)]"
                       aria-label={`${project.title} GitHub`}
                     >
@@ -106,6 +107,7 @@ export default function ProjectsSection() {
                       <Link
                         href={project.live}
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-[var(--muted)] transition hover:-translate-y-0.5 hover:border-[var(--violet)] hover:text-[var(--violet)]"
                         aria-label={`${project.title} live demo`}
                       >

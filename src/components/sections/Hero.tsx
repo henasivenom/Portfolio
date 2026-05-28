@@ -265,7 +265,7 @@ export default function Hero() {
             <div className="flex flex-wrap gap-3 pt-2">
               <Link
                 href="#projects"
-                className="inline-flex items-center gap-2 rounded-full border border-transparent bg-[linear-gradient(var(--bg),var(--bg))_padding-box,linear-gradient(135deg,var(--violet),var(--teal))_border-box] px-6 py-3 font-semibold text-[var(--text)] transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 via-violet-500 to-fuchsia-500 px-6 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5"
               >
                 Explore Projects 🚀
                 <ArrowRight className="h-4 w-4" />

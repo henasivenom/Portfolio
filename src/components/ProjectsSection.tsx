@@ -132,6 +132,7 @@ export default function ProjectsSection() {
                 animate="center"
                 exit="exit"
                 transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+                aria-labelledby={`project-${project.id}-title`}
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={0.12}
@@ -178,7 +179,7 @@ export default function ProjectsSection() {
                       <div className={`w-10 h-10 shrink-0 rounded-xl bg-gradient-to-br ${project.logoColor} flex items-center justify-center shadow-lg`}>
                         <project.icon className="w-5 h-5 text-white" strokeWidth={2.5} />
                       </div>
-                      <h3 className="text-lg md:text-xl font-bold text-slate-100 leading-tight">{project.title}</h3>
+                      <h3 id={`project-${project.id}-title`} className="text-lg md:text-xl font-bold text-slate-100 leading-tight">{project.title}</h3>
                     </div>
                     <p className="text-sm text-slate-400 leading-relaxed mb-5">{project.description}</p>
                     <div className="flex flex-wrap gap-1.5 mb-6">

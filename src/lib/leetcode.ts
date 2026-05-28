@@ -1,15 +1,24 @@
 export async function getLeetCodeStats(username: string) {
+  const base = process.env.NEXT_PUBLIC_LEETCODE_STATS_URL || 'https://leetcode-stats-api.herokuapp.com'
+
   try {
-    const res = await fetch(`https://leetcode-stats-api.herokuapp.com/${username}`, {
+    const url = `${base.replace(/\/+$/,'')}/${encodeURIComponent(username)}`
+    const res = await fetch(url, {
       next: { revalidate: 3600 },
     })
 
     if (!res.ok) {
-      throw new Error('Failed')
+      const text = await res.text().catch(() => '')
+      console.error('LeetCode stats fetch failed:', res.status, text)
+      throw new Error('Failed to fetch leetcode stats')
     }
 
     return await res.json()
-  } catch {
+  } catch (err) {
+    // Log error for debugging in development
+    if (process.env.NODE_ENV !== 'production') console.error('getLeetCodeStats error:', err)
+
+    // Fallback static data to avoid breaking UI when the external API is unavailable
     return {
       totalSolved: 78,
       easySolved: 50,

@@ -39,7 +39,7 @@ A modern, interactive portfolio website showcasing a Full Stack Java Developer &
 
 - **Framework**: Next.js 15 with App Router
 - **Language**: TypeScript 5
-- **Styling**: Tailwind CSS 4
+- **Styling**: Tailwind CSS 3
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
 - **Deployment**: Vercel
