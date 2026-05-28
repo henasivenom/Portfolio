@@ -73,7 +73,7 @@ export default function HeroSection() {
 
           <h1 className="text-4xl font-bold leading-[0.95] tracking-tight text-slate-100 sm:text-6xl lg:text-7xl">
             Hi, I&apos;m
-            <span className="block bg-gradient-to-r from-cyan-300 via-violet-300 to-pink-300 bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-cyan-300 via-violet-300 to-pink-300 bg-clip-text text-transparent break-words whitespace-normal max-w-full">
               Mukesh Patel 👨‍💻
             </span>
           </h1>
