@@ -40,6 +40,17 @@ A modern, interactive portfolio website showcasing a Full Stack Java Developer &
 - **Framework**: Next.js 15 with App Router
 - **Language**: TypeScript 5
 - **Styling**: Tailwind CSS 3
+
+## Changelog
+
+### 2026-05-28 — Modernize sections, accessibility and dependency fixes
+- Standardized section styles and CTA appearance across the site
+- Fixed accessibility issues: removed global `cursor:none`, added ARIA attributes and `aria-live` where appropriate
+- Added `rel="noopener noreferrer"` to external links for security
+- Made LeetCode stats endpoint configurable and added a safe fallback
+- Locked `postcss` resolution to `8.5.15` to address a moderate security advisory and re-ran audits
+- Ran lint and production build; fixed a JSX duplication error in `LeetCodeStats.tsx`
+
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
 - **Deployment**: Vercel
