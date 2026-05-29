@@ -135,7 +135,7 @@ export default function Hero() {
       <div className="pointer-events-none absolute bottom-20 left-1/2 -z-[1] h-52 w-52 -translate-x-1/2 rounded-full bg-[var(--accent-amber)]/10 blur-[90px] hero-float" />
 
       <div className="relative z-10 mx-auto grid min-h-screen grid-cols-1 items-center gap-12 px-6 lg:grid-cols-[60fr_40fr] lg:px-16">
-        <div style={{ maxWidth: '620px', minWidth: 0, overflow: 'hidden' }}>
+        <div style={{ maxWidth: '620px', minWidth: 0 }}>
           <div className="space-y-8">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
