@@ -32,13 +32,15 @@ export default function Navbar() {
       setScrolled(window.scrollY > 50)
 
       // Determine active section - include leetcode but don't highlight navbar
+      // Use a viewport-relative threshold so large hero/header sizes don't break detection
+      const threshold = Math.round(window.innerHeight * 0.35)
       const allSections = ['home', 'skills', 'projects', 'leetcode', 'contact']
       allSections.reverse()
       for (const section of allSections) {
         const element = document.getElementById(section)
         if (element) {
           const rect = element.getBoundingClientRect()
-          if (rect.top <= 150) {
+          if (rect.top <= threshold) {
             setActiveSection(section)
             break
           }
