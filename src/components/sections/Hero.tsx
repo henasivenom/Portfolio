@@ -154,15 +154,13 @@ export default function Hero() {
                 fontFamily: 'var(--font-syne)',
                 fontWeight: 800,
                 lineHeight: 1.1,
-                whiteSpace: 'nowrap',
                 fontSize: 'clamp(2rem, 4.5vw, 4.2rem)',
               }}
             >
               <span style={{ color: '#e2e8f0', display: 'block' }}>Hi, I'm</span>
               <span
                 style={{
-                  display: 'inline-flex',
-                  flexWrap: 'nowrap',
+                  display: 'inline',
                   background: 'linear-gradient(135deg, #00f5d4 0%, #7c3aed 60%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
