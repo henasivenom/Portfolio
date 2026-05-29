@@ -15,11 +15,12 @@ export function GitHubHeatmap({ data }: Readonly<Props>) {
   const [tooltip, setTooltip] = useState<{ text: string; x: number; y: number } | null>(null)
 
   const getColor = (count: number) => {
-    if (count === 0) return 'rgba(255,255,255,0.04)'
-    if (count <= 2) return 'rgba(124,58,237,0.3)'
-    if (count <= 5) return 'rgba(124,58,237,0.5)'
-    if (count <= 9) return 'rgba(124,58,237,0.75)'
-    return 'rgba(124,58,237,1)'
+    // Slightly richer palette and softer alpha steps for improved contrast
+    if (count === 0) return 'rgba(255,255,255,0.03)'
+    if (count <= 2) return 'rgba(124,58,237,0.22)'
+    if (count <= 5) return 'rgba(124,58,237,0.42)'
+    if (count <= 9) return 'rgba(124,58,237,0.68)'
+    return 'rgba(124,58,237,0.98)'
   }
 
   const weeks: DayData[][] = []
@@ -33,31 +34,32 @@ export function GitHubHeatmap({ data }: Readonly<Props>) {
 
   return (
     <div style={{ position: 'relative', overflowX: 'auto' }}>
-      <div style={{ display: 'flex', gap: 3 }}>
+      <div style={{ display: 'flex', gap: 6, padding: '6px 4px' }}>
         {weeks.map((week, weekIndex) => (
-          <div key={`${weekIndex}-${week[0]?.date ?? 'week'}`} style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+          <div key={`${weekIndex}-${week[0]?.date ?? 'week'}`} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             {week.map((day) => (
               <button
                 key={day.date}
                 type="button"
                 aria-label={`${day.count} contributions on ${day.date}`}
-                onFocus={(event) => handleActivate(day, event.currentTarget.getBoundingClientRect().left + 6, event.currentTarget.getBoundingClientRect().top - 40)}
+                onFocus={(event) => handleActivate(day, event.currentTarget.getBoundingClientRect().left + 8, event.currentTarget.getBoundingClientRect().top - 42)}
                 onBlur={() => setTooltip(null)}
-                onMouseEnter={(event) => handleActivate(day, event.clientX, event.clientY - 40)}
+                onMouseEnter={(event) => handleActivate(day, event.clientX, event.clientY - 48)}
                 onMouseLeave={() => setTooltip(null)}
                 style={{
-                  width: 11,
-                  height: 11,
-                  borderRadius: 2,
+                  width: 14,
+                  height: 14,
+                  borderRadius: 4,
                   background: getColor(day.count),
                   cursor: 'pointer',
-                  transition: 'transform 0.15s, background 0.2s',
-                  border: day.count > 0 ? '1px solid rgba(124,58,237,0.3)' : 'none',
+                  transition: 'transform 0.12s ease, box-shadow 0.12s ease',
+                  boxShadow: day.count > 0 ? '0 2px 6px rgba(0,0,0,0.25)' : 'none',
+                  border: day.count > 0 ? '1px solid rgba(124,58,237,0.22)' : '1px solid rgba(255,255,255,0.02)',
                   padding: 0,
                   appearance: 'none',
                 }}
                 onMouseOver={(event) => {
-                  event.currentTarget.style.transform = 'scale(1.4)'
+                  event.currentTarget.style.transform = 'scale(1.25)'
                 }}
                 onMouseOut={(event) => {
                   event.currentTarget.style.transform = 'scale(1)'
@@ -74,29 +76,29 @@ export function GitHubHeatmap({ data }: Readonly<Props>) {
             position: 'fixed',
             left: tooltip.x,
             top: tooltip.y,
-            background: 'rgba(5,8,22,0.95)',
-            border: '1px solid rgba(124,58,237,0.4)',
-            borderRadius: 6,
-            padding: '5px 10px',
-            fontSize: 11,
+            background: 'rgba(3,6,15,0.96)',
+            border: '1px solid rgba(124,58,237,0.34)',
+            borderRadius: 8,
+            padding: '6px 10px',
+            fontSize: 12,
             color: 'var(--text)',
             pointerEvents: 'none',
             zIndex: 9999,
             fontFamily: 'var(--font-mono)',
             whiteSpace: 'nowrap',
-            transform: 'translateX(-50%)',
+            transform: 'translate(-50%, -100%)',
           }}
         >
           {tooltip.text}
         </div>
       ) : null}
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginTop: 8, justifyContent: 'flex-end' }}>
-        <span style={{ fontSize: 10, color: 'var(--muted)' }}>Less</span>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 10, justifyContent: 'flex-end' }}>
+        <span style={{ fontSize: 11, color: 'var(--muted)' }}>Less</span>
         {[0, 2, 5, 9, 12].map((count) => (
-          <div key={count} style={{ width: 10, height: 10, borderRadius: 2, background: getColor(count) }} />
+          <div key={count} style={{ width: 12, height: 12, borderRadius: 3, background: getColor(count) }} />
         ))}
-        <span style={{ fontSize: 10, color: 'var(--muted)' }}>More</span>
+        <span style={{ fontSize: 11, color: 'var(--muted)' }}>More</span>
       </div>
     </div>
   )
