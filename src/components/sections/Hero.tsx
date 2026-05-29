@@ -164,6 +164,8 @@ export default function Hero() {
                   background: 'linear-gradient(135deg, #00f5d4 0%, #7c3aed 60%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
+                  whiteSpace: 'nowrap',
+                  overflowWrap: 'normal',
                 }}
               >
                 {name.split('').map((char, index) => (
