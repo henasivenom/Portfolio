@@ -395,6 +395,33 @@ html.light {
   }
 }
 
+@keyframes pulseHeartGlow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes heartShine {
+  0% {
+    opacity: 0.15;
+    transform: translateX(-20%) rotate(18deg);
+  }
+  50% {
+    opacity: 0.45;
+    transform: translateX(8%) rotate(18deg);
+  }
+  100% {
+    opacity: 0.15;
+    transform: translateX(-20%) rotate(18deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
